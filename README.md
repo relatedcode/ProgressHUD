@@ -10,13 +10,13 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS 7 (written in Objective
 
 ## Installation
 
-* Drag the `ProgressHUD/ProgressHUD` folder into your project.
+Drag the `ProgressHUD/ProgressHUD` folder into your project.
 
 ## Requirements
 
-* Xcode 5
-* iOS 7
-* ARC
+- Xcode 5
+- iOS 7
+- ARC
 
 ## Displaying the HUD
 
@@ -33,9 +33,30 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS 7 (written in Objective
 ```objective-c
 + (void)dismiss;
 ```
+
+## Usage
+
+1., Add the following import to the top of the file:
+
+```objective-c
+#import "ProgressHUD.h"
+```
+
+2., Use the following to display the HUD:
+
+```objective-c
+[ProgressHUD show:@"Please wait..."];
+```
+
+3., Simply dismiss after complete your task:
+
+```objective-c
+[ProgressHUD dismiss];
+```
+
 ## Color shemes
 
-Use `sheme_white` or `sheme_black` depending on your needs. However feel free to customize the color settings in ProgressHUD.h file.
+Use `sheme_white` or `sheme_black` depending on your needs. However feel free to customize the color settings in `ProgressHUD.h` file.
 
 ## Credits
 
