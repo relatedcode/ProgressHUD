@@ -60,5 +60,6 @@
 @property (atomic, strong) UIActivityIndicatorView *spinner;
 @property (atomic, strong) UIImageView *image;
 @property (atomic, strong) UILabel *label;
+@property (atomic, strong) UIView *backgroundView;
 
 @end
