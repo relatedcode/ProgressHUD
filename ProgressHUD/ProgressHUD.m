@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Related Code - http://relatedcode.com
+// Copyright (c) 2014 Related Code - http://relatedcode.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@
 
 @implementation ProgressHUD
 
-@synthesize window, hud, spinner, image, label;
+@synthesize interaction, window, background, hud, spinner, image, label;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (ProgressHUD *)shared
@@ -48,6 +48,15 @@
 + (void)show:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	[self shared].interaction = YES;
+	[[self shared] hudMake:status imgage:nil spin:YES hide:NO];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)show:(NSString *)status Interacton:(BOOL)Interaction
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[self shared].interaction = Interaction;
 	[[self shared] hudMake:status imgage:nil spin:YES hide:NO];
 }
 
@@ -55,6 +64,15 @@
 + (void)showSuccess:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	[self shared].interaction = YES;
+	[[self shared] hudMake:status imgage:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)showSuccess:(NSString *)status Interacton:(BOOL)Interaction
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[self shared].interaction = Interaction;
 	[[self shared] hudMake:status imgage:HUD_IMAGE_SUCCESS spin:NO hide:YES];
 }
 
@@ -62,6 +80,15 @@
 + (void)showError:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	[self shared].interaction = YES;
+	[[self shared] hudMake:status imgage:HUD_IMAGE_ERROR spin:NO hide:YES];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)showError:(NSString *)status Interacton:(BOOL)Interaction
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[self shared].interaction = Interaction;
 	[[self shared] hudMake:status imgage:HUD_IMAGE_ERROR spin:NO hide:YES];
 }
 
@@ -77,7 +104,7 @@
 		window = [delegate performSelector:@selector(window)];
 	else window = [[UIApplication sharedApplication] keyWindow];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	hud = nil; spinner = nil; image = nil; label = nil;
+	background = nil; hud = nil; spinner = nil; image = nil; label = nil;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.alpha = 0;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,26 +140,31 @@
 	if (hud == nil)
 	{
 		hud = [[UIToolbar alloc] initWithFrame:CGRectZero];
-        if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)) {
-            
-            hud.barTintColor = HUD_BACKGROUND_COLOR;
-            hud.alpha=0;
-            hud.barStyle=UIBarStyleDefault;
-        }else{
-            hud.tintColor=HUD_BACKGROUND_COLOR;
-        }
-        hud.translucent = YES;
+		hud.barTintColor = HUD_BACKGROUND_COLOR;
+		//hud.alpha = 0;
+		//hud.barStyle = UIBarStyleDefault;
+		hud.translucent = YES;
 		hud.layer.cornerRadius = 10;
 		hud.layer.masksToBounds = YES;
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
 	}
-	if (hud.superview == nil){
-        _backgroundView=[[UIView alloc]initWithFrame:CGRectMake(window.frame.origin.x, window.frame.origin.y, window.frame.size.width, window.frame.size.height)];
-        _backgroundView.backgroundColor=[UIColor clearColor];
-        [window addSubview:_backgroundView];
-        [_backgroundView addSubview:hud];
-    }
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if (hud.superview == nil)
+	{
+		if (interaction)
+		{
+			[window addSubview:hud];
+		}
+		else
+		{
+			CGRect frame = CGRectMake(window.frame.origin.x, window.frame.origin.y, window.frame.size.width, window.frame.size.height);
+			background = [[UIView alloc] initWithFrame:frame];
+			background.backgroundColor = [UIColor clearColor];
+			[window addSubview:background];
+			[background addSubview:hud];
+		}
+	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (spinner == nil)
 	{
@@ -168,11 +200,11 @@
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[label removeFromSuperview];	label = nil;
-	[image removeFromSuperview];	image = nil;
-	[spinner removeFromSuperview];	spinner = nil;
-	[hud removeFromSuperview];		hud = nil;
-    [_backgroundView removeFromSuperview];		_backgroundView = nil;
+	[label removeFromSuperview];		label = nil;
+	[image removeFromSuperview];		image = nil;
+	[spinner removeFromSuperview];		spinner = nil;
+	[hud removeFromSuperview];			hud = nil;
+	[background removeFromSuperview];	background = nil;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -209,15 +241,7 @@
 	{
 		NSDictionary *attributes = @{NSFontAttributeName:label.font};
 		NSInteger options = NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin;
-        if ((([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending))) {
-            labelRect = [label.text boundingRectWithSize:CGSizeMake(200, 300) options:options attributes:attributes context:NULL];
-
-        }else{
-            [label sizeToFit];
-            labelRect.size.width=label.frame.size.width;
-            labelRect.size.height=label.frame.size.height;
-
-        }
+		labelRect = [label.text boundingRectWithSize:CGSizeMake(200, 300) options:options attributes:attributes context:NULL];
 
 		labelRect.origin.x = 12;
 		labelRect.origin.y = 66;
