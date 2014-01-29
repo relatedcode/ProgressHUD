@@ -113,14 +113,26 @@
 	if (hud == nil)
 	{
 		hud = [[UIToolbar alloc] initWithFrame:CGRectZero];
-		hud.barTintColor = HUD_BACKGROUND_COLOR;
-		hud.translucent = YES;
+        if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)) {
+            
+            hud.barTintColor = HUD_BACKGROUND_COLOR;
+            hud.alpha=0;
+            hud.barStyle=UIBarStyleDefault;
+        }else{
+            hud.tintColor=HUD_BACKGROUND_COLOR;
+        }
+        hud.translucent = YES;
 		hud.layer.cornerRadius = 10;
 		hud.layer.masksToBounds = YES;
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
 	}
-	if (hud.superview == nil) [window addSubview:hud];
+	if (hud.superview == nil){
+        _backgroundView=[[UIView alloc]initWithFrame:CGRectMake(window.frame.origin.x, window.frame.origin.y, window.frame.size.width, window.frame.size.height)];
+        _backgroundView.backgroundColor=[UIColor clearColor];
+        [window addSubview:_backgroundView];
+        [_backgroundView addSubview:hud];
+    }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (spinner == nil)
 	{
@@ -160,6 +172,7 @@
 	[image removeFromSuperview];	image = nil;
 	[spinner removeFromSuperview];	spinner = nil;
 	[hud removeFromSuperview];		hud = nil;
+    [_backgroundView removeFromSuperview];		_backgroundView = nil;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -196,7 +209,15 @@
 	{
 		NSDictionary *attributes = @{NSFontAttributeName:label.font};
 		NSInteger options = NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin;
-		labelRect = [label.text boundingRectWithSize:CGSizeMake(200, 300) options:options attributes:attributes context:NULL];
+        if ((([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending))) {
+            labelRect = [label.text boundingRectWithSize:CGSizeMake(200, 300) options:options attributes:attributes context:NULL];
+
+        }else{
+            [label sizeToFit];
+            labelRect.size.width=label.frame.size.width;
+            labelRect.size.height=label.frame.size.height;
+
+        }
 
 		labelRect.origin.x = 12;
 		labelRect.origin.y = 66;
