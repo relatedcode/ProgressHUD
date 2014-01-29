@@ -2,11 +2,11 @@
 
 ProgressHUD is a lightweight and easy-to-use HUD for iOS 7 (written in Objective-C).
 
-![ProgressHUD](http://relatedcode.com/progresshud/01.png)
+![ProgressHUD](http://relatedcode.com/progresshud/11.png)
 .
-![ProgressHUD](http://relatedcode.com/progresshud/02.png)
+![ProgressHUD](http://relatedcode.com/progresshud/12.png)
 .
-![ProgressHUD](http://relatedcode.com/progresshud/03.png)
+![ProgressHUD](http://relatedcode.com/progresshud/13.png)
 
 ## Installation
 
@@ -22,8 +22,13 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 
 ```objective-c
 + (void)show:(NSString *)status;
++ (void)show:(NSString *)status Interacton:(BOOL)Interaction;
+
 + (void)showSuccess:(NSString *)status;
++ (void)showSuccess:(NSString *)status Interacton:(BOOL)Interaction;
+
 + (void)showError:(NSString *)status;
++ (void)showError:(NSString *)status Interacton:(BOOL)Interaction;
 ```
 
 `showSuccess` and `showError` will automatically dismiss the HUD.
@@ -56,7 +61,7 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 
 ## Color shemes
 
-Use `sheme_white` or `sheme_black` depending on your needs. However feel free to customize the color settings in `ProgressHUD.h` file.
+Use `sheme_white`, `sheme_black` or `sheme_color` depending on your needs. However feel free to customize the color settings in `ProgressHUD.h` file.
 
 ## Credits
 
@@ -64,4 +69,6 @@ ProgressHUD was inspired by [SVProgressHUD](https://github.com/samvermette/SVPro
 
 The success and error icons are from [Glyphish](http://glyphish.com).
 
-You can find us on Twitter [@coderelated](https://twitter.com/coderelated) or at [relatedcode.com](http://relatedcode.com)
+## Contact
+
+Do you have any questions or idea? My email is: info@relatedcode.com or you can find some more info at [relatedcode.com](http://relatedcode.com)

@@ -140,10 +140,8 @@
 	if (hud == nil)
 	{
 		hud = [[UIToolbar alloc] initWithFrame:CGRectZero];
-		hud.barTintColor = HUD_BACKGROUND_COLOR;
-		//hud.alpha = 0;
-		//hud.barStyle = UIBarStyleDefault;
 		hud.translucent = YES;
+		hud.barTintColor = HUD_BACKGROUND_COLOR;
 		hud.layer.cornerRadius = 10;
 		hud.layer.masksToBounds = YES;
 		//-----------------------------------------------------------------------------------------------------------------------------------------
@@ -152,11 +150,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (hud.superview == nil)
 	{
-		if (interaction)
-		{
-			[window addSubview:hud];
-		}
-		else
+		if (interaction == NO)
 		{
 			CGRect frame = CGRectMake(window.frame.origin.x, window.frame.origin.y, window.frame.size.width, window.frame.size.height);
 			background = [[UIView alloc] initWithFrame:frame];
@@ -164,6 +158,7 @@
 			[window addSubview:background];
 			[background addSubview:hud];
 		}
+		else [window addSubview:hud];
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (spinner == nil)
