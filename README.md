@@ -2,11 +2,11 @@
 
 ProgressHUD is a lightweight and easy-to-use HUD for iOS 7 (written in Objective-C).
 
-![ProgressHUD](http://relatedcode.com/progresshud/101.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud1.png)
 .
-![ProgressHUD](http://relatedcode.com/progresshud/102.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud2.png)
 .
-![ProgressHUD](http://relatedcode.com/progresshud/103.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud3.png)
 
 ## Installation
 
