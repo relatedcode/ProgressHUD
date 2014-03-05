@@ -1,3 +1,5 @@
+[![RelatedCode](http://relatedcode.com/github/header.png)](http://relatedcode.com)
+
 ## ProgressHUD
 
 ProgressHUD is a lightweight and easy-to-use HUD for iOS 7 (written in Objective-C).
@@ -72,3 +74,13 @@ The success and error icons are from [Glyphish](http://glyphish.com).
 ## Contact
 
 Do you have any questions or idea? My email is: info@relatedcode.com or you can find some more info at [relatedcode.com](http://relatedcode.com)
+
+## License
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
