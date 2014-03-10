@@ -1,6 +1,6 @@
 [![RelatedCode](http://relatedcode.com/github/header.png)](http://relatedcode.com)
 
-## ProgressHUD
+## OVERVIEW
 
 ProgressHUD is a lightweight and easy-to-use HUD for iOS 7 (written in Objective-C).
 
@@ -10,11 +10,11 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS 7 (written in Objective
 .
 ![ProgressHUD](http://relatedcode.com/github/progresshud03.png)
 
-## Installation
+## INSTALLATION
 
 Drag the `ProgressHUD/ProgressHUD` folder into your project.
 
-## Requirements
+## REQUIREMENTS
 
 - Xcode 5
 - iOS 7
@@ -41,7 +41,7 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 + (void)dismiss;
 ```
 
-## Usage
+## USAGE
 
 1., Add the following import to the top of the file:
 
@@ -61,21 +61,21 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 [ProgressHUD dismiss];
 ```
 
-## Color shemes
+## COLOR SHEMES
 
 Use `sheme_white`, `sheme_black` or `sheme_color` depending on your needs. However feel free to customize the color settings in `ProgressHUD.h` file.
 
-## Credits
+## CREDITS
 
 ProgressHUD was inspired by [SVProgressHUD](https://github.com/samvermette/SVProgressHUD) project.
 
 The success and error icons are from [Glyphish](http://glyphish.com).
 
-## Contact
+## CONTACT
 
 Do you have any questions or idea? My email is: info@relatedcode.com or you can find some more info at [relatedcode.com](http://relatedcode.com)
 
-## License
+## LICENSE
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
