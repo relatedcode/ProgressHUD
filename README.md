@@ -41,7 +41,7 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 + (void)dismiss;
 ```
 
-## USAGE
+## Usage
 
 1., Add the following import to the top of the file:
 
@@ -61,7 +61,7 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 [ProgressHUD dismiss];
 ```
 
-## COLOR SHEMES
+## Color shemes
 
 Use `sheme_white`, `sheme_black` or `sheme_color` depending on your needs. However feel free to customize the color settings in `ProgressHUD.h` file.
 
