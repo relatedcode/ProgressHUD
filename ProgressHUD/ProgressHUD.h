@@ -63,13 +63,13 @@
 + (void)dismiss;
 
 + (void)show:(NSString *)status;
-+ (void)show:(NSString *)status Interacton:(BOOL)Interaction;
++ (void)show:(NSString *)status Interaction:(BOOL)Interaction;
 
 + (void)showSuccess:(NSString *)status;
-+ (void)showSuccess:(NSString *)status Interacton:(BOOL)Interaction;
++ (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction;
 
 + (void)showError:(NSString *)status;
-+ (void)showError:(NSString *)status Interacton:(BOOL)Interaction;
++ (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
 
 @property (nonatomic, assign) BOOL interaction;
 

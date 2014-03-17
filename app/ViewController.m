@@ -111,13 +111,13 @@
 		switch (indexPath.row)
 		{
 			case 0: [ProgressHUD dismiss]; break;
-			case 1: [ProgressHUD show:nil Interacton:NO]; break;
-			case 2: [ProgressHUD show:@"Please wait..." Interacton:NO]; break;
-			case 3: [ProgressHUD show:@"Please wait. We need some more time to work out this situation." Interacton:NO]; break;
-			case 4: [ProgressHUD showSuccess:@"That was great!" Interacton:NO]; break;
-			case 5: [ProgressHUD showSuccess:nil Interacton:NO]; break;
-			case 6: [ProgressHUD showError:@"Something went wrong." Interacton:NO]; break;
-			case 7: [ProgressHUD showError:nil Interacton:NO]; break;
+			case 1: [ProgressHUD show:nil Interaction:NO]; break;
+			case 2: [ProgressHUD show:@"Please wait..." Interaction:NO]; break;
+			case 3: [ProgressHUD show:@"Please wait. We need some more time to work out this situation." Interaction:NO]; break;
+			case 4: [ProgressHUD showSuccess:@"That was great!" Interaction:NO]; break;
+			case 5: [ProgressHUD showSuccess:nil Interaction:NO]; break;
+			case 6: [ProgressHUD showError:@"Something went wrong." Interaction:NO]; break;
+			case 7: [ProgressHUD showError:nil Interaction:NO]; break;
 		}
 	}
 }
