@@ -25,33 +25,33 @@
 #define scheme_color
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-#define HUD_STATUS_FONT			[UIFont boldSystemFontOfSize:16]
+#define HUD_STATUS_FONT			  [UIFont boldSystemFontOfSize:16]
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef scheme_white
-#define HUD_STATUS_COLOR		[UIColor whiteColor]
-#define HUD_SPINNER_COLOR		[UIColor whiteColor]
+#define HUD_STATUS_COLOR	  	[UIColor whiteColor]
+#define HUD_SPINNER_COLOR	  	[UIColor whiteColor]
 #define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0 alpha:0.8]
-#define HUD_IMAGE_SUCCESS		[UIImage imageNamed:@"ProgressHUD.bundle/success-white.png"]
-#define HUD_IMAGE_ERROR			[UIImage imageNamed:@"ProgressHUD.bundle/error-white.png"]
+#define HUD_IMAGE_SUCCESS		  [UIImage imageNamed:@"ProgressHUD.bundle/success-white.png"]
+#define HUD_IMAGE_ERROR			  [UIImage imageNamed:@"ProgressHUD.bundle/error-white.png"]
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef scheme_black
-#define HUD_STATUS_COLOR		[UIColor blackColor]
-#define HUD_SPINNER_COLOR		[UIColor blackColor]
+#define HUD_STATUS_COLOR		  [UIColor blackColor]
+#define HUD_SPINNER_COLOR		  [UIColor blackColor]
 #define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0 alpha:0.1]
-#define HUD_IMAGE_SUCCESS		[UIImage imageNamed:@"ProgressHUD.bundle/success-black.png"]
-#define HUD_IMAGE_ERROR			[UIImage imageNamed:@"ProgressHUD.bundle/error-black.png"]
+#define HUD_IMAGE_SUCCESS		  [UIImage imageNamed:@"ProgressHUD.bundle/success-black.png"]
+#define HUD_IMAGE_ERROR			  [UIImage imageNamed:@"ProgressHUD.bundle/error-black.png"]
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef scheme_color
-#define HUD_STATUS_COLOR		[UIColor blackColor]
-#define HUD_SPINNER_COLOR		[UIColor blackColor]
+#define HUD_STATUS_COLOR		  [UIColor blackColor]
+#define HUD_SPINNER_COLOR		  [UIColor blackColor]
 #define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0 alpha:0.1]
-#define HUD_IMAGE_SUCCESS		[UIImage imageNamed:@"ProgressHUD.bundle/success-color.png"]
-#define HUD_IMAGE_ERROR			[UIImage imageNamed:@"ProgressHUD.bundle/error-color.png"]
+#define HUD_IMAGE_SUCCESS	  	[UIImage imageNamed:@"ProgressHUD.bundle/success-color.png"]
+#define HUD_IMAGE_ERROR		  	[UIImage imageNamed:@"ProgressHUD.bundle/error-color.png"]
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -76,5 +76,7 @@
 
 + (void)setTextColor:(UIColor *)textColor;
 + (void)setTextFont:(UIFont *)textFont;
+
++ (void)setVerticalOffset:(CGFloat)offset;
 
 @end

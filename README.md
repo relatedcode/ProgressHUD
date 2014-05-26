@@ -49,6 +49,8 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 ```objective-c
 + (void)setTextColor:(UIColor *)color;
 + (void)setTextFont:(UIFont *)font;
+
++ (void)setVerticalOffset:(CGFloat)offset;
 ```
 
 ## Usage
