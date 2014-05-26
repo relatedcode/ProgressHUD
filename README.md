@@ -44,7 +44,7 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 + (void)dismiss;
 ```
 
-## Customizing the HuD
+## Customizing the HUD
 
 ```objective-c
 + (void)setTextColor:(UIColor *)color;
