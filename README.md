@@ -1,4 +1,4 @@
-[![RelatedCode](http://relatedcode.com/github/header.png)](http://relatedcode.com)
+[![RelatedCode](http://relatedcode.com/github/header2.png)](http://relatedcode.com)
 
 ## OVERVIEW
 
