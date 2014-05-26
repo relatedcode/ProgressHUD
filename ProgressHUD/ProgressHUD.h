@@ -71,6 +71,9 @@
 + (void)showError:(NSString *)status;
 + (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
 
++ (void)showMessage:(NSString *)status;
++ (void)showMessage:(NSString *)status Interaction:(BOOL)Interaction;
+
 @property (nonatomic, assign) BOOL interaction;
 
 @property (nonatomic, retain) UIWindow *window;

@@ -92,6 +92,23 @@
 	[[self shared] hudMake:status imgage:HUD_IMAGE_ERROR spin:NO hide:YES];
 }
 
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)showMessage:(NSString *)status
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+  [self shared].interaction = YES;
+	[[self shared] hudMake:status imgage:nil spin:NO hide:YES];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)showMessage:(NSString *)status Interaction:(BOOL)Interaction
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+  [self shared].interaction = Interaction;
+	[[self shared] hudMake:status imgage:nil spin:NO hide:YES];
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id)init
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -126,7 +143,7 @@
 	if (spin) [spinner startAnimating]; else [spinner stopAnimating];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self hudOrient];
-	[self hudSize];
+	[self hudSize:spin];
 	[self hudShow];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (hide) [NSThread detachNewThreadSelector:@selector(timedHide) toTarget:self withObject:nil];
@@ -226,7 +243,7 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)hudSize
+- (void)hudSize:(BOOL)spin
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	CGRect labelRect = CGRectZero;
@@ -239,10 +256,10 @@
 		labelRect = [label.text boundingRectWithSize:CGSizeMake(200, 300) options:options attributes:attributes context:NULL];
 
 		labelRect.origin.x = 12;
-		labelRect.origin.y = 66;
+		labelRect.origin.y = (image.hidden && !spin) ? 12 : 66;
 
 		hudWidth = labelRect.size.width + 24;
-		hudHeight = labelRect.size.height + 80;
+		hudHeight = labelRect.size.height + ((image.hidden && !spin) ? 24 : 80);
 
 		if (hudWidth < 100)
 		{
