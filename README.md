@@ -31,14 +31,24 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 
 + (void)showError:(NSString *)status;
 + (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
+
++ (void)showMessage:(NSString *)status;
++ (void)showMessage:(NSString *)status Interaction:(BOOL)Interaction;
 ```
 
-`showSuccess` and `showError` will automatically dismiss the HUD.
+`showSuccess`, `showError` and `showMessage` will automatically dismiss the HUD.
 
 ## Dismissing the HUD
 
 ```objective-c
 + (void)dismiss;
+```
+
+## Customizing the HuD
+
+```objective-c
++ (void)setTextColor:(UIColor *)color;
++ (void)setTextFont:(UIFont *)font;
 ```
 
 ## Usage
@@ -61,9 +71,9 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 [ProgressHUD dismiss];
 ```
 
-## Color shemes
+## Color schemes
 
-Use `sheme_white`, `sheme_black` or `sheme_color` depending on your needs. However feel free to customize the color settings in `ProgressHUD.h` file.
+Use `scheme_white`, `scheme_black` or `scheme_color` depending on your needs. However feel free to customize the color settings in `ProgressHUD.h` file.
 
 ## CREDITS
 
