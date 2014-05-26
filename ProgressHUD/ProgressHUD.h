@@ -20,15 +20,15 @@
 // THE SOFTWARE.
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-//#define sheme_white
-//#define sheme_black
+//#define scheme_white
+//#define scheme_black
 #define scheme_color
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 #define HUD_STATUS_FONT			[UIFont boldSystemFontOfSize:16]
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-#ifdef sheme_white
+#ifdef scheme_white
 #define HUD_STATUS_COLOR		[UIColor whiteColor]
 #define HUD_SPINNER_COLOR		[UIColor whiteColor]
 #define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0 alpha:0.8]
@@ -37,7 +37,7 @@
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-#ifdef sheme_black
+#ifdef scheme_black
 #define HUD_STATUS_COLOR		[UIColor blackColor]
 #define HUD_SPINNER_COLOR		[UIColor blackColor]
 #define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0 alpha:0.1]
