@@ -22,7 +22,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 //#define sheme_white
 //#define sheme_black
-#define sheme_color
+#define scheme_color
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 #define HUD_STATUS_FONT			[UIFont boldSystemFontOfSize:16]
@@ -46,7 +46,7 @@
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-#ifdef sheme_color
+#ifdef scheme_color
 #define HUD_STATUS_COLOR		[UIColor blackColor]
 #define HUD_SPINNER_COLOR		[UIColor blackColor]
 #define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0 alpha:0.1]
@@ -74,13 +74,7 @@
 + (void)showMessage:(NSString *)status;
 + (void)showMessage:(NSString *)status Interaction:(BOOL)Interaction;
 
-@property (nonatomic, assign) BOOL interaction;
-
-@property (nonatomic, retain) UIWindow *window;
-@property (nonatomic, retain) UIView *background;
-@property (nonatomic, retain) UIToolbar *hud;
-@property (nonatomic, retain) UIActivityIndicatorView *spinner;
-@property (nonatomic, retain) UIImageView *image;
-@property (nonatomic, retain) UILabel *label;
++ (void)setTextColor:(UIColor *)textColor;
++ (void)setTextFont:(UIFont *)textFont;
 
 @end

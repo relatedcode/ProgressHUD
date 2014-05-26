@@ -21,6 +21,22 @@
 
 #import "ProgressHUD.h"
 
+@interface ProgressHUD ()
+
+@property (nonatomic, assign) BOOL interaction;
+
+@property (nonatomic, retain) UIWindow *window;
+@property (nonatomic, retain) UIView *background;
+@property (nonatomic, retain) UIToolbar *hud;
+@property (nonatomic, retain) UIActivityIndicatorView *spinner;
+@property (nonatomic, retain) UIImageView *image;
+@property (nonatomic, retain) UILabel *label;
+
+@end
+
+static UIColor *textColor;
+static UIFont *textFont;
+
 @implementation ProgressHUD
 
 @synthesize interaction, window, background, hud, spinner, image, label;
@@ -49,7 +65,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = YES;
-	[[self shared] hudMake:status imgage:nil spin:YES hide:NO];
+	[[self shared] hudMake:status image:nil spin:YES hide:NO];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -57,7 +73,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status imgage:nil spin:YES hide:NO];
+	[[self shared] hudMake:status image:nil spin:YES hide:NO];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +81,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = YES;
-	[[self shared] hudMake:status imgage:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,7 +89,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status imgage:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +97,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = YES;
-	[[self shared] hudMake:status imgage:HUD_IMAGE_ERROR spin:NO hide:YES];
+	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,7 +105,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status imgage:HUD_IMAGE_ERROR spin:NO hide:YES];
+	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES];
 }
 
 
@@ -98,7 +114,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
   [self shared].interaction = YES;
-	[[self shared] hudMake:status imgage:nil spin:NO hide:YES];
+	[[self shared] hudMake:status image:nil spin:NO hide:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,7 +122,21 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
   [self shared].interaction = Interaction;
-	[[self shared] hudMake:status imgage:nil spin:NO hide:YES];
+	[[self shared] hudMake:status image:nil spin:NO hide:YES];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setTextColor:(UIColor *)color
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+  textColor = color;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setTextFont:(UIFont *)font
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+  textFont = font;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -129,7 +159,7 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)hudMake:(NSString *)status imgage:(UIImage *)img spin:(BOOL)spin hide:(BOOL)hide
+- (void)hudMake:(NSString *)status image:(UIImage *)img spin:(BOOL)spin hide:(BOOL)hide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self hudCreate];
@@ -195,8 +225,8 @@
 	if (label == nil)
 	{
 		label = [[UILabel alloc] initWithFrame:CGRectZero];
-		label.font = HUD_STATUS_FONT;
-		label.textColor = HUD_STATUS_COLOR;
+		label.font = textFont ? : HUD_STATUS_FONT;
+		label.textColor = textColor ? : HUD_STATUS_COLOR;
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = NSTextAlignmentCenter;
 		label.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
@@ -212,10 +242,10 @@
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[label removeFromSuperview];		label = nil;
-	[image removeFromSuperview];		image = nil;
+	[label removeFromSuperview];		  label = nil;
+	[image removeFromSuperview];		  image = nil;
 	[spinner removeFromSuperview];		spinner = nil;
-	[hud removeFromSuperview];			hud = nil;
+	[hud removeFromSuperview];			  hud = nil;
 	[background removeFromSuperview];	background = nil;
 }
 
@@ -234,10 +264,10 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	UIInterfaceOrientation orient = [[UIApplication sharedApplication] statusBarOrientation];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (orient == UIInterfaceOrientationPortrait)			rotate = 0.0;
+	if (orient == UIInterfaceOrientationPortrait)		      	rotate = 0.0;
 	if (orient == UIInterfaceOrientationPortraitUpsideDown)	rotate = M_PI;
-	if (orient == UIInterfaceOrientationLandscapeLeft)		rotate = - M_PI_2;
-	if (orient == UIInterfaceOrientationLandscapeRight)		rotate = + M_PI_2;
+	if (orient == UIInterfaceOrientationLandscapeLeft)	   	rotate = - M_PI_2;
+	if (orient == UIInterfaceOrientationLandscapeRight)		  rotate = + M_PI_2;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	hud.transform = CGAffineTransformMakeRotation(rotate);
 }
