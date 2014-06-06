@@ -48,6 +48,7 @@
 	[items addObject:@"Success without text"];
 	[items addObject:@"Error with text"];
 	[items addObject:@"Error without text"];
+	[items addObject:@"Message"];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -103,6 +104,7 @@
 			case 5: [ProgressHUD showSuccess:nil]; break;
 			case 6: [ProgressHUD showError:@"Something went wrong."]; break;
 			case 7: [ProgressHUD showError:nil]; break;
+      case 8: [ProgressHUD showMessage:@"This is a toast."]; break;
 		}
 	}
 
@@ -118,6 +120,7 @@
 			case 5: [ProgressHUD showSuccess:nil Interaction:NO]; break;
 			case 6: [ProgressHUD showError:@"Something went wrong." Interaction:NO]; break;
 			case 7: [ProgressHUD showError:nil Interaction:NO]; break;
+      case 8: [ProgressHUD showMessage:@"This is a toast." Interaction:NO]; break;
 		}
 	}
 }
