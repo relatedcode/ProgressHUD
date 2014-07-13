@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		297097ED1972AB4C00C19A45 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297097EC1972AB4C00C19A45 /* ViewController.xib */; };
 		2998ED7B17E62B0900C791C6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2998ED7A17E62B0900C791C6 /* Foundation.framework */; };
 		2998ED7D17E62B0900C791C6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2998ED7C17E62B0900C791C6 /* CoreGraphics.framework */; };
 		2998ED7F17E62B0900C791C6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2998ED7E17E62B0900C791C6 /* UIKit.framework */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		297097EC1972AB4C00C19A45 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		2998ED7717E62B0900C791C6 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2998ED7A17E62B0900C791C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2998ED7C17E62B0900C791C6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -83,12 +85,13 @@
 		2998ED8017E62B0900C791C6 /* app */ = {
 			isa = PBXGroup;
 			children = (
-				29B007B817E62B5700B11FFC /* ViewController.h */,
-				29B007B917E62B5700B11FFC /* ViewController.m */,
 				2998ED8917E62B0900C791C6 /* AppDelegate.h */,
 				2998ED8A17E62B0900C791C6 /* AppDelegate.m */,
 				2998ED8C17E62B0900C791C6 /* Images.xcassets */,
 				2998ED8117E62B0900C791C6 /* Supporting Files */,
+				29B007B817E62B5700B11FFC /* ViewController.h */,
+				29B007B917E62B5700B11FFC /* ViewController.m */,
+				297097EC1972AB4C00C19A45 /* ViewController.xib */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			files = (
 				2998ED8517E62B0900C791C6 /* InfoPlist.strings in Resources */,
 				2998ED8D17E62B0900C791C6 /* Images.xcassets in Resources */,
+				297097ED1972AB4C00C19A45 /* ViewController.xib in Resources */,
 				29D13B581803FA7F008B0CF1 /* ProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

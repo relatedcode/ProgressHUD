@@ -1,16 +1,6 @@
 //
 // Copyright (c) 2014 Related Code - http://relatedcode.com
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,10 +17,16 @@
 {
 	NSMutableArray *items;
 }
+
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellDismiss;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellText;
+
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @implementation ViewController
+
+@synthesize cellDismiss, cellText;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
@@ -39,8 +35,7 @@
 	[super viewDidLoad];
 
 	items = [[NSMutableArray alloc] init];
-
-	[items addObject:@"Dismiss"];
+	[items addObject:@"Dismiss HUD"];
 	[items addObject:@"No text"];
 	[items addObject:@"Some text"];
 	[items addObject:@"Long text"];
@@ -49,6 +44,8 @@
 	[items addObject:@"Error with text"];
 	[items addObject:@"Error without text"];
 }
+
+#pragma mark - Table view data source
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
@@ -61,37 +58,43 @@
 - (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger)section
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return [items count];
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	if (section == 0)
-		return @"User interaction: enabled";
-	else return @"User interaction: disabled";
+	if (section == 0) return 2;
+	if (section == 1) return [items count];
+	return 0;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-
-	cell.textLabel.text = [items objectAtIndex:indexPath.row];
-
-	return cell;
+	if (indexPath.section == 0)
+	{
+		if (indexPath.row == 0) return cellDismiss;
+		if (indexPath.row == 1) return cellText;
+	}
+	if (indexPath.section == 1)
+	{
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+		if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+		cell.textLabel.text = [items objectAtIndex:indexPath.row];
+		return cell;
+	}
+	return nil;
 }
+
+#pragma mark - Table view delegate
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	
-	if (indexPath.section == 0) // User interaction: enabled
+
+	if (indexPath.section == 0)
+	{
+		if (indexPath.row == 0) [self.view endEditing:YES];
+	}
+	if (indexPath.section == 1)
 	{
 		switch (indexPath.row)
 		{
@@ -103,21 +106,6 @@
 			case 5: [ProgressHUD showSuccess:nil]; break;
 			case 6: [ProgressHUD showError:@"Something went wrong."]; break;
 			case 7: [ProgressHUD showError:nil]; break;
-		}
-	}
-
-	if (indexPath.section == 1) // User interaction: disabled
-	{
-		switch (indexPath.row)
-		{
-			case 0: [ProgressHUD dismiss]; break;
-			case 1: [ProgressHUD show:nil Interaction:NO]; break;
-			case 2: [ProgressHUD show:@"Please wait..." Interaction:NO]; break;
-			case 3: [ProgressHUD show:@"Please wait. We need some more time to work out this situation." Interaction:NO]; break;
-			case 4: [ProgressHUD showSuccess:@"That was great!" Interaction:NO]; break;
-			case 5: [ProgressHUD showSuccess:nil Interaction:NO]; break;
-			case 6: [ProgressHUD showError:@"Something went wrong." Interaction:NO]; break;
-			case 7: [ProgressHUD showError:nil Interaction:NO]; break;
 		}
 	}
 }
