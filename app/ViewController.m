@@ -33,6 +33,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
+	self.title = @"Related Code";
 
 	items = [[NSMutableArray alloc] init];
 	[items addObject:@"Dismiss HUD"];
