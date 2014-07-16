@@ -185,7 +185,9 @@
 												 name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardWillHideNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardDidHideNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardWillShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardDidShowNotification object:nil];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -268,7 +270,7 @@
 		duration = [[keyboardInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
 		CGRect keyboard = [[keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
 
-		if (notification.name == UIKeyboardWillShowNotification)
+		if ((notification.name == UIKeyboardWillShowNotification) || (notification.name == UIKeyboardDidShowNotification))
 		{
 			if (UIInterfaceOrientationIsPortrait(orientation))
 				heightKeyboard = keyboard.size.height;
