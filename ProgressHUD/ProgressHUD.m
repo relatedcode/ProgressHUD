@@ -262,6 +262,8 @@
 		if (hudWidth < imgw + 10)
 		{
 			hudWidth = imgw + 10;
+			labelRect.origin.x = 0;
+			labelRect.size.width = hudWidth;
 		}
 	}
 
