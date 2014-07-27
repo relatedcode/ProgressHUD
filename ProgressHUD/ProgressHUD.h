@@ -36,6 +36,9 @@
 + (void)showError:(NSString *)status;
 + (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
 
++ (void)showCustom:(NSString *)status image:(UIImage *)image;
++ (void)showCustom:(NSString *)status image:(UIImage *)image Interaction:(BOOL)Interaction;
+
 @property (nonatomic, assign) BOOL interaction;
 
 @property (nonatomic, retain) UIWindow *window;
