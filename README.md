@@ -4,11 +4,11 @@
 
 ProgressHUD is a lightweight and easy-to-use HUD for iOS 7 (written in Objective-C).
 
-![ProgressHUD](http://relatedcode.com/github/progresshud01.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud31.png)
 .
-![ProgressHUD](http://relatedcode.com/github/progresshud02.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud32.png)
 .
-![ProgressHUD](http://relatedcode.com/github/progresshud03.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud33.png)
 
 ## INSTALLATION
 
@@ -63,7 +63,7 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 
 ## Color shemes
 
-Use `sheme_white`, `sheme_black` or `sheme_color` depending on your needs. However feel free to customize the color settings in `ProgressHUD.h` file.
+Feel free to customize the color settings in `ProgressHUD.h` file.
 
 ## CREDITS
 
