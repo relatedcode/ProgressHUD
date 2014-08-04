@@ -252,7 +252,7 @@
 	if (orientation == UIInterfaceOrientationLandscapeLeft)			rotate = - M_PI_2;
 	if (orientation == UIInterfaceOrientationLandscapeRight)		rotate = + M_PI_2;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	hud.transform = CGAffineTransformMakeRotation(rotate);
+	self.hud.transform = CGAffineTransformMakeRotation(rotate);
 }
 
  //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -297,7 +297,7 @@
 	if (orientation == UIInterfaceOrientationLandscapeRight)		center = CGPointMake(screen.size.height-posY, posX);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-		hud.center = CGPointMake(center.x, center.y);
+		self.hud.center = CGPointMake(center.x, center.y);
 	} completion:nil];
 }
 
@@ -328,13 +328,13 @@
 	{
 		self.alpha = 1;
 
-		hud.alpha = 0;
-		hud.transform = CGAffineTransformScale(hud.transform, 1.4, 1.4);
+		self.hud.alpha = 0;
+		self.hud.transform = CGAffineTransformScale(self.hud.transform, 1.4, 1.4);
 
 		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
-			hud.transform = CGAffineTransformScale(hud.transform, 1/1.4, 1/1.4);
-			hud.alpha = 1;
+			self.hud.transform = CGAffineTransformScale(self.hud.transform, 1/1.4, 1/1.4);
+			self.hud.alpha = 1;
 		} completion:nil];
 	}
 }
@@ -347,8 +347,8 @@
 	{
 		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseIn;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
-			hud.transform = CGAffineTransformScale(hud.transform, 0.7, 0.7);
-			hud.alpha = 0;
+			self.hud.transform = CGAffineTransformScale(self.hud.transform, 0.7, 0.7);
+			self.hud.alpha = 0;
 		}
 		completion:^(BOOL finished) {
 			[self hudDestroy];
