@@ -2,7 +2,7 @@
 
 ## OVERVIEW
 
-ProgressHUD is a lightweight, dead simple and easy-to-use HUD for iOS 8 (written in Objective-C).
+ProgressHUD is a lightweight and easy-to-use HUD for iOS 8 (written in Objective-C).
 
 ![ProgressHUD](http://relatedcode.com/github/progresshud801.png)
 .
