@@ -140,11 +140,11 @@
 	{
 		if (interaction == NO)
 		{
-            CGFloat windowWidth = window.frame.size.width;
-            CGFloat windowHeight = window.frame.size.height;
-            CGFloat largerWindowDimension = windowWidth > windowHeight ? windowWidth : windowHeight;
+			CGFloat windowWidth = window.frame.size.width;
+			CGFloat windowHeight = window.frame.size.height;
+			CGFloat largerWindowDimension = windowWidth > windowHeight ? windowWidth : windowHeight;
 
-            CGRect frame = CGRectMake(window.frame.origin.x, window.frame.origin.y, largerWindowDimension, largerWindowDimension);
+			CGRect frame = CGRectMake(window.frame.origin.x, window.frame.origin.y, largerWindowDimension, largerWindowDimension);
 			background = [[UIView alloc] initWithFrame:frame];
 			background.backgroundColor = HUD_WINDOW_COLOR;
 			[window addSubview:background];
