@@ -116,6 +116,7 @@
 	if (spin) [spinner startAnimating]; else [spinner stopAnimating];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self hudSize];
+	[self hudOrient];
 	[self hudPosition:nil];
 	[self hudShow];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -182,6 +183,8 @@
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:)
 												 name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudOrient)
+												 name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardWillHideNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardDidHideNotification object:nil];
@@ -236,6 +239,27 @@
 	image.center = spinner.center = CGPointMake(imagex, imagey);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	label.frame = labelRect;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)hudOrient
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	
+	if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_1)
+	{
+		
+		CGFloat rotate = 0.0;
+		//---------------------------------------------------------------------------------------------------------------------------------------------
+		UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+		//---------------------------------------------------------------------------------------------------------------------------------------------
+		if (orientation == UIInterfaceOrientationPortrait)				rotate = 0.0;
+		if (orientation == UIInterfaceOrientationPortraitUpsideDown)	rotate = M_PI;
+		if (orientation == UIInterfaceOrientationLandscapeLeft)			rotate = - M_PI_2;
+		if (orientation == UIInterfaceOrientationLandscapeRight)		rotate = + M_PI_2;
+		//---------------------------------------------------------------------------------------------------------------------------------------------
+		hud.transform = CGAffineTransformMakeRotation(rotate);
+	}
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
