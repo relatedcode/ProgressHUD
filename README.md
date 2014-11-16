@@ -1,14 +1,20 @@
 [![RelatedCode](http://relatedcode.com/github/header8.png)](http://relatedcode.com)
 
+## <font color='red'>WHAT'S NEW in 2.3</font>
+
+- Keyboard height fix
+- Landscape orientation fix
+- Background window frame fix
+
 ## OVERVIEW
 
 ProgressHUD is a lightweight and easy-to-use HUD for iOS 8 (written in Objective-C).
 
-![ProgressHUD](http://relatedcode.com/github/progresshud801.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud811.png)
 .
-![ProgressHUD](http://relatedcode.com/github/progresshud802.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud812.png)
 .
-![ProgressHUD](http://relatedcode.com/github/progresshud803.png)
+![ProgressHUD](http://relatedcode.com/github/progresshud813.png)
 
 ## INSTALLATION
 
