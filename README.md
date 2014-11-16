@@ -1,6 +1,6 @@
 [![RelatedCode](http://relatedcode.com/github/header8.png)](http://relatedcode.com)
 
-## <font color='red'>WHAT'S NEW in 2.3</font>
+## WHAT'S NEW IN 2.3
 
 - Keyboard height fix
 - Landscape orientation fix
