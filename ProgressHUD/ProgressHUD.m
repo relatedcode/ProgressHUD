@@ -131,6 +131,7 @@
 		hud = [[UIToolbar alloc] initWithFrame:CGRectZero];
 		hud.translucent = YES;
 		hud.backgroundColor = HUD_BACKGROUND_COLOR;
+		[hud setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 		hud.layer.cornerRadius = 10;
 		hud.layer.masksToBounds = YES;
 		[self registerNotifications];
