@@ -38,7 +38,7 @@
 + (void)show:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self shared].interaction = YES;
+	[self shared].interaction = NO;
 	[[self shared] hudMake:status image:nil spin:YES hide:NO];
 }
 
@@ -91,7 +91,13 @@
 	id<UIApplicationDelegate> delegate = [[UIApplication sharedApplication] delegate];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([delegate respondsToSelector:@selector(window)])
+    {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wselector"
+
 		window = [delegate performSelector:@selector(window)];
+        #pragma clang diagnostic pop
+    }
 	else window = [[UIApplication sharedApplication] keyWindow];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	background = nil; hud = nil; spinner = nil; image = nil; label = nil;
@@ -128,11 +134,12 @@
 {
 	if (hud == nil)
 	{
-		hud = [[UIToolbar alloc] initWithFrame:CGRectZero];
-		hud.translucent = YES;
+		hud = [[UIView alloc] initWithFrame:CGRectZero];
 		hud.backgroundColor = HUD_BACKGROUND_COLOR;
 		hud.layer.cornerRadius = 10;
 		hud.layer.masksToBounds = YES;
+        hud.layer.borderColor = HUD_SPINNER_COLOR.CGColor;
+        hud.layer.borderWidth = 4.0;
 		[self registerNotifications];
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -260,7 +267,7 @@
 	CGPoint center = CGPointMake(screen.size.width/2, (screen.size.height-heightKeyboard)/2);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-		hud.center = CGPointMake(center.x, center.y);
+		self.hud.center = CGPointMake(center.x, center.y);
 	} completion:nil];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (background != nil) background.frame = window.frame;
@@ -305,12 +312,12 @@
 		self.alpha = 1;
 
 		hud.alpha = 0;
-		hud.transform = CGAffineTransformScale(hud.transform, 1.4, 1.4);
+		hud.transform = CGAffineTransformScale(hud.transform, 1.4f, 1.4f);
 
 		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
-			hud.transform = CGAffineTransformScale(hud.transform, 1/1.4, 1/1.4);
-			hud.alpha = 1;
+			self.hud.transform = CGAffineTransformScale(self.hud.transform, 1/1.4f, 1/1.4f);
+			self.hud.alpha = 1;
 		} completion:nil];
 	}
 }
@@ -323,8 +330,8 @@
 	{
 		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseIn;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
-			hud.transform = CGAffineTransformScale(hud.transform, 0.7, 0.7);
-			hud.alpha = 0;
+			self.hud.transform = CGAffineTransformScale(self.hud.transform, 0.7f, 0.7f);
+			self.hud.alpha = 0;
 		}
 		completion:^(BOOL finished) {
 			[self hudDestroy];
