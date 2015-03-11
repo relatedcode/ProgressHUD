@@ -35,51 +35,51 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)show:(NSString *)status
++ (void)show:(NSString *)status hide:(BOOL)hide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = YES;
-	[[self shared] hudMake:status image:nil spin:YES hide:NO];
+	[[self shared] hudMake:status image:nil spin:YES hide:hide];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)show:(NSString *)status Interaction:(BOOL)Interaction
++ (void)show:(NSString *)status Interaction:(BOOL)Interaction hide:(BOOL)hide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status image:nil spin:YES hide:NO];
+	[[self shared] hudMake:status image:nil spin:YES hide:hide];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)showSuccess:(NSString *)status
++ (void)showSuccess:(NSString *)status hide:(BOOL)hide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = YES;
-	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:hide];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction
++ (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction hide:(BOOL)hide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:hide];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)showError:(NSString *)status
++ (void)showError:(NSString *)status hide:(BOOL)hide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = YES;
-	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES];
+	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:hide];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)showError:(NSString *)status Interaction:(BOOL)Interaction
++ (void)showError:(NSString *)status Interaction:(BOOL)Interaction hide:(BOOL)hide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES];
+	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:hide];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

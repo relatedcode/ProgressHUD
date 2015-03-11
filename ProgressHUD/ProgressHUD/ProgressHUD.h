@@ -12,10 +12,10 @@
 #import <UIKit/UIKit.h>
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-#define HUD_STATUS_FONT			[UIFont boldSystemFontOfSize:16]
-#define HUD_STATUS_COLOR		[UIColor blackColor]
+#define HUD_STATUS_FONT			[UIFont fontWithName:@"Helvetica Neue" size:12]
+#define HUD_STATUS_COLOR		[UIColor grayColor]
 
-#define HUD_SPINNER_COLOR		[UIColor colorWithRed:185.0/255.0 green:220.0/255.0 blue:47.0/255.0 alpha:1.0]
+#define HUD_SPINNER_COLOR		[UIColor grayColor]
 #define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0.0 alpha:0.1]
 #define HUD_WINDOW_COLOR		[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2]
 
@@ -30,14 +30,14 @@
 
 + (void)dismiss;
 
-+ (void)show:(NSString *)status;
-+ (void)show:(NSString *)status Interaction:(BOOL)Interaction;
++ (void)show:(NSString *)status hide:(BOOL)hide;
++ (void)show:(NSString *)status Interaction:(BOOL)Interaction hide:(BOOL)hide;
 
-+ (void)showSuccess:(NSString *)status;
-+ (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction;
++ (void)showSuccess:(NSString *)status hide:(BOOL)hide;
++ (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction hide:(BOOL)hide;
 
-+ (void)showError:(NSString *)status;
-+ (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
++ (void)showError:(NSString *)status hide:(BOOL)hide;
++ (void)showError:(NSString *)status Interaction:(BOOL)Interaction hide:(BOOL)hide;
 
 @property (nonatomic, assign) BOOL interaction;
 
