@@ -9,7 +9,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 #define HUD_STATUS_FONT			[UIFont boldSystemFontOfSize:16]
@@ -39,13 +39,21 @@
 + (void)showError:(NSString *)status;
 + (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
 
-@property (nonatomic, assign) BOOL interaction;
+@property (nonatomic, readonly) BOOL interaction;
 
-@property (nonatomic, retain) UIWindow *window;
-@property (nonatomic, retain) UIView *background;
-@property (nonatomic, retain) UIToolbar *hud;
-@property (nonatomic, retain) UIActivityIndicatorView *spinner;
-@property (nonatomic, retain) UIImageView *image;
-@property (nonatomic, retain) UILabel *label;
+@property (nonatomic, readonly, strong) UIWindow *window;
+@property (nonatomic, readonly, strong) UIView *background;
+@property (nonatomic, readonly, strong) UIToolbar *hud;
+@property (nonatomic, readonly, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, readonly, strong) UIImageView *image;
+@property (nonatomic, readonly, strong) UILabel *label;
+
++ (void)setStatusFont:(UIFont *)newStatusFont;
++ (void)setStatusColor:(UIColor *)newStatusColor;
++ (void)setSpinnerColor:(UIColor *)newSpinnerColor;
++ (void)setBackgroundColor:(UIColor *)newBackgroundColor;
++ (void)setWindowColor:(UIColor *)newWindowColor;
++ (void)setImageSuccess:(UIImage *)newImageSuccess;
++ (void)setImageError:(UIImage *)newImageError;
 
 @end

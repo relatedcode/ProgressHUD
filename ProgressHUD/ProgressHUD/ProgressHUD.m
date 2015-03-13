@@ -11,9 +11,33 @@
 
 #import "ProgressHUD.h"
 
+
+@interface ProgressHUD ()
+
+@property (nonatomic) BOOL interaction;
+
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) UIView *background;
+@property (nonatomic, strong) UIToolbar *hud;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) UIImageView *image;
+@property (nonatomic, strong) UILabel *label;
+
+@property (nonatomic, strong) UIFont *statusFont;
+@property (nonatomic, strong) UIColor *statusColor;
+@property (nonatomic, strong) UIColor *spinnerColor;
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *windowColor;
+@property (nonatomic, strong) UIImage *imageSuccess;
+@property (nonatomic, strong) UIImage *imageError;
+
+@end
+
+
 @implementation ProgressHUD
 
 @synthesize interaction, window, background, hud, spinner, image, label;
+@synthesize statusFont, statusColor, spinnerColor, backgroundColor, windowColor, imageSuccess, imageError;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (ProgressHUD *)shared
@@ -55,7 +79,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = YES;
-	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+    [[self shared] hudMake:status image:[self shared].imageSuccess?[self shared].imageSuccess:HUD_IMAGE_SUCCESS spin:NO hide:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -63,7 +87,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	[[self shared] hudMake:status image:[self shared].imageSuccess?[self shared].imageSuccess:HUD_IMAGE_SUCCESS spin:NO hide:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -71,7 +95,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = YES;
-	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES];
+	[[self shared] hudMake:status image:[self shared].imageError?[self shared].imageError:HUD_IMAGE_ERROR spin:NO hide:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -79,7 +103,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES];
+	[[self shared] hudMake:status image:[self shared].imageError?[self shared].imageError:HUD_IMAGE_ERROR spin:NO hide:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -130,7 +154,7 @@
 	{
 		hud = [[UIToolbar alloc] initWithFrame:CGRectZero];
 		hud.translucent = YES;
-		hud.backgroundColor = HUD_BACKGROUND_COLOR;
+        hud.backgroundColor = backgroundColor ? backgroundColor : HUD_BACKGROUND_COLOR;
 		hud.layer.cornerRadius = 10;
 		hud.layer.masksToBounds = YES;
 		[self registerNotifications];
@@ -141,7 +165,7 @@
 		if (interaction == NO)
 		{
 			background = [[UIView alloc] initWithFrame:window.frame];
-			background.backgroundColor = HUD_WINDOW_COLOR;
+            background.backgroundColor = windowColor ? windowColor : HUD_WINDOW_COLOR;
 			[window addSubview:background];
 			[background addSubview:hud];
 		}
@@ -151,7 +175,7 @@
 	if (spinner == nil)
 	{
 		spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-		spinner.color = HUD_SPINNER_COLOR;
+        spinner.color = spinnerColor ? spinnerColor : HUD_SPINNER_COLOR;
 		spinner.hidesWhenStopped = YES;
 	}
 	if (spinner.superview == nil) [hud addSubview:spinner];
@@ -165,8 +189,8 @@
 	if (label == nil)
 	{
 		label = [[UILabel alloc] initWithFrame:CGRectZero];
-		label.font = HUD_STATUS_FONT;
-		label.textColor = HUD_STATUS_COLOR;
+        label.font = statusFont ? statusFont : HUD_STATUS_FONT;
+        label.textColor = statusColor ? statusColor : HUD_STATUS_COLOR;
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = NSTextAlignmentCenter;
 		label.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
@@ -347,6 +371,139 @@
 			[self hudHide];
 		});
 	}
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setStatusFont:(UIFont *)newStatusFont
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    statusFont = newStatusFont;
+    
+    if (label)
+    {
+        label.font = newStatusFont;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setStatusFont:(UIFont *)newStatusFont
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [[self shared] setStatusFont:newStatusFont];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setStatusColor:(UIColor *)newStatusColor
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    statusColor = newStatusColor;
+    
+    if (label)
+    {
+        label.textColor = newStatusColor;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setStatusColor:(UIColor *)newStatusColor
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [[self shared] setStatusColor:newStatusColor];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setSpinnerColor:(UIColor *)newSpinnerColor
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    spinnerColor = newSpinnerColor;
+    
+    if (spinner)
+    {
+        spinner.color = newSpinnerColor;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setSpinnerColor:(UIColor *)newSpinnerColor
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [[self shared] setSpinnerColor:newSpinnerColor];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setBackgroundColor:(UIColor *)newBackgroundColor
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    backgroundColor = newBackgroundColor;
+    
+    if (hud)
+    {
+        hud.backgroundColor = newBackgroundColor;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setBackgroundColor:(UIColor *)newBackgroundColor
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [[self shared] setBackgroundColor:newBackgroundColor];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setWindowColor:(UIColor *)newWindowColor
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    windowColor = newWindowColor;
+    
+    if (background)
+    {
+        background.backgroundColor = newWindowColor;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setWindowColor:(UIColor *)newWindowColor
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [[self shared] setWindowColor:newWindowColor];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setImageSuccess:(UIImage *)newImageSuccess
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    imageSuccess = newImageSuccess;
+    
+    if (image)
+    {
+        image.image = newImageSuccess;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setImageSuccess:(UIImage *)newImageSuccess
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [[self shared] setImageSuccess:newImageSuccess];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setImageError:(UIImage *)newImageError
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    imageError = newImageError;
+    
+    if (image)
+    {
+        image.image = newImageError;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setImageError:(UIImage *)newImageError
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [[self shared] setImageError:newImageError];
 }
 
 @end
