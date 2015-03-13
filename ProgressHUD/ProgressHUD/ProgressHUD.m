@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UIImageView *image;
 @property (nonatomic, strong) UILabel *label;
 
+@property (nonatomic) UIBarStyle style;
 @property (nonatomic, strong) UIFont *statusFont;
 @property (nonatomic, strong) UIColor *statusColor;
 @property (nonatomic, strong) UIColor *spinnerColor;
@@ -37,7 +38,7 @@
 @implementation ProgressHUD
 
 @synthesize interaction, window, background, hud, spinner, image, label;
-@synthesize statusFont, statusColor, spinnerColor, backgroundColor, windowColor, imageSuccess, imageError;
+@synthesize style, statusFont, statusColor, spinnerColor, backgroundColor, windowColor, imageSuccess, imageError;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (ProgressHUD *)shared
@@ -119,6 +120,7 @@
 	else window = [[UIApplication sharedApplication] keyWindow];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	background = nil; hud = nil; spinner = nil; image = nil; label = nil;
+    style = HUD_STYLE;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.alpha = 0;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -154,6 +156,7 @@
 	{
 		hud = [[UIToolbar alloc] initWithFrame:CGRectZero];
 		hud.translucent = YES;
+        hud.barStyle = style;
         hud.backgroundColor = backgroundColor ? backgroundColor : HUD_BACKGROUND_COLOR;
 		hud.layer.cornerRadius = 10;
 		hud.layer.masksToBounds = YES;
@@ -371,6 +374,25 @@
 			[self hudHide];
 		});
 	}
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setStyle:(UIBarStyle)newStyle
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    style = newStyle;
+    
+    if (hud)
+    {
+        hud.barStyle = newStyle;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)setStyle:(UIBarStyle)style
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [[self shared] setStyle:style];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

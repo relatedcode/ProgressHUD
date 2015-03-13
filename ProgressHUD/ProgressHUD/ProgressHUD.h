@@ -12,6 +12,8 @@
 @import UIKit;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+#define HUD_STYLE               UIBarStyleDefault
+
 #define HUD_STATUS_FONT			[UIFont boldSystemFontOfSize:16]
 #define HUD_STATUS_COLOR		[UIColor blackColor]
 
@@ -48,6 +50,7 @@
 @property (nonatomic, readonly, strong) UIImageView *image;
 @property (nonatomic, readonly, strong) UILabel *label;
 
++ (void)setStyle:(UIBarStyle)style;
 + (void)setStatusFont:(UIFont *)newStatusFont;
 + (void)setStatusColor:(UIColor *)newStatusColor;
 + (void)setSpinnerColor:(UIColor *)newSpinnerColor;
