@@ -1,4 +1,4 @@
-[![RelatedCode](http://relatedcode.com/github/header8.png)](http://relatedcode.com)
+[![RelatedCode](http://relatedcode.com/github/header88.png)](http://relatedcode.com)
 
 ## WHAT'S NEW IN 2.3
 
