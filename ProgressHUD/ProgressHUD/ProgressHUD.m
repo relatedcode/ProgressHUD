@@ -106,6 +106,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self hudCreate];
+    [ProgressHUD checkOrientation];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	label.text = status;
 	label.hidden = (status == nil) ? YES : NO;
@@ -173,6 +174,29 @@
 		label.numberOfLines = 0;
 	}
 	if (label.superview == nil) [hud addSubview:label];
+}
+
++ (void)checkOrientation
+{
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    float angle;
+    switch (interfaceOrientation) {
+        case UIInterfaceOrientationPortrait:
+            angle = 0.0f;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            angle = 3 * M_PI / 2;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            angle = M_PI / 2;
+            break;
+        default:
+            angle = 0.0f;
+            break;
+    }
+    CGAffineTransform transform = CGAffineTransformMakeRotation(angle);
+    [[self shared].hud setTransform:transform];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

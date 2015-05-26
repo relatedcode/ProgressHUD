@@ -30,6 +30,8 @@
 
 + (void)dismiss;
 
++ (void)checkOrientation;
+
 + (void)show:(NSString *)status;
 + (void)show:(NSString *)status Interaction:(BOOL)Interaction;
 
