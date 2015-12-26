@@ -1,4 +1,4 @@
-[![HireMe](http://relatedcode.com/github/header5.png)](http://appcostcalculator.com)
+[![HireMe](http://relatedcode.com/github/header6.png)](http://relatedcode.com)
 
 ## WHAT'S NEW IN 2.3
 
