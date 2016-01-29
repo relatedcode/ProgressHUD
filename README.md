@@ -1,4 +1,4 @@
-[![Parse Alternatives](http://relatedcode.com/github/header7.png)](https://github.com/relatedcode/ParseAlternatives)
+[![Parse alternatives](http://relatedcode.com/github/header8.png)](https://github.com/relatedcode/ParseAlternatives)
 
 ## WHAT'S NEW IN 2.3
 
