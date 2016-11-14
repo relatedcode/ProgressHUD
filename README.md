@@ -1,14 +1,12 @@
-[![FirebaseChat for iOS](http://relatedcode.com/github/header12.png)](http://github.com/relatedcode/Messenger)
+[![iOS Messenger](http://relatedcode.com/github/header12.png)](http://github.com/relatedcode/Messenger)
 
-## WHAT'S NEW IN 2.3
+## WHAT'S NEW IN 2.4
 
-- Keyboard height fix
-- Landscape orientation fix
-- Background window frame fix
+- General improvements
 
 ## OVERVIEW
 
-ProgressHUD is a lightweight and easy-to-use HUD for iOS 8 (written in Objective-C).
+ProgressHUD is a lightweight and easy-to-use HUD for iOS (written in Objective-C).
 
 ![ProgressHUD](http://relatedcode.com/github/progresshud811.png)
 .
@@ -18,7 +16,9 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS 8 (written in Objective
 
 ## INSTALLATION
 
-Drag the `ProgressHUD/ProgressHUD` folder into your project.
+1., Add a pod entry for ProgressHUD to your Podfile `pod 'ProgressHUD'`.
+2., Install the pod(s) by running `pod install`.
+3., Include ProgressHUD wherever you need it with `#import "ProgressHUD.h"`.
 
 ## REQUIREMENTS
 
@@ -30,19 +30,19 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 
 1., Add the following import to the top of the file:
 
-```objective-c
+```
 #import "ProgressHUD.h"
 ```
 
 2., Use the following to display the HUD:
 
-```objective-c
+```
 [ProgressHUD show:@"Please wait..."];
 ```
 
 3., Simply dismiss after complete your task:
 
-```objective-c
+```
 [ProgressHUD dismiss];
 ```
 
@@ -51,8 +51,6 @@ Drag the `ProgressHUD/ProgressHUD` folder into your project.
 Feel free to customize the color settings in `ProgressHUD.h` file.
 
 ## CREDITS
-
-ProgressHUD was inspired by [SVProgressHUD](https://github.com/samvermette/SVProgressHUD) project.
 
 The success and error icons are from [Glyphish](http://glyphish.com).
 

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014 Related Code - http://relatedcode.com
+// Copyright (c) 2016 Related Code - http://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -26,23 +26,19 @@
 @interface ProgressHUD : UIView
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-+ (ProgressHUD *)shared;
-
 + (void)dismiss;
 
 + (void)show;
 + (void)show:(NSString *)status;
-+ (void)show:(NSString *)status Interaction:(BOOL)Interaction;
++ (void)show:(NSString *)status Interaction:(BOOL)interaction;
 
 + (void)showSuccess;
 + (void)showSuccess:(NSString *)status;
-+ (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction;
++ (void)showSuccess:(NSString *)status Interaction:(BOOL)interaction;
 
 + (void)showError;
 + (void)showError:(NSString *)status;
-+ (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
-
-@property (nonatomic, assign) BOOL interaction;
++ (void)showError:(NSString *)status Interaction:(BOOL)interaction;
 
 @property (nonatomic, retain) UIWindow *window;
 @property (nonatomic, retain) UIView *background;

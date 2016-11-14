@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014 Related Code - http://relatedcode.com
+// Copyright (c) 2016 Related Code - http://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -13,7 +13,7 @@
 
 @implementation ProgressHUD
 
-@synthesize interaction, window, background, hud, spinner, image, label;
+@synthesize window, background, hud, spinner, image, label;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (ProgressHUD *)shared
@@ -31,80 +31,93 @@
 + (void)dismiss
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[[self shared] hudHide];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudHide];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)show
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-    [self shared].interaction = YES;
-    [[self shared] hudMake:nil image:nil spin:YES hide:NO];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:nil image:nil spin:YES hide:NO interaction:YES];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)show:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self shared].interaction = YES;
-	[[self shared] hudMake:status image:nil spin:YES hide:NO];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:status image:nil spin:YES hide:NO interaction:YES];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)show:(NSString *)status Interaction:(BOOL)Interaction
++ (void)show:(NSString *)status Interaction:(BOOL)interaction
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status image:nil spin:YES hide:NO];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:status image:nil spin:YES hide:NO interaction:interaction];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)showSuccess
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-    [self shared].interaction = YES;
-    [[self shared] hudMake:nil image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:nil image:HUD_IMAGE_SUCCESS spin:NO hide:YES interaction:YES];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)showSuccess:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self shared].interaction = YES;
-	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES interaction:YES];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction
++ (void)showSuccess:(NSString *)status Interaction:(BOOL)interaction
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES interaction:interaction];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)showError
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-    [self shared].interaction = YES;
-    [[self shared] hudMake:nil image:HUD_IMAGE_ERROR spin:NO hide:YES];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:nil image:HUD_IMAGE_ERROR spin:NO hide:YES interaction:YES];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)showError:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self shared].interaction = YES;
-	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:status image:HUD_IMAGE_ERROR spin:NO hide:YES interaction:YES];
+	});
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)showError:(NSString *)status Interaction:(BOOL)Interaction
++ (void)showError:(NSString *)status Interaction:(BOOL)interaction
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self shared].interaction = Interaction;
-	[[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[self shared] hudCreate:status image:HUD_IMAGE_ERROR spin:NO hide:YES interaction:interaction];
+	});
 }
+
+#pragma mark -
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id)init
@@ -125,29 +138,10 @@
 	return self;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)hudMake:(NSString *)status image:(UIImage *)img spin:(BOOL)spin hide:(BOOL)hide
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self hudCreate];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	label.text = status;
-	label.hidden = (status == nil) ? YES : NO;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	image.image = img;
-	image.hidden = (img == nil) ? YES : NO;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (spin) [spinner startAnimating]; else [spinner stopAnimating];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[self hudSize];
-	[self hudPosition:nil];
-	[self hudShow];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (hide) [NSThread detachNewThreadSelector:@selector(timedHide) toTarget:self withObject:nil];
-}
+#pragma mark -
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)hudCreate
+- (void)hudCreate:(NSString *)status image:(UIImage *)image_ spin:(BOOL)spin hide:(BOOL)hide interaction:(BOOL)interaction
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	if (hud == nil)
@@ -197,6 +191,24 @@
 		label.numberOfLines = 0;
 	}
 	if (label.superview == nil) [hud addSubview:label];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	label.text = status;
+	label.hidden = (status == nil) ? YES : NO;
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	image.image = image_;
+	image.hidden = (image_ == nil) ? YES : NO;
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if (spin) [spinner startAnimating]; else [spinner stopAnimating];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[self hudSize];
+	[self hudPosition:nil];
+	[self hudShow];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if (hide) [self timedHide];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -224,6 +236,8 @@
 	[hud removeFromSuperview];			hud = nil;
 	[background removeFromSuperview];	background = nil;
 }
+
+#pragma mark -
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudSize
@@ -320,6 +334,8 @@
 	return 0;
 }
 
+#pragma mark -
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudShow
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -327,10 +343,8 @@
 	if (self.alpha == 0)
 	{
 		self.alpha = 1;
-
 		hud.alpha = 0;
 		hud.transform = CGAffineTransformScale(hud.transform, 1.4, 1.4);
-
 		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
 			hud.transform = CGAffineTransformScale(hud.transform, 1/1.4, 1/1.4);
@@ -361,16 +375,9 @@
 - (void)timedHide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	@autoreleasepool
-	{
-		double length = label.text.length;
-		NSTimeInterval sleep = length * 0.04 + 0.5;
-		[NSThread sleepForTimeInterval:sleep];
-
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[self hudHide];
-		});
-	}
+	NSTimeInterval delay = label.text.length * 0.04 + 0.5;
+	dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+	dispatch_after(time, dispatch_get_main_queue(), ^(void){ [self hudHide]; });
 }
 
 @end

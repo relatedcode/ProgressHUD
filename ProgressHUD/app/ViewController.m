@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014 Related Code - http://relatedcode.com
+// Copyright (c) 2016 Related Code - http://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -34,16 +34,16 @@
 {
 	[super viewDidLoad];
 	self.title = @"Related Code";
-
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	items = [[NSMutableArray alloc] init];
 	[items addObject:@"Dismiss HUD"];
-	[items addObject:@"No text"];
-	[items addObject:@"Some text"];
-	[items addObject:@"Long text"];
-	[items addObject:@"Success with text"];
-	[items addObject:@"Success without text"];
-	[items addObject:@"Error with text"];
-	[items addObject:@"Error without text"];
+	[items addObject:@"Progress: no text"];
+	[items addObject:@"Progress: short text"];
+	[items addObject:@"Progress: longer text"];
+	[items addObject:@"Success: no text"];
+	[items addObject:@"Success: short text"];
+	[items addObject:@"Error: no text"];
+	[items addObject:@"Error: short text"];
 }
 
 #pragma mark - Table view data source
@@ -92,7 +92,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
 	cell.textLabel.text = text;
 	return cell;
 }
@@ -104,27 +104,22 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (indexPath.section == 0)
 	{
-		if (indexPath.row == 1)
-		{
-			[self.view endEditing:YES];
-		}
+		if (indexPath.row == 1)	[self.view endEditing:YES];
 	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (indexPath.section == 1)
 	{
-		switch (indexPath.row)
-		{
-			case 0: [ProgressHUD dismiss]; break;
-			case 1: [ProgressHUD show]; break;
-			case 2: [ProgressHUD show:@"Please wait..."]; break;
-			case 3: [ProgressHUD show:@"Please wait. We need some more time to work out this situation."]; break;
-			case 4: [ProgressHUD showSuccess:@"That was great!"]; break;
-			case 5: [ProgressHUD showSuccess]; break;
-			case 6: [ProgressHUD showError:@"Something went wrong."]; break;
-			case 7: [ProgressHUD showError]; break;
-		}
+		if (indexPath.row == 0)	[ProgressHUD dismiss];
+		if (indexPath.row == 1)	[ProgressHUD show];
+		if (indexPath.row == 2)	[ProgressHUD show:@"Please wait..."];
+		if (indexPath.row == 3)	[ProgressHUD show:@"Please wait. We need some more time to work out this situation."];
+		if (indexPath.row == 4)	[ProgressHUD showSuccess];
+		if (indexPath.row == 5)	[ProgressHUD showSuccess:@"That was great!"];
+		if (indexPath.row == 6)	[ProgressHUD showError];
+		if (indexPath.row == 7)	[ProgressHUD showError:@"Something went wrong."];
 	}
 }
 
