@@ -16,6 +16,8 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS (written in Objective-C
 
 ## INSTALLATION
 
+[CocoaPods](http://cocoapods.org) is the recommended way to add ProgressHUD to your project.
+
 1., Add a pod entry for ProgressHUD to your Podfile `pod 'ProgressHUD'`.
 
 2., Install the pod(s) by running `pod install`.
