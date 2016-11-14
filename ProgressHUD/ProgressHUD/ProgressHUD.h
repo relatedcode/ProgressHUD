@@ -30,12 +30,15 @@
 
 + (void)dismiss;
 
++ (void)show;
 + (void)show:(NSString *)status;
 + (void)show:(NSString *)status Interaction:(BOOL)Interaction;
 
++ (void)showSuccess;
 + (void)showSuccess:(NSString *)status;
 + (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction;
 
++ (void)showError;
 + (void)showError:(NSString *)status;
 + (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
 
