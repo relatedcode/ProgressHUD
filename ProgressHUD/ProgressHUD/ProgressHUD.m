@@ -252,18 +252,14 @@
 		NSInteger options = NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin;
 		labelRect = [label.text boundingRectWithSize:CGSizeMake(200, 300) options:options attributes:attributes context:NULL];
 
-		labelRect.origin.x = 12;
-		labelRect.origin.y = 66;
+		hudWidth = labelRect.size.width + 50;
+		hudHeight = labelRect.size.height + 75;
 
-		hudWidth = labelRect.size.width + 24;
-		hudHeight = labelRect.size.height + 80;
+		if (hudWidth < 100) hudWidth = 100;
+		if (hudHeight < 100) hudHeight = 100;
 
-		if (hudWidth < 100)
-		{
-			hudWidth = 100;
-			labelRect.origin.x = 0;
-			labelRect.size.width = 100;
-		}
+		labelRect.origin.x = (hudWidth - labelRect.size.width) / 2;
+		labelRect.origin.y = (hudHeight - labelRect.size.height) / 2 + 25;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	hud.bounds = CGRectMake(0, 0, hudWidth, hudHeight);
