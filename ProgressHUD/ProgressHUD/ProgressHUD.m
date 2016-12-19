@@ -295,6 +295,18 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
 		hud.center = CGPointMake(center.x, center.y);
+        float systemVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+        if (systemVersion >= 7.0 && systemVersion < 8.0){
+            if ([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft){
+                hud.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            }
+            if ([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+                hud.transform = CGAffineTransformMakeRotation(M_PI_2);
+            }
+            if ([[UIDevice currentDevice]orientation] == UIInterfaceOrientationPortraitUpsideDown){
+                hud.transform = CGAffineTransformMakeRotation(M_PI);
+            }
+        }
 	} completion:nil];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (background != nil) background.frame = window.frame;
