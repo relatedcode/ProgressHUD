@@ -44,6 +44,9 @@
 	[items addObject:@"Success: short text"];
 	[items addObject:@"Error: no text"];
 	[items addObject:@"Error: short text"];
+    [items addObject:@"Custom: image"];
+    [items addObject:@"Custom: custom"];
+
 }
 
 #pragma mark - Table view data source
@@ -120,6 +123,14 @@
 		if (indexPath.row == 5)	[ProgressHUD showSuccess:@"That was great!"];
 		if (indexPath.row == 6)	[ProgressHUD showError];
 		if (indexPath.row == 7)	[ProgressHUD showError:@"Something went wrong."];
+        if (indexPath.row == 8) {
+            [ProgressHUD hudCreate:@"自定义" image:[UIImage imageNamed:@"bg_negative_redPacket"] spin:NO  hide:YES  interaction:YES];
+        }
+        if (indexPath.row ==9) {
+            UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bg_negative_redPacket"]];
+            [ProgressHUD showCustomView:imageView delayTime:3];
+            
+        }
 	}
 }
 
