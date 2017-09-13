@@ -15,12 +15,13 @@
 #define HUD_STATUS_FONT			[UIFont boldSystemFontOfSize:16]
 #define HUD_STATUS_COLOR		[UIColor blackColor]
 
-#define HUD_SPINNER_COLOR		[UIColor blueColor]
+#define HUD_SPINNER_COLOR		[UIColor grayColor]
 #define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0.0 alpha:0.1]
 #define HUD_WINDOW_COLOR		[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2]
 
-#define HUD_IMAGE_SUCCESS		[UIImage imageNamed:@"ProgressHUD.bundle/progresshud-success.png"]
-#define HUD_IMAGE_ERROR			[UIImage imageNamed:@"ProgressHUD.bundle/progresshud-error.png"]
+#define HUD_RESOURCE_BUNDLE     [NSBundle bundleForClass:[self class]]
+#define HUD_IMAGE_SUCCESS		[UIImage imageNamed:@"ProgressHUD.bundle/progresshud-success" inBundle: HUD_RESOURCE_BUNDLE compatibleWithTraitCollection:nil]
+#define HUD_IMAGE_ERROR			[UIImage imageNamed:@"ProgressHUD.bundle/progresshud-error" inBundle: HUD_RESOURCE_BUNDLE compatibleWithTraitCollection:nil]
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ProgressHUD : UIView
