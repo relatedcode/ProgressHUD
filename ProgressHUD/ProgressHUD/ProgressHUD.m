@@ -44,7 +44,16 @@
 		[[self shared] hudCreate:nil image:nil spin:YES hide:NO interaction:YES];
 	});
 }
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 
++(void)showCustomView:(UIView *)customView delayTime:(NSTimeInterval)delayTime
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    NSAssert(customView !=nil, @"自定义view不能为空");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self shared] hudCreadeWithCustom:customView delayTime:delayTime];
+    });
+}
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)show:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +125,16 @@
 		[[self shared] hudCreate:status image:HUD_IMAGE_ERROR spin:NO hide:YES interaction:interaction];
 	});
 }
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 
++(void)hudCreate:(NSString *)status image:(UIImage *)image_ spin:(BOOL)spin hide:(BOOL)hide interaction:(BOOL)interaction
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self shared] hudCreate:status image:image_ spin:spin hide:hide interaction:interaction];
+    });
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 #pragma mark -
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -208,10 +226,25 @@
 	[self hudPosition:nil];
 	[self hudShow];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (hide) [self timedHide];
+    if (hide) [self timedHide:0];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+/** 用户自定义提示的内容，提示以为的内容交互关闭，HUD 用户关闭或者定时关闭  */
+- (void)hudCreadeWithCustom:(UIView*)view delayTime:(NSTimeInterval)delay{
+    /// 自定义提示的默认背景为浅灰半透明
+    if (background == nil)
+    {
+            background = [[UIView alloc] initWithFrame:window.frame];
+            background.backgroundColor = HUD_WINDOW_COLOR;
+            [window addSubview:background];
+            [background addSubview:view];
+            view.center = background.center ;
+    }
+    [self hudPosition:nil];
+    [self hudShow];
+    if (delay) [self timedHide:delay];
+}
 - (void)registerNotifications
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
@@ -368,10 +401,10 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)timedHide
+- (void)timedHide:(NSTimeInterval)extra
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSTimeInterval delay = label.text.length * 0.04 + 0.5;
+	NSTimeInterval delay = label.text.length * 0.04 + 0.5 + extra;
 	dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 	dispatch_after(time, dispatch_get_main_queue(), ^(void){ [self hudHide]; });
 }

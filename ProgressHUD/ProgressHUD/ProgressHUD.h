@@ -26,12 +26,12 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ProgressHUD : UIView
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-
 + (void)dismiss;
 
 + (void)show;
 + (void)show:(NSString *)status;
 + (void)show:(NSString *)status Interaction:(BOOL)interaction;
++ (void)showCustomView:(UIView *)customView delayTime:(NSTimeInterval)delayTime;
 
 + (void)showSuccess;
 + (void)showSuccess:(NSString *)status;
@@ -40,6 +40,7 @@
 + (void)showError;
 + (void)showError:(NSString *)status;
 + (void)showError:(NSString *)status Interaction:(BOOL)interaction;
++ (void)hudCreate:(NSString *)status image:(UIImage *)image_ spin:(BOOL)spin hide:(BOOL)hide interaction:(BOOL)interaction;
 
 @property (nonatomic, retain) UIWindow *window;
 @property (nonatomic, retain) UIView *background;
