@@ -12,20 +12,10 @@
 #import <UIKit/UIKit.h>
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-#define HUD_STATUS_FONT			[UIFont boldSystemFontOfSize:16]
-#define HUD_STATUS_COLOR		[UIColor blackColor]
-
-#define HUD_SPINNER_COLOR		[UIColor grayColor]
-#define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0.0 alpha:0.1]
-#define HUD_WINDOW_COLOR		[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2]
-
-#define HUD_BUNDLE				[NSBundle bundleForClass:[self class]]
-#define HUD_IMAGE_SUCCESS		[UIImage imageNamed:@"ProgressHUD.bundle/progresshud-success" inBundle:HUD_BUNDLE compatibleWithTraitCollection:nil]
-#define HUD_IMAGE_ERROR			[UIImage imageNamed:@"ProgressHUD.bundle/progresshud-error" inBundle:HUD_BUNDLE compatibleWithTraitCollection:nil]
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ProgressHUD : UIView
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+#pragma mark - Display methods
 
 + (void)dismiss;
 
@@ -41,11 +31,24 @@
 + (void)showError:(NSString *)status;
 + (void)showError:(NSString *)status Interaction:(BOOL)interaction;
 
-@property (nonatomic, retain) UIWindow *window;
-@property (nonatomic, retain) UIView *background;
-@property (nonatomic, retain) UIToolbar *hud;
-@property (nonatomic, retain) UIActivityIndicatorView *spinner;
-@property (nonatomic, retain) UIImageView *image;
-@property (nonatomic, retain) UILabel *label;
+#pragma mark - Property methods
+
++ (void)statusFont:(UIFont *)font;
++ (void)statusColor:(UIColor *)color;
++ (void)spinnerColor:(UIColor *)color;
++ (void)hudColor:(UIColor *)color;
++ (void)backgroundColor:(UIColor *)color;
++ (void)imageSuccess:(UIImage *)image;
++ (void)imageError:(UIImage *)image;
+
+#pragma mark - Properties
+
+@property (strong, nonatomic) UIFont *statusFont;
+@property (strong, nonatomic) UIColor *statusColor;
+@property (strong, nonatomic) UIColor *spinnerColor;
+@property (strong, nonatomic) UIColor *hudColor;
+@property (strong, nonatomic) UIColor *backgroundColor;
+@property (strong, nonatomic) UIImage *imageSuccess;
+@property (strong, nonatomic) UIImage *imageError;
 
 @end
