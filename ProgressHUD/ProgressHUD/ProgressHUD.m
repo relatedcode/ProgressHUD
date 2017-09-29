@@ -133,53 +133,14 @@
 #pragma mark - Property methods
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)statusFont:(UIFont *)font
++ (void)statusFont:(UIFont *)font			{	[self shared].statusFont		= font;		}
++ (void)statusColor:(UIColor *)color		{	[self shared].statusColor		= color;	}
++ (void)spinnerColor:(UIColor *)color		{	[self shared].spinnerColor		= color;	}
++ (void)hudColor:(UIColor *)color			{	[self shared].hudColor			= color;	}
++ (void)backgroundColor:(UIColor *)color	{	[self shared].backgroundColor	= color;	}
++ (void)imageSuccess:(UIImage *)image		{	[self shared].imageSuccess		= image;	}
++ (void)imageError:(UIImage *)image			{	[self shared].imageError		= image;	}
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self shared].statusFont = font;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)statusColor:(UIColor *)color
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self shared].statusColor = color;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)spinnerColor:(UIColor *)color
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self shared].spinnerColor = color;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)hudColor:(UIColor *)color
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self shared].hudColor = color;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)backgroundColor:(UIColor *)color
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self shared].backgroundColor = color;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)imageSuccess:(UIImage *)image
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self shared].imageSuccess = image;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)imageError:(UIImage *)image
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self shared].imageError = image;
-}
 
 #pragma mark -
 
@@ -316,32 +277,32 @@
 - (void)hudSize
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	CGRect labelRect = CGRectZero;
-	CGFloat hudWidth = 100, hudHeight = 100;
+	CGRect rectLabel = CGRectZero;
+	CGFloat widthHUD = 100, heightHUD = 100;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (labelStatus.text != nil)
 	{
 		NSDictionary *attributes = @{NSFontAttributeName:labelStatus.font};
 		NSInteger options = NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin;
-		labelRect = [labelStatus.text boundingRectWithSize:CGSizeMake(200, 300) options:options attributes:attributes context:NULL];
+		rectLabel = [labelStatus.text boundingRectWithSize:CGSizeMake(200, 300) options:options attributes:attributes context:NULL];
 
-		hudWidth = labelRect.size.width + 50;
-		hudHeight = labelRect.size.height + 75;
+		widthHUD = rectLabel.size.width + 50;
+		heightHUD = rectLabel.size.height + 75;
 
-		if (hudWidth < 100) hudWidth = 100;
-		if (hudHeight < 100) hudHeight = 100;
+		if (widthHUD < 100) widthHUD = 100;
+		if (heightHUD < 100) heightHUD = 100;
 
-		labelRect.origin.x = (hudWidth - labelRect.size.width) / 2;
-		labelRect.origin.y = (hudHeight - labelRect.size.height) / 2 + 25;
+		rectLabel.origin.x = (widthHUD - rectLabel.size.width) / 2;
+		rectLabel.origin.y = (heightHUD - rectLabel.size.height) / 2 + 25;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	toolbarHUD.bounds = CGRectMake(0, 0, hudWidth, hudHeight);
+	toolbarHUD.bounds = CGRectMake(0, 0, widthHUD, heightHUD);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CGFloat imageX = hudWidth/2;
-	CGFloat imageY = (labelStatus.text == nil) ? hudHeight/2 : 36;
+	CGFloat imageX = widthHUD/2;
+	CGFloat imageY = (labelStatus.text == nil) ? heightHUD/2 : 36;
 	imageView.center = spinner.center = CGPointMake(imageX, imageY);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	labelStatus.frame = labelRect;
+	labelStatus.frame = rectLabel;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -414,6 +375,7 @@
 		self.alpha = 1;
 		toolbarHUD.alpha = 0;
 		toolbarHUD.transform = CGAffineTransformScale(toolbarHUD.transform, 1.4, 1.4);
+
 		UIViewAnimationOptions options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
 			toolbarHUD.transform = CGAffineTransformScale(toolbarHUD.transform, 1/1.4, 1/1.4);
