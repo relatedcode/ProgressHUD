@@ -50,7 +50,7 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS (written in Objective-C
 [ProgressHUD dismiss];
 ```
 
-## SHEMES
+## CUSTOMIZATION
 
 You can customize the color, font and image options using the following methods:
 
