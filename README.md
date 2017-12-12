@@ -1,4 +1,4 @@
-[![iOS Messenger](http://relatedcode.com/github/header12.png)](http://github.com/relatedcode/Messenger)
+[![iOS Messenger](http://relatedcode.com/github/header13.png)](http://github.com/relatedcode/Messenger)
 
 ## WHAT'S NEW IN 2.51
 
