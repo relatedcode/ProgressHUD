@@ -22,7 +22,6 @@
 	UIActivityIndicatorView *spinner;
 	UIImageView *imageView;
 	UILabel *labelStatus;
-    NSNumber *labelStatusChanged;
 }
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -232,9 +231,6 @@
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	labelStatus.text = status;
-    @synchronized (labelStatusChanged) {
-        labelStatusChanged = @YES;
-    }
 	labelStatus.hidden = (status == nil) ? YES : NO;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	imageView.image = image;
@@ -415,10 +411,6 @@ static NSMutableDictionary *contentDic;
 {
     @autoreleasepool
     {
-        @synchronized (labelStatusChanged) {
-            labelStatusChanged = @NO;
-        }
-        
         NSString *content;
         
         @synchronized (contentDic) {
@@ -445,8 +437,6 @@ static NSMutableDictionary *contentDic;
 #pragma clang diagnostic ignored"-Warc-retain-cycles"
             NSString *labelStr = objc_getAssociatedObject(self, (__bridge const void *)callback);
 #pragma clang diagnostic pop
-            
-            NSLog(@"la : %@ contentDic : %@",labelStr,contentDic);
             
             @synchronized (contentDic) {
                 
