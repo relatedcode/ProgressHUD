@@ -11,6 +11,8 @@
 
 #import "ProgressHUD.h"
 
+#import <objc/runtime.h>
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ProgressHUD()
 {
@@ -20,6 +22,7 @@
 	UIActivityIndicatorView *spinner;
 	UIImageView *imageView;
 	UILabel *labelStatus;
+    NSNumber *labelStatusChanged;
 }
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -229,6 +232,9 @@
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	labelStatus.text = status;
+    @synchronized (labelStatusChanged) {
+        labelStatusChanged = @YES;
+    }
 	labelStatus.hidden = (status == nil) ? YES : NO;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	imageView.image = image;
@@ -403,12 +409,68 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+static NSMutableDictionary *contentDic;
 - (void)timedHide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSTimeInterval delay = labelStatus.text.length * 0.04 + 0.5;
-	dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
-	dispatch_after(time, dispatch_get_main_queue(), ^(void){ [self hudHide]; });
+    @autoreleasepool
+    {
+        @synchronized (labelStatusChanged) {
+            labelStatusChanged = @NO;
+        }
+        
+        NSString *content;
+        
+        @synchronized (contentDic) {
+            if (contentDic == nil) contentDic = [NSMutableDictionary dictionary];
+            content = labelStatus.text.length == 0 ? @"" : labelStatus.text;
+            NSNumber *value = [contentDic valueForKey:content];
+            if (value){
+                NSInteger num = [value integerValue] + 1;
+                value = [NSNumber numberWithInteger:num];
+                [contentDic setValue:value forKey:content];
+            }else {
+                [contentDic setValue:[NSNumber numberWithInteger:1] forKey:content];
+            }
+        }
+        
+        double length = labelStatus.text.length;
+        NSTimeInterval delay = length * 0.04 + 2;
+        
+        if (delay > 5) delay = 5;
+
+        __block dispatch_block_t callback = ^(void){
+            
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Warc-retain-cycles"
+            NSString *labelStr = objc_getAssociatedObject(self, (__bridge const void *)callback);
+#pragma clang diagnostic pop
+            
+            NSLog(@"la : %@ contentDic : %@",labelStr,contentDic);
+            
+            @synchronized (contentDic) {
+                
+                NSNumber *value = [contentDic valueForKey:labelStr];
+                if (value && [value integerValue] == 1){
+                    NSString *currentContent = labelStatus.text.length == 0 ? @"" : labelStatus.text;
+                    if ([labelStr isEqualToString:currentContent]) [self hudHide];
+                    [contentDic removeObjectForKey:content];
+                    objc_setAssociatedObject(self, (__bridge const void *)(callback), nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
+                }else if (value && [value integerValue] > 1){
+                    NSInteger num = [value integerValue] - 1;
+                    value = [NSNumber numberWithInteger:num];
+                    [contentDic setValue:value forKey:content];
+                }else {
+                    [self hudHide];
+                }
+            }
+        };
+        
+        objc_setAssociatedObject(self, (__bridge const void *)(callback), content, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        
+        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+        dispatch_after(time, dispatch_get_main_queue(),callback);
+    }
 }
 
 @end
