@@ -11,20 +11,10 @@
 
 #import "ProgressHUD.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface ProgressHUD()
-{
-	UIWindow *window;
-	UIView *viewBackground;
-	UIToolbar *toolbarHUD;
-	UIActivityIndicatorView *spinner;
-	UIImageView *imageView;
-	UILabel *labelStatus;
-}
-@end
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-
 @implementation ProgressHUD
+
+@synthesize window, viewBackground, toolbarHUD, spinner, imageView, labelStatus, timer;
+@synthesize fontStatus, colorStatus, colorSpinner, colorHUD, colorBackground, imageSuccess, imageError;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (ProgressHUD *)shared
@@ -133,13 +123,13 @@
 #pragma mark - Property methods
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (void)statusFont:(UIFont *)font			{	[self shared].statusFont		= font;		}
-+ (void)statusColor:(UIColor *)color		{	[self shared].statusColor		= color;	}
-+ (void)spinnerColor:(UIColor *)color		{	[self shared].spinnerColor		= color;	}
-+ (void)hudColor:(UIColor *)color			{	[self shared].hudColor			= color;	}
-+ (void)backgroundColor:(UIColor *)color	{	[self shared].backgroundColor	= color;	}
-+ (void)imageSuccess:(UIImage *)image		{	[self shared].imageSuccess		= image;	}
-+ (void)imageError:(UIImage *)image			{	[self shared].imageError		= image;	}
++ (void)fontStatus:(UIFont *)font			{ [self shared].fontStatus		= font;	 }
++ (void)colorStatus:(UIColor *)color		{ [self shared].colorStatus		= color; }
++ (void)colorSpinner:(UIColor *)color		{ [self shared].colorSpinner	= color; }
++ (void)colorHUD:(UIColor *)color			{ [self shared].colorHUD		= color; }
++ (void)colorBackground:(UIColor *)color	{ [self shared].colorBackground	= color; }
++ (void)imageSuccess:(UIImage *)image		{ [self shared].imageSuccess	= image; }
++ (void)imageError:(UIImage *)image			{ [self shared].imageError		= image; }
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 #pragma mark -
@@ -150,22 +140,23 @@
 {
 	self = [super initWithFrame:[[UIScreen mainScreen] bounds]];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.statusFont			= [UIFont boldSystemFontOfSize:16];
-	self.statusColor		= [UIColor blackColor];
-	self.spinnerColor		= [UIColor grayColor];
-	self.hudColor			= [UIColor colorWithWhite:0.0 alpha:0.1];
-	self.backgroundColor	= [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2];
-	NSBundle *bundle		= [NSBundle bundleForClass:[self class]];
-	self.imageSuccess		= [UIImage imageNamed:@"ProgressHUD.bundle/progresshud-success" inBundle:bundle compatibleWithTraitCollection:nil];
-	self.imageError			= [UIImage imageNamed:@"ProgressHUD.bundle/progresshud-error" inBundle:bundle compatibleWithTraitCollection:nil];
+	UIColor *labelColor = [UIColor blackColor];
+	if (@available(iOS 13, *)) { labelColor = [UIColor labelColor]; }
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	fontStatus			= [UIFont boldSystemFontOfSize:16];
+	colorStatus			= labelColor;
+	colorSpinner		= labelColor;
+	colorHUD			= [UIColor grayColor];
+	colorBackground		= [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2];;
+	NSBundle *bundle	= [NSBundle bundleForClass:[self class]];
+	imageSuccess		= [UIImage imageNamed:@"ProgressHUD.bundle/progresshud-success" inBundle:bundle compatibleWithTraitCollection:nil];
+	imageError			= [UIImage imageNamed:@"ProgressHUD.bundle/progresshud-error" inBundle:bundle compatibleWithTraitCollection:nil];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	id<UIApplicationDelegate> delegate = [[UIApplication sharedApplication] delegate];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([delegate respondsToSelector:@selector(window)])
 		window = [delegate performSelector:@selector(window)];
-	else window = [[UIApplication sharedApplication] keyWindow];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	viewBackground = nil; toolbarHUD = nil; spinner = nil; imageView = nil; labelStatus = nil;
+	else window = [[[UIApplication sharedApplication] windows] firstObject];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.alpha = 0;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -182,7 +173,7 @@
 	{
 		toolbarHUD = [[UIToolbar alloc] initWithFrame:CGRectZero];
 		toolbarHUD.translucent = YES;
-		toolbarHUD.backgroundColor = self.hudColor;
+		toolbarHUD.backgroundColor = colorHUD;
 		toolbarHUD.layer.cornerRadius = 10;
 		toolbarHUD.layer.masksToBounds = YES;
 		[self registerNotifications];
@@ -193,7 +184,7 @@
 		if (interaction == NO)
 		{
 			viewBackground = [[UIView alloc] initWithFrame:window.frame];
-			viewBackground.backgroundColor = self.backgroundColor;
+			viewBackground.backgroundColor = colorBackground;
 			[window addSubview:viewBackground];
 			[viewBackground addSubview:toolbarHUD];
 		}
@@ -202,8 +193,10 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (spinner == nil)
 	{
-		spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-		spinner.color = self.spinnerColor;
+		UIActivityIndicatorViewStyle style = UIActivityIndicatorViewStyleWhiteLarge;
+		if (@available(iOS 13, *)) { style = UIActivityIndicatorViewStyleLarge; }
+		spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
+		spinner.color = colorSpinner;
 		spinner.hidesWhenStopped = YES;
 	}
 	if (spinner.superview == nil) [toolbarHUD addSubview:spinner];
@@ -217,8 +210,8 @@
 	if (labelStatus == nil)
 	{
 		labelStatus = [[UILabel alloc] initWithFrame:CGRectZero];
-		labelStatus.font = self.statusFont;
-		labelStatus.textColor = self.statusColor;
+		labelStatus.font = fontStatus;
+		labelStatus.textColor = colorStatus;
 		labelStatus.backgroundColor = [UIColor clearColor];
 		labelStatus.textAlignment = NSTextAlignmentCenter;
 		labelStatus.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
@@ -249,13 +242,9 @@
 - (void)registerNotifications
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:)
-												 name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIDeviceOrientationDidChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardWillHideNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardDidHideNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardWillShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardDidShowNotification object:nil];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -269,6 +258,8 @@
 	[spinner removeFromSuperview];			spinner = nil;
 	[toolbarHUD removeFromSuperview];		toolbarHUD = nil;
 	[viewBackground removeFromSuperview];	viewBackground = nil;
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if (timer != nil) { [timer invalidate]; timer = nil; }
 }
 
 #pragma mark -
@@ -328,7 +319,7 @@
 	CGPoint center = CGPointMake(screen.size.width/2, (screen.size.height-heightKeyboard)/2);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-		self->toolbarHUD.center = CGPointMake(center.x, center.y);
+		self.toolbarHUD.center = CGPointMake(center.x, center.y);
 	} completion:nil];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (viewBackground != nil) viewBackground.frame = window.frame;
@@ -370,6 +361,8 @@
 - (void)hudShow
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	if (timer != nil) [timer invalidate];
+
 	if (self.alpha == 0)
 	{
 		self.alpha = 1;
@@ -378,8 +371,8 @@
 
 		UIViewAnimationOptions options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
-			self->toolbarHUD.transform = CGAffineTransformScale(self->toolbarHUD.transform, 1/1.4, 1/1.4);
-			self->toolbarHUD.alpha = 1;
+			self.toolbarHUD.transform = CGAffineTransformScale(self.toolbarHUD.transform, 1/1.4, 1/1.4);
+			self.toolbarHUD.alpha = 1;
 		} completion:nil];
 	}
 }
@@ -392,8 +385,8 @@
 	{
 		UIViewAnimationOptions options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseIn;
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
-			self->toolbarHUD.transform = CGAffineTransformScale(self->toolbarHUD.transform, 0.7, 0.7);
-			self->toolbarHUD.alpha = 0;
+			self.toolbarHUD.transform = CGAffineTransformScale(self.toolbarHUD.transform, 0.7, 0.7);
+			self.toolbarHUD.alpha = 0;
 		}
 		completion:^(BOOL finished) {
 			[self hudDestroy];
@@ -407,8 +400,9 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	NSTimeInterval delay = labelStatus.text.length * 0.04 + 0.5;
-	dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
-	dispatch_after(time, dispatch_get_main_queue(), ^(void){ [self hudHide]; });
+	timer = [NSTimer scheduledTimerWithTimeInterval:delay repeats:NO block:^(NSTimer *timer) {
+		[self hudHide];
+	}];
 }
 
 @end

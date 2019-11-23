@@ -33,21 +33,29 @@
 
 #pragma mark - Property methods
 
-+ (void)statusFont:(UIFont *)font;
-+ (void)statusColor:(UIColor *)color;
-+ (void)spinnerColor:(UIColor *)color;
-+ (void)hudColor:(UIColor *)color;
-+ (void)backgroundColor:(UIColor *)color;
++ (void)fontStatus:(UIFont *)font;
++ (void)colorStatus:(UIColor *)color;
++ (void)colorSpinner:(UIColor *)color;
++ (void)colorHUD:(UIColor *)color;
++ (void)colorBackground:(UIColor *)color;
 + (void)imageSuccess:(UIImage *)image;
 + (void)imageError:(UIImage *)image;
 
 #pragma mark - Properties
 
-@property (strong, nonatomic) UIFont *statusFont;
-@property (strong, nonatomic) UIColor *statusColor;
-@property (strong, nonatomic) UIColor *spinnerColor;
-@property (strong, nonatomic) UIColor *hudColor;
-@property (strong, nonatomic) UIColor *backgroundColor;
+@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIView *viewBackground;
+@property (strong, nonatomic) UIToolbar *toolbarHUD;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UILabel *labelStatus;
+@property (strong, nonatomic) NSTimer *timer;
+
+@property (strong, nonatomic) UIFont *fontStatus;
+@property (strong, nonatomic) UIColor *colorStatus;
+@property (strong, nonatomic) UIColor *colorSpinner;
+@property (strong, nonatomic) UIColor *colorHUD;
+@property (strong, nonatomic) UIColor *colorBackground;
 @property (strong, nonatomic) UIImage *imageSuccess;
 @property (strong, nonatomic) UIImage *imageError;
 

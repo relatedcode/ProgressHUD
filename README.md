@@ -1,4 +1,4 @@
-## WHAT'S NEW IN 2.51
+## WHAT'S NEW IN 2.70
 
 - General improvements
 
