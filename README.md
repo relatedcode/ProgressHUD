@@ -24,9 +24,7 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS (written in Objective-C
 
 ## REQUIREMENTS
 
-- Xcode 6
-- iOS 8
-- ARC
+- iOS 10.0+
 
 ## USAGE
 
@@ -53,11 +51,11 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS (written in Objective-C
 You can customize the color, font and image options using the following methods:
 
 ```
-+ (void)statusFont:(UIFont *)font;
-+ (void)statusColor:(UIColor *)color;
-+ (void)spinnerColor:(UIColor *)color;
-+ (void)hudColor:(UIColor *)color;
-+ (void)backgroundColor:(UIColor *)color;
++ (void)fontStatus:(UIFont *)font;
++ (void)colorStatus:(UIColor *)color;
++ (void)colorSpinner:(UIColor *)color;
++ (void)colorHUD:(UIColor *)color;
++ (void)colorBackground:(UIColor *)color;
 + (void)imageSuccess:(UIImage *)image;
 + (void)imageError:(UIImage *)image;
 ```

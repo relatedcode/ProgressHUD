@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.source_files = 'ProgressHUD/ProgressHUD/ProgressHUD.{h,m}'
   s.resources    = 'ProgressHUD/ProgressHUD/ProgressHUD.bundle'
   s.requires_arc = true
-  s.ios.deployment_target  = '9.3'
+  s.ios.deployment_target  = '10.0'
 end
