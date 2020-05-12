@@ -1,3 +1,5 @@
+<a href='https://github.com/relatedcode/appdesignkit'><img src="https://relatedcode.com/github/header15.png" width="880"></a>
+
 ## WHAT'S NEW IN 2.70
 
 - General improvements
