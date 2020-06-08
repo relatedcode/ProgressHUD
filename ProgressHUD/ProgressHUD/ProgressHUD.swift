@@ -88,7 +88,7 @@ extension AlertIcon {
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-extension ProgressHUD {
+public extension ProgressHUD {
 
 	class var animationType: AnimationType {
 		get { shared.animationType }
@@ -137,7 +137,7 @@ extension ProgressHUD {
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-extension ProgressHUD {
+public extension ProgressHUD {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func dismiss() {
@@ -227,7 +227,7 @@ extension ProgressHUD {
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-class ProgressHUD: UIView {
+public class ProgressHUD: UIView {
 
 	private var mainWindow: UIWindow!
 	private var viewBackground: UIView!
