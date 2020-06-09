@@ -6,12 +6,12 @@ let package = Package(
     name: "ProgressHUD",
     products: [
         .library(
-            name: "app",
-            targets: ["app"]),
+            name: "ProgressHUD",
+            targets: ["ProgressHUD"]),
     ],
     targets: [
         .target(
-            name: "app",
+            name: "ProgressHUD",
             dependencies: []),
     ]
 )
