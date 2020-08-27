@@ -356,8 +356,8 @@ public class ProgressHUD: UIView {
 			toolbarHUD?.layer.masksToBounds = true
 			viewBackground?.addSubview(toolbarHUD!)
 		}
-
-		toolbarHUD?.backgroundColor = colorHUD
+    let imageHUD = UIImage(color: colorHUD)
+    toolbarHUD?.setBackgroundImage(imageHUD, forToolbarPosition: .any, barMetrics: .default)		
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1267,4 +1267,17 @@ private class ProgressView: UIView {
 		progress = value
 		labelPercentage.text = "\(Int(value*100))%"
 	}
+}
+
+private extension UIImage {
+  convenience init(color: UIColor) {
+    let size = CGSize(width: 1, height: 1)
+    UIGraphicsBeginImageContextWithOptions(size, false, 1)
+    color.set()
+    let ctx = UIGraphicsGetCurrentContext()!
+    ctx.fill(CGRect(origin: .zero, size: size))
+    let image = UIGraphicsGetImageFromCurrentImageContext()!
+    UIGraphicsEndImageContext()
+    self.init(data: image.pngData()!)!
+  }
 }
