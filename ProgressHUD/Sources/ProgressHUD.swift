@@ -532,7 +532,8 @@ public class ProgressHUD: UIView {
 			heightKeyboard = keyboardHeight()
 		}
 
-		let screen = UIScreen.main.bounds
+		let mainWindow = UIApplication.shared.windows.first ?? UIWindow()
+		let screen = mainWindow.bounds
 		let center = CGPoint(x: screen.size.width/2, y: (screen.size.height-heightKeyboard)/2)
 
 		UIView.animate(withDuration: animationDuration, delay: 0, options: .allowUserInteraction, animations: {
