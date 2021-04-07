@@ -51,7 +51,6 @@
 				299876D9248FCB290025E297 /* Sources */,
 				29D29EF31D9A59E4006CA074 /* app */,
 				29D29EF21D9A59E4006CA074 /* Products */,
-				BD5925BEFAEDA190E57A7F14 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,13 +73,6 @@
 				295B8480248C1C5B003E8AE6 /* ViewController.xib */,
 			);
 			path = app;
-			sourceTree = "<group>";
-		};
-		BD5925BEFAEDA190E57A7F14 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,7 +306,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 13.4;
+				MARKETING_VERSION = 13.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -344,7 +336,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 13.4;
+				MARKETING_VERSION = 13.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
