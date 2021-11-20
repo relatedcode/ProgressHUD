@@ -50,7 +50,11 @@ ProgressHUD.show(icon: .heart)
 ```
 
 ```swift
-ProgressHUD.dismiss()
+ProgressHUD.dismiss() // Have animation hide
+```
+
+```swift
+ProgressHUD.dismissImmediately() // Have no animation hide for show error after that.
 ```
 
 ## REQUIREMENTS
