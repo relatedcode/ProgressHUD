@@ -1,8 +1,13 @@
-<img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/001.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/002.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/003.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/004.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/005.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/006.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/007.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/008.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/009.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/010.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/011.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/011.png" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/012.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/012.png" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/013.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/013.png" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/014.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/014.png" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/015.gif" width="80"> <img src="https://github.com/relatedcode/ProgressHUD/raw/master/Images/015.png" width="80">
+<a href="https://github.com/relatedcode/Messenger"><img src="https://related.chat/github/header31.png" width="880"></a>
 
-## WHAT'S NEW IN 13.4
+---
 
-- New features + complete Swift refactoring.
+<img src="https://related.chat/hud/001.gif" width="80"> <img src="https://related.chat/hud/002.gif" width="80"> <img src="https://related.chat/hud/003.gif" width="80"> <img src="https://related.chat/hud/004.gif" width="80"> <img src="https://related.chat/hud/005.gif" width="80"> <img src="https://related.chat/hud/006.gif" width="80"> <img src="https://related.chat/hud/007.gif" width="80"> <img src="https://related.chat/hud/008.gif" width="80"> <img src="https://related.chat/hud/009.gif" width="80"> <img src="https://related.chat/hud/010.gif" width="80"> <img src="https://related.chat/hud/011.gif" width="80"> <img src="https://related.chat/hud/011.png" width="80"> <img src="https://related.chat/hud/012.gif" width="80"> <img src="https://related.chat/hud/012.png" width="80"> <img src="https://related.chat/hud/013.gif" width="80"> <img src="https://related.chat/hud/013.png" width="80"> <img src="https://related.chat/hud/014.gif" width="80"> <img src="https://related.chat/hud/014.png" width="80"> <img src="https://related.chat/hud/015.gif" width="80"> <img src="https://related.chat/hud/015.png" width="80">
+
+## WHAT'S NEW IN 13.5 and 13.6
+
+- Bugfix related to iPad split screen
+- Bugfix related to showProgress
 
 ## OVERVIEW
 
@@ -142,15 +147,11 @@ public enum AlertIcon {
 }
 ```
 
-## CONTACT
-
-Do you have any questions or ideas? My email is info@relatedcode.com or you can find some more info at [relatedcode.com](https://relatedcode.com)
-
 ## LICENSE
 
 MIT License
 
-Copyright (c) 2020 Related Code
+Copyright (c) 2021 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

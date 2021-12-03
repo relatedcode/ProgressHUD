@@ -148,15 +148,25 @@ public extension ProgressHUD {
   class func dismiss() {
 
     DispatchQueue.main.async {
+      shared.setupBackground(true)
       shared.hudHide()
     }
   }
-
+  
   //---------------------------------------------------------------------------------------------------------------------------------------------
   class func show(_ status: String? = nil, interaction: Bool = allowInteraction) {
 
     DispatchQueue.main.async {
       shared.setup(status: status, hide: false, interaction: interaction)
+    }
+  }
+
+  //---------------------------------------------------------------------------------------------------------------------------------------------
+  /// Disables User Interaction by adding invisible HUD with allowInteraction to false
+  class func disableUserInteraction() {
+
+    DispatchQueue.main.async {
+      shared.setupBackground(false)
     }
   }
 

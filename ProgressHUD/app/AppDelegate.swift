@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code - http://relatedcode.com
+// Copyright (c) 2021 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,13 +11,13 @@
 
 import UIKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
 		window = UIWindow(frame: UIScreen.main.bounds)
@@ -32,30 +32,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window?.makeKeyAndVisible()
 
 		return true
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func applicationWillResignActive(_ application: UIApplication) {
-
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func applicationDidEnterBackground(_ application: UIApplication) {
-
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func applicationWillEnterForeground(_ application: UIApplication) {
-
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func applicationDidBecomeActive(_ application: UIApplication) {
-
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func applicationWillTerminate(_ application: UIApplication) {
-
 	}
 }
