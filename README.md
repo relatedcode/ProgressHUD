@@ -2,8 +2,8 @@
 
 ## WHAT'S NEW IN 13.5 and 13.6
 
-- Bugfix related to iPad split screen
-- Bugfix related to showProgress
+- Bugfix related to iPad split screen.
+- Bugfix related to showProgress.
 
 ## OVERVIEW
 
@@ -13,7 +13,7 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS.
 
 ### CocoaPods:
 
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate `ProgressHUD` into your Xcode project using CocoaPods, specify it in your `Podfile`:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate the `ProgressHUD` into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 pod 'ProgressHUD'
@@ -93,7 +93,7 @@ ProgressHUD.imageSuccess = UIImage(named: "success.png")
 ProgressHUD.imageError = UIImage(named: "error.png")
 ```
 
-The list of predefined animation and icon types:
+The list of predefined animation and icon types are as follows:
 
 ```swift
 public enum AnimationType {
