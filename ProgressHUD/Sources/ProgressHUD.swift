@@ -125,6 +125,11 @@ public extension ProgressHUD {
 		set { shared.fontStatus = newValue }
 	}
 
+	class var hapticsEnabled: Bool {
+		get { shared.hapticGenerator != nil }
+		set { shared.hapticGenerator = newValue ? UINotificationFeedbackGenerator() : nil }
+	}
+
 	class var imageSuccess: UIImage {
 		get { shared.imageSuccess }
 		set { shared.imageSuccess = newValue }
@@ -148,29 +153,29 @@ public extension ProgressHUD {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func show(_ status: String? = nil, interaction: Bool = true) {
+	class func show(_ status: String? = nil, interaction: Bool = true, haptic: UINotificationFeedbackGenerator.FeedbackType? = nil) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, hide: false, interaction: interaction)
+			shared.setup(status: status, hide: false, interaction: interaction, haptic: haptic)
 		}
 	}
 
 	// MARK: -
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func show(_ status: String? = nil, icon: AlertIcon, interaction: Bool = true) {
+	class func show(_ status: String? = nil, icon: AlertIcon, interaction: Bool = true, haptic: UINotificationFeedbackGenerator.FeedbackType? = nil) {
 
 		let image = icon.image?.withTintColor(shared.colorAnimation, renderingMode: .alwaysOriginal)
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, staticImage: image, hide: true, interaction: interaction)
+			shared.setup(status: status, staticImage: image, hide: true, interaction: interaction, haptic: haptic)
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func show(_ status: String? = nil, icon animatedIcon: AnimatedIcon, interaction: Bool = true) {
+	class func show(_ status: String? = nil, icon animatedIcon: AnimatedIcon, interaction: Bool = true, haptic: UINotificationFeedbackGenerator.FeedbackType? = nil) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, animatedIcon: animatedIcon, hide: true, interaction: interaction)
+			shared.setup(status: status, animatedIcon: animatedIcon, hide: true, interaction: interaction, haptic: haptic)
 		}
 	}
 
@@ -179,7 +184,7 @@ public extension ProgressHUD {
 	class func showSuccess(_ status: String? = nil, image: UIImage? = nil, interaction: Bool = true) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, staticImage: image ?? shared.imageSuccess, hide: true, interaction: interaction)
+			shared.setup(status: status, staticImage: image ?? shared.imageSuccess, hide: true, interaction: interaction, haptic: .success)
 		}
 	}
 
@@ -187,7 +192,7 @@ public extension ProgressHUD {
 	class func showError(_ status: String? = nil, image: UIImage? = nil, interaction: Bool = true) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, staticImage: image ?? shared.imageError, hide: true, interaction: interaction)
+			shared.setup(status: status, staticImage: image ?? shared.imageError, hide: true, interaction: interaction, haptic: .error)
 		}
 	}
 
@@ -196,7 +201,7 @@ public extension ProgressHUD {
 	class func showSucceed(_ status: String? = nil, interaction: Bool = true) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, animatedIcon: .succeed, hide: true, interaction: interaction)
+			shared.setup(status: status, animatedIcon: .succeed, hide: true, interaction: interaction, haptic: .success)
 		}
 	}
 
@@ -204,7 +209,7 @@ public extension ProgressHUD {
 	class func showFailed(_ status: String? = nil, interaction: Bool = true) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, animatedIcon: .failed, hide: true, interaction: interaction)
+			shared.setup(status: status, animatedIcon: .failed, hide: true, interaction: interaction, haptic: .error)
 		}
 	}
 
@@ -212,7 +217,7 @@ public extension ProgressHUD {
 	class func showAdded(_ status: String? = nil, interaction: Bool = true) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, animatedIcon: .added, hide: true, interaction: interaction)
+			shared.setup(status: status, animatedIcon: .added, hide: true, interaction: interaction, haptic: .success)
 		}
 	}
 
@@ -249,6 +254,8 @@ public class ProgressHUD: UIView {
 	private var timer: Timer?
 
 	private var animationType	= AnimationType.systemActivityIndicator
+
+	private var hapticGenerator: UINotificationFeedbackGenerator? = UINotificationFeedbackGenerator()
 
 	private var colorBackground	= UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
 	private var colorHUD		= UIColor.systemGray
@@ -294,12 +301,14 @@ public class ProgressHUD: UIView {
 
 	// MARK: -
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func setup(status: String? = nil, progress: CGFloat? = nil, animatedIcon: AnimatedIcon? = nil, staticImage: UIImage? = nil, hide: Bool, interaction: Bool) {
+	private func setup(status: String? = nil, progress: CGFloat? = nil, animatedIcon: AnimatedIcon? = nil, staticImage: UIImage? = nil, hide: Bool, interaction: Bool, haptic: UINotificationFeedbackGenerator.FeedbackType? = nil) {
 
 		setupNotifications()
 		setupBackground(interaction)
 		setupToolbar()
 		setupLabel(status)
+
+		if haptic != nil { hapticGenerator?.prepare() }
 
 		if (progress == nil) && (animatedIcon == nil) && (staticImage == nil) { setupAnimation()				}
 		if (progress != nil) && (animatedIcon == nil) && (staticImage == nil) { setupProgress(progress)			}
@@ -309,7 +318,7 @@ public class ProgressHUD: UIView {
 		setupSize()
 		setupPosition()
 
-		hudShow()
+		hudShow(haptic: haptic)
 
 		if (hide) {
 			let text = labelStatus?.text ?? ""
@@ -568,7 +577,7 @@ public class ProgressHUD: UIView {
 
 	// MARK: -
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func hudShow() {
+	private func hudShow(haptic: UINotificationFeedbackGenerator.FeedbackType?) {
 
 		timer?.invalidate()
 		timer = nil
@@ -581,7 +590,11 @@ public class ProgressHUD: UIView {
 			UIView.animate(withDuration: 0.15, delay: 0, options: [.allowUserInteraction, .curveEaseIn], animations: {
 				self.toolbarHUD?.transform = CGAffineTransform(scaleX: 1/1.4, y: 1/1.4)
 				self.toolbarHUD?.alpha = 1
-			}, completion: nil)
+			}) { _ in
+				self.play(haptic: haptic)
+			}
+		} else {
+			play(haptic: haptic)
 		}
 	}
 
@@ -615,6 +628,13 @@ public class ProgressHUD: UIView {
 
 		timer?.invalidate()
 		timer = nil
+	}
+
+	// MARK: - Haptics
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	private func play(haptic: UINotificationFeedbackGenerator.FeedbackType?) {
+		guard let haptic = haptic else { return }
+		hapticGenerator?.notificationOccurred(haptic)
 	}
 
 	// MARK: - Animation
@@ -1269,3 +1289,4 @@ private class ProgressView: UIView {
 		labelPercentage.text = "\(Int(value*100))%"
 	}
 }
+

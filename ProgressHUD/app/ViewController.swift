@@ -148,7 +148,7 @@ extension ViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-		if (section == 0) { return 3				}
+		if (section == 0) { return 4				}
 		if (section == 1) { return actions1.count	}
 		if (section == 2) { return types.count		}
 		if (section == 3) { return actions2.count	}
@@ -167,6 +167,7 @@ extension ViewController {
 
 		if (indexPath.section == 0) && (indexPath.row == 1) { return self.tableView(tableView, cellWithText: "Dismiss Keyboard")	}
 		if (indexPath.section == 0) && (indexPath.row == 2) { return self.tableView(tableView, cellWithText: "Dismiss HUD")			}
+		if (indexPath.section == 0) && (indexPath.row == 3) { return self.tableView(tableView, cellWithText: ProgressHUD.hapticsEnabled ? "Disable Haptics" : "Enable Haptics")            }
 
 		if (indexPath.section == 1) { return self.tableView(tableView, cellWithText: actions1[indexPath.row])	}
 		if (indexPath.section == 2) { return self.tableView(tableView, cellWithText: types[indexPath.row])		}
@@ -212,9 +213,11 @@ extension ViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
 		tableView.deselectRow(at: indexPath, animated: true)
+		defer { tableView.reloadRows(at: [indexPath], with: .automatic)}
 
 		if (indexPath.section == 0) && (indexPath.row == 1) { view.endEditing(true) 			}
 		if (indexPath.section == 0) && (indexPath.row == 2) { ProgressHUD.dismiss()				}
+		if (indexPath.section == 0) && (indexPath.row == 3) { ProgressHUD.hapticsEnabled.toggle()  }
 
 		if (indexPath.section == 1) {
 			if (indexPath.row == 0) { ProgressHUD.show();			status = nil				}
