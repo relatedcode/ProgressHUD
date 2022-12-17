@@ -1,5 +1,10 @@
 <img src="https://related.chat/hud/001.gif" width="80"> <img src="https://related.chat/hud/002.gif" width="80"> <img src="https://related.chat/hud/003.gif" width="80"> <img src="https://related.chat/hud/004.gif" width="80"> <img src="https://related.chat/hud/005.gif" width="80"> <img src="https://related.chat/hud/006.gif" width="80"> <img src="https://related.chat/hud/007.gif" width="80"> <img src="https://related.chat/hud/008.gif" width="80"> <img src="https://related.chat/hud/009.gif" width="80"> <img src="https://related.chat/hud/010.gif" width="80"> <img src="https://related.chat/hud/011.gif" width="80"> <img src="https://related.chat/hud/011.png" width="80"> <img src="https://related.chat/hud/012.gif" width="80"> <img src="https://related.chat/hud/012.png" width="80"> <img src="https://related.chat/hud/013.gif" width="80"> <img src="https://related.chat/hud/013.png" width="80"> <img src="https://related.chat/hud/014.gif" width="80"> <img src="https://related.chat/hud/014.png" width="80"> <img src="https://related.chat/hud/015.gif" width="80"> <img src="https://related.chat/hud/015.png" width="80">
 
+## WHAT'S NEW IN 13.6.2
+
+- We have the optional `delay:` parameter to set the timeout.
+- We have the `.remove()` function to dismiss the HUD immediately.
+
 ## WHAT'S NEW IN 13.5 and 13.6
 
 - Bugfix related to iPad split screen.
@@ -30,7 +35,15 @@ ProgressHUD.show("Some text...")
 ```
 
 ```swift
+ProgressHUD.show("Some text...", interaction: false)
+```
+
+```swift
 ProgressHUD.showSucceed()
+```
+
+```swift
+ProgressHUD.showSucceed("Some text...", delay: 1.5)
 ```
 
 ```swift
@@ -38,11 +51,23 @@ ProgressHUD.showFailed()
 ```
 
 ```swift
-ProgressHUD.showProgress(0.42)
+ProgressHUD.showFailed("Some text...")
+```
+
+```swift
+ProgressHUD.showProgress(0.15)
+```
+
+```swift
+ProgressHUD.showProgress("Loading...", 0.42)
 ```
 
 ```swift
 ProgressHUD.show(icon: .heart)
+```
+
+```swift
+ProgressHUD.show("Some text...", icon: .privacy, delay: 2.0)
 ```
 
 ```swift
