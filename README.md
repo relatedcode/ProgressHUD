@@ -74,6 +74,10 @@ ProgressHUD.show("Some text...", icon: .privacy, delay: 2.0)
 ProgressHUD.dismiss()
 ```
 
+```swift
+ProgressHUD.remove()
+```
+
 ## REQUIREMENTS
 
 - iOS 13.0+
