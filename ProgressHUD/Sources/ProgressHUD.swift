@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Related Code - https://relatedcode.com
+// Copyright (c) 2022 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,6 +11,7 @@
 
 import UIKit
 
+// MARK: -
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 public enum AnimationType {
 
@@ -59,6 +60,7 @@ public enum AlertIcon {
 	case search
 }
 
+// MARK: -
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 extension AlertIcon {
 
@@ -87,6 +89,7 @@ extension AlertIcon {
 	}
 }
 
+// MARK: -
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 public extension ProgressHUD {
 
@@ -136,6 +139,7 @@ public extension ProgressHUD {
 	}
 }
 
+// MARK: -
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 public extension ProgressHUD {
 
@@ -143,7 +147,15 @@ public extension ProgressHUD {
 	class func dismiss() {
 
 		DispatchQueue.main.async {
-			shared.hudHide()
+			shared.dismissHUD()
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func remove() {
+
+		DispatchQueue.main.async {
+			shared.removeHUD()
 		}
 	}
 
@@ -155,68 +167,67 @@ public extension ProgressHUD {
 		}
 	}
 
-	// MARK: -
+	// MARK: - Animated Icon
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func show(_ status: String? = nil, icon: AlertIcon, interaction: Bool = true) {
+	class func show(_ status: String? = nil, icon: AnimatedIcon, interaction: Bool = true, delay: TimeInterval? = nil) {
+
+		DispatchQueue.main.async {
+			shared.setup(status: status, animatedIcon: icon, hide: true, interaction: interaction, delay: delay)
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func showSucceed(_ status: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+
+		DispatchQueue.main.async {
+			shared.setup(status: status, animatedIcon: .succeed, hide: true, interaction: interaction, delay: delay)
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func showFailed(_ status: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+
+		DispatchQueue.main.async {
+			shared.setup(status: status, animatedIcon: .failed, hide: true, interaction: interaction, delay: delay)
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func showAdded(_ status: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+
+		DispatchQueue.main.async {
+			shared.setup(status: status, animatedIcon: .added, hide: true, interaction: interaction, delay: delay)
+		}
+	}
+
+	// MARK: - Static Image
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func show(_ status: String? = nil, icon: AlertIcon, interaction: Bool = true, delay: TimeInterval? = nil) {
 
 		let image = icon.image?.withTintColor(shared.colorAnimation, renderingMode: .alwaysOriginal)
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, staticImage: image, hide: true, interaction: interaction)
+			shared.setup(status: status, staticImage: image, hide: true, interaction: interaction, delay: delay)
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func show(_ status: String? = nil, icon animatedIcon: AnimatedIcon, interaction: Bool = true) {
+	class func showSuccess(_ status: String? = nil, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, animatedIcon: animatedIcon, hide: true, interaction: interaction)
-		}
-	}
-
-	// MARK: -
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func showSuccess(_ status: String? = nil, image: UIImage? = nil, interaction: Bool = true) {
-
-		DispatchQueue.main.async {
-			shared.setup(status: status, staticImage: image ?? shared.imageSuccess, hide: true, interaction: interaction)
+			shared.setup(status: status, staticImage: image ?? shared.imageSuccess, hide: true, interaction: interaction, delay: delay)
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func showError(_ status: String? = nil, image: UIImage? = nil, interaction: Bool = true) {
+	class func showError(_ status: String? = nil, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, staticImage: image ?? shared.imageError, hide: true, interaction: interaction)
+			shared.setup(status: status, staticImage: image ?? shared.imageError, hide: true, interaction: interaction, delay: delay)
 		}
 	}
 
-	// MARK: -
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func showSucceed(_ status: String? = nil, interaction: Bool = true) {
-
-		DispatchQueue.main.async {
-			shared.setup(status: status, animatedIcon: .succeed, hide: true, interaction: interaction)
-		}
-	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func showFailed(_ status: String? = nil, interaction: Bool = true) {
-
-		DispatchQueue.main.async {
-			shared.setup(status: status, animatedIcon: .failed, hide: true, interaction: interaction)
-		}
-	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func showAdded(_ status: String? = nil, interaction: Bool = true) {
-
-		DispatchQueue.main.async {
-			shared.setup(status: status, animatedIcon: .added, hide: true, interaction: interaction)
-		}
-	}
-
-	// MARK: -
+	// MARK: - Progress
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func showProgress(_ progress: CGFloat, interaction: Bool = false) {
 
@@ -234,6 +245,7 @@ public extension ProgressHUD {
 	}
 }
 
+// MARK: -
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 public class ProgressHUD: UIView {
 
@@ -294,7 +306,8 @@ public class ProgressHUD: UIView {
 
 	// MARK: -
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func setup(status: String? = nil, progress: CGFloat? = nil, animatedIcon: AnimatedIcon? = nil, staticImage: UIImage? = nil, hide: Bool, interaction: Bool) {
+	private func setup(status: String? = nil, progress: CGFloat? = nil, animatedIcon: AnimatedIcon? = nil, staticImage: UIImage? = nil,
+					   hide: Bool, interaction: Bool, delay: TimeInterval? = nil) {
 
 		setupNotifications()
 		setupBackground(interaction)
@@ -309,13 +322,13 @@ public class ProgressHUD: UIView {
 		setupSize()
 		setupPosition()
 
-		hudShow()
+		displayHUD()
 
 		if (hide) {
 			let text = labelStatus?.text ?? ""
-			let delay = Double(text.count) * 0.03 + 1.25
+			let delay = delay ?? Double(text.count) * 0.03 + 1.25
 			timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { _ in
-				self.hudHide()
+				self.dismissHUD()
 			}
 		}
 	}
@@ -568,12 +581,12 @@ public class ProgressHUD: UIView {
 
 	// MARK: -
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func hudShow() {
+	private func displayHUD() {
 
 		timer?.invalidate()
 		timer = nil
 
-		if (self.alpha != 1) {
+		if (self.alpha == 0) {
 			self.alpha = 1
 			toolbarHUD?.alpha = 0
 			toolbarHUD?.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
@@ -586,21 +599,31 @@ public class ProgressHUD: UIView {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func hudHide() {
+	private func dismissHUD() {
 
 		if (self.alpha == 1) {
 			UIView.animate(withDuration: 0.15, delay: 0, options: [.allowUserInteraction, .curveEaseIn], animations: {
 				self.toolbarHUD?.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
 				self.toolbarHUD?.alpha = 0
 			}, completion: { isFinished in
-				self.hudDestroy()
+				self.destroyHUD()
 				self.alpha = 0
 			})
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func hudDestroy() {
+	private func removeHUD() {
+
+		if (self.alpha == 1) {
+			toolbarHUD?.alpha = 0
+			destroyHUD()
+			self.alpha = 0
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	private func destroyHUD() {
 
 		NotificationCenter.default.removeObserver(self)
 
