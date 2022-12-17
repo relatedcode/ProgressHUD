@@ -84,7 +84,7 @@ ProgressHUD.remove()
 
 ## CUSTOMIZATION
 
-You can customize the color, font, image, animation type, and other some options using the following methods:
+You can customize the color, font, image, animation type, and some other options by using the following methods:
 
 ```swift
 ProgressHUD.animationType = .circleStrokeSpin
