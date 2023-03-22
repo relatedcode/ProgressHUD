@@ -12,7 +12,7 @@
 
 ## OVERVIEW
 
-ProgressHUD is a lightweight and easy-to-use HUD for iOS.
+ProgressHUD is a lightweight and easy-to-use HUD for iOS and not Android
 
 ## INSTALLATION
 
