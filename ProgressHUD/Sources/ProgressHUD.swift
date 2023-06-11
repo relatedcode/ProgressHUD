@@ -160,10 +160,10 @@ public extension ProgressHUD {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func show(_ status: String? = nil, interaction: Bool = true) {
+    class func show(_ status: String? = nil, showOnlyText: Bool = false, interaction: Bool = true) {
 
 		DispatchQueue.main.async {
-			shared.setup(status: status, hide: false, interaction: interaction)
+			shared.setup(status: status, showOnlyText: showOnlyText, hide: false, interaction: interaction)
 		}
 	}
 
@@ -252,6 +252,8 @@ public class ProgressHUD: UIView {
 	private var viewBackground: UIView?
 	private var toolbarHUD: UIToolbar?
 	private var labelStatus: UILabel?
+    private var showOnlyText: Bool = false
+    
 
 	private var viewProgress: ProgressView?
 	private var viewAnimation: UIView?
@@ -306,19 +308,24 @@ public class ProgressHUD: UIView {
 
 	// MARK: -
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func setup(status: String? = nil, progress: CGFloat? = nil, animatedIcon: AnimatedIcon? = nil, staticImage: UIImage? = nil,
+    private func setup(status: String? = nil, showOnlyText: Bool = false, progress: CGFloat? = nil, animatedIcon: AnimatedIcon? = nil, staticImage: UIImage? = nil,
 					   hide: Bool, interaction: Bool, delay: TimeInterval? = nil) {
 
+        self.showOnlyText = showOnlyText
 		setupNotifications()
 		setupBackground(interaction)
 		setupToolbar()
 		setupLabel(status)
 
-		if (progress == nil) && (animatedIcon == nil) && (staticImage == nil) { setupAnimation()				}
-		if (progress != nil) && (animatedIcon == nil) && (staticImage == nil) { setupProgress(progress)			}
-		if (progress == nil) && (animatedIcon != nil) && (staticImage == nil) { setupAnimatedIcon(animatedIcon)	}
-		if (progress == nil) && (animatedIcon == nil) && (staticImage != nil) { setupStaticImage(staticImage)	}
-
+        if showOnlyText {
+            removeAllIcon()
+        } else {
+            if (progress == nil) && (animatedIcon == nil) && (staticImage == nil) { setupAnimation()                }
+            if (progress != nil) && (animatedIcon == nil) && (staticImage == nil) { setupProgress(progress)            }
+            if (progress == nil) && (animatedIcon != nil) && (staticImage == nil) { setupAnimatedIcon(animatedIcon)    }
+            if (progress == nil) && (animatedIcon == nil) && (staticImage != nil) { setupStaticImage(staticImage)    }
+        }
+		
 		setupSize()
 		setupPosition()
 
@@ -470,6 +477,13 @@ public class ProgressHUD: UIView {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
+    private func removeAllIcon() {
+        viewProgress?.removeFromSuperview()
+        viewAnimation?.removeFromSuperview()
+        staticImageView?.removeFromSuperview()
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupStaticImage(_ staticImage: UIImage?) {
 
 		viewProgress?.removeFromSuperview()
@@ -501,12 +515,13 @@ public class ProgressHUD: UIView {
 			var rectLabel = text.boundingRect(with: sizeMax, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
 
 			width = ceil(rectLabel.size.width) + 60
-			height = ceil(rectLabel.size.height) + 120
+            
+            height = showOnlyText ? ceil(rectLabel.size.height) + 30 : ceil(rectLabel.size.height) + 120
 
 			if (width < 120) { width = 120 }
 
 			rectLabel.origin.x = (width - rectLabel.size.width) / 2
-			rectLabel.origin.y = (height - rectLabel.size.height) / 2 + 45
+            rectLabel.origin.y = showOnlyText ? (height - rectLabel.size.height) / 2 : (height - rectLabel.size.height) / 2 + 45
 
 			labelStatus?.frame = rectLabel
 		}

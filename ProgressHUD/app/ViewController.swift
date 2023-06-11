@@ -45,6 +45,7 @@ class ViewController: UITableViewController {
 
 		actions1.append("Animation - No text")
 		actions1.append("Animation - Short text")
+        actions1.append("No Animation - Only Short text")
 		actions1.append("Animation - Longer text")
 
 		types.append("System Activity Indicator")
@@ -220,8 +221,9 @@ extension ViewController {
 
 		if (indexPath.section == 1) {
 			if (indexPath.row == 0) { ProgressHUD.show();			status = nil				}
-			if (indexPath.row == 1) { ProgressHUD.show(textShort);	status = textShort			}
-			if (indexPath.row == 2) { ProgressHUD.show(textLong);	status = textLong			}
+            if (indexPath.row == 1) { ProgressHUD.show(textShort);	status = textShort			}
+            if (indexPath.row == 2) { ProgressHUD.show(textShort, showOnlyText: true);    status = textShort            }
+			if (indexPath.row == 3) { ProgressHUD.show(textLong);	status = textLong			}
 		}
 
 		if (indexPath.section == 2)	{
