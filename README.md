@@ -4,6 +4,10 @@
 
 <img src="https://related.chat/hud/001.gif" width="80"> <img src="https://related.chat/hud/002.gif" width="80"> <img src="https://related.chat/hud/003.gif" width="80"> <img src="https://related.chat/hud/004.gif" width="80"> <img src="https://related.chat/hud/005.gif" width="80"> <img src="https://related.chat/hud/006.gif" width="80"> <img src="https://related.chat/hud/007.gif" width="80"> <img src="https://related.chat/hud/008.gif" width="80"> <img src="https://related.chat/hud/009.gif" width="80"> <img src="https://related.chat/hud/010.gif" width="80"> <img src="https://related.chat/hud/011.gif" width="80"> <img src="https://related.chat/hud/011.png" width="80"> <img src="https://related.chat/hud/012.gif" width="80"> <img src="https://related.chat/hud/012.png" width="80"> <img src="https://related.chat/hud/013.gif" width="80"> <img src="https://related.chat/hud/013.png" width="80"> <img src="https://related.chat/hud/014.gif" width="80"> <img src="https://related.chat/hud/014.png" width="80"> <img src="https://related.chat/hud/015.gif" width="80"> <img src="https://related.chat/hud/015.png" width="80">
 
+## WHAT'S NEW IN 13.7.0
+
+- New `AnimationType.none` has been implemented. So you can display some text without animation.
+
 ## WHAT'S NEW IN 13.6.2
 
 - We have the optional `delay:` parameter to set the timeout.
@@ -130,6 +134,7 @@ The list of predefined animation and icon types are as follows:
 
 ```swift
 public enum AnimationType {
+	case none
 	case systemActivityIndicator
 	case horizontalCirclesPulse
 	case lineScaling
@@ -180,7 +185,7 @@ public enum AlertIcon {
 
 MIT License
 
-Copyright (c) 2022 Related Code
+Copyright (c) 2023 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

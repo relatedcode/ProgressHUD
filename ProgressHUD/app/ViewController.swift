@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -47,6 +47,7 @@ class ViewController: UITableViewController {
 		actions1.append("Animation - Short text")
 		actions1.append("Animation - Longer text")
 
+		types.append("No Animation")
 		types.append("System Activity Indicator")
 		types.append("Horizontal Circles Pulse")
 		types.append("Line Scaling")
@@ -103,34 +104,38 @@ class ViewController: UITableViewController {
 		ProgressHUD.colorAnimation = .systemBlue
 		ProgressHUD.colorProgress = .systemBlue
 	}
+}
 
-	// MARK: - Progress methods
+// MARK: - Progress methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ViewController {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionProgressStart(_ status: String? = nil) {
 
 		timer?.invalidate()
 		timer = nil
 
-		var intervalCount: CGFloat = 0.0
+		var intervalCount = 0.0
 		ProgressHUD.showProgress(status, intervalCount/100)
 
-		timer = Timer.scheduledTimer(withTimeInterval: 0.025, repeats: true) { timer in
+		timer = Timer.scheduledTimer(withTimeInterval: 0.025, repeats: true) { [self] _ in
 			intervalCount += 1
 			ProgressHUD.showProgress(status, intervalCount/100)
 			if (intervalCount >= 100) {
-				self.actionProgressStop()
+				actionProgressStop(status)
 			}
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	func actionProgressStop() {
+	func actionProgressStop(_ status: String?) {
 
 		timer?.invalidate()
 		timer = nil
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-			ProgressHUD.showSucceed(interaction: false)
+			ProgressHUD.showSucceed(status, interaction: false, delay: 0.75)
 		}
 	}
 }
@@ -208,57 +213,58 @@ extension ViewController {
 // MARK: - UITableViewDelegate
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 extension ViewController {
-
+	
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+		
 		tableView.deselectRow(at: indexPath, animated: true)
-
+		
 		if (indexPath.section == 0) && (indexPath.row == 1) { view.endEditing(true) 			}
 		if (indexPath.section == 0) && (indexPath.row == 2) { ProgressHUD.dismiss()				}
 		if (indexPath.section == 0) && (indexPath.row == 3) { ProgressHUD.remove()				}
-
+		
 		if (indexPath.section == 1) {
 			if (indexPath.row == 0) { ProgressHUD.show();			status = nil				}
 			if (indexPath.row == 1) { ProgressHUD.show(textShort);	status = textShort			}
 			if (indexPath.row == 2) { ProgressHUD.show(textLong);	status = textLong			}
 		}
-
+		
 		if (indexPath.section == 2)	{
-			if (indexPath.row == 0)	 { ProgressHUD.animationType = .systemActivityIndicator		}
-			if (indexPath.row == 1)	 { ProgressHUD.animationType = .horizontalCirclesPulse		}
-			if (indexPath.row == 2)	 { ProgressHUD.animationType = .lineScaling					}
-			if (indexPath.row == 3)	 { ProgressHUD.animationType = .singleCirclePulse			}
-			if (indexPath.row == 4)	 { ProgressHUD.animationType = .multipleCirclePulse			}
-			if (indexPath.row == 5)	 { ProgressHUD.animationType = .singleCircleScaleRipple		}
-			if (indexPath.row == 6)	 { ProgressHUD.animationType = .multipleCircleScaleRipple	}
-			if (indexPath.row == 7)	 { ProgressHUD.animationType = .circleSpinFade				}
-			if (indexPath.row == 8)	 { ProgressHUD.animationType = .lineSpinFade				}
-			if (indexPath.row == 9)	 { ProgressHUD.animationType = .circleRotateChase			}
-			if (indexPath.row == 10) { ProgressHUD.animationType = .circleStrokeSpin			}
+			if (indexPath.row == 0)	{ ProgressHUD.animationType = .none							}
+			if (indexPath.row == 1)	{ ProgressHUD.animationType = .systemActivityIndicator		}
+			if (indexPath.row == 2)	{ ProgressHUD.animationType = .horizontalCirclesPulse		}
+			if (indexPath.row == 3)	{ ProgressHUD.animationType = .lineScaling					}
+			if (indexPath.row == 4)	{ ProgressHUD.animationType = .singleCirclePulse			}
+			if (indexPath.row == 5)	{ ProgressHUD.animationType = .multipleCirclePulse			}
+			if (indexPath.row == 6)	{ ProgressHUD.animationType = .singleCircleScaleRipple		}
+			if (indexPath.row == 7)	{ ProgressHUD.animationType = .multipleCircleScaleRipple	}
+			if (indexPath.row == 8)	{ ProgressHUD.animationType = .circleSpinFade				}
+			if (indexPath.row == 9)	{ ProgressHUD.animationType = .lineSpinFade					}
+			if (indexPath.row == 10) { ProgressHUD.animationType = .circleRotateChase			}
+			if (indexPath.row == 11) { ProgressHUD.animationType = .circleStrokeSpin			}
 			ProgressHUD.show(status)
 		}
-
+		
 		if (indexPath.section == 3) {
 			if (indexPath.row == 0) { actionProgressStart()										}
 			if (indexPath.row == 1) { actionProgressStart(textShort)							}
 			if (indexPath.row == 2) { actionProgressStart(textLong)								}
 		}
-
+		
 		if (indexPath.section == 4) {
 			if (indexPath.row == 0) { ProgressHUD.showProgress(0.1, interaction: true)			}
 			if (indexPath.row == 1) { ProgressHUD.showProgress(0.4, interaction: true)			}
 			if (indexPath.row == 2) { ProgressHUD.showProgress(0.6, interaction: true)			}
 			if (indexPath.row == 3) { ProgressHUD.showProgress(0.9, interaction: true)			}
 		}
-
+		
 		if (indexPath.section == 5) {
 			if (indexPath.row == 0) { ProgressHUD.showSuccess()									}
 			if (indexPath.row == 1) { ProgressHUD.showSuccess(textSuccess)						}
 			if (indexPath.row == 2) { ProgressHUD.showError()									}
 			if (indexPath.row == 3) { ProgressHUD.showError(textError)							}
 		}
-
+		
 		if (indexPath.section == 6) {
 			if (indexPath.row == 0) { ProgressHUD.showSucceed()									}
 			if (indexPath.row == 1) { ProgressHUD.showSucceed(textSucceed)						}
@@ -267,27 +273,36 @@ extension ViewController {
 			if (indexPath.row == 4) { ProgressHUD.showAdded()									}
 			if (indexPath.row == 5) { ProgressHUD.showAdded(textAdded)							}
 		}
-
+		
 		if (indexPath.section == 7) {
-			if (indexPath.row == 0) { ProgressHUD.show(icon: .heart)							}
-			if (indexPath.row == 1) { ProgressHUD.show(icon: .doc)								}
-			if (indexPath.row == 2) { ProgressHUD.show(icon: .bookmark)							}
-			if (indexPath.row == 3) { ProgressHUD.show(icon: .moon)								}
-			if (indexPath.row == 4) { ProgressHUD.show(icon: .star)								}
-			if (indexPath.row == 5) { ProgressHUD.show(icon: .exclamation)						}
-			if (indexPath.row == 6) { ProgressHUD.show(icon: .flag)								}
-			if (indexPath.row == 7) { ProgressHUD.show(icon: .message)							}
-			if (indexPath.row == 8) { ProgressHUD.show(icon: .question)							}
-			if (indexPath.row == 9) { ProgressHUD.show(icon: .bolt)								}
-			if (indexPath.row == 10) { ProgressHUD.show(icon: .shuffle)							}
-			if (indexPath.row == 11) { ProgressHUD.show(icon: .eject)							}
-			if (indexPath.row == 12) { ProgressHUD.show(icon: .card)							}
-			if (indexPath.row == 13) { ProgressHUD.show(icon: .rotate)							}
-			if (indexPath.row == 14) { ProgressHUD.show(icon: .like)							}
-			if (indexPath.row == 15) { ProgressHUD.show(icon: .dislike)							}
-			if (indexPath.row == 16) { ProgressHUD.show(icon: .privacy)							}
-			if (indexPath.row == 17) { ProgressHUD.show(icon: .cart)							}
-			if (indexPath.row == 18) { ProgressHUD.show(icon: .search)							}
+			if (indexPath.row == 0) { ProgressHUD.show(randomText(), icon: .heart)				}
+			if (indexPath.row == 1) { ProgressHUD.show(randomText(), icon: .doc)				}
+			if (indexPath.row == 2) { ProgressHUD.show(randomText(), icon: .bookmark)			}
+			if (indexPath.row == 3) { ProgressHUD.show(randomText(), icon: .moon)				}
+			if (indexPath.row == 4) { ProgressHUD.show(randomText(), icon: .star)				}
+			if (indexPath.row == 5) { ProgressHUD.show(randomText(), icon: .exclamation)		}
+			if (indexPath.row == 6) { ProgressHUD.show(randomText(), icon: .flag)				}
+			if (indexPath.row == 7) { ProgressHUD.show(randomText(), icon: .message)			}
+			if (indexPath.row == 8) { ProgressHUD.show(randomText(), icon: .question)			}
+			if (indexPath.row == 9) { ProgressHUD.show(randomText(), icon: .bolt)				}
+			if (indexPath.row == 10) { ProgressHUD.show(randomText(), icon: .shuffle)			}
+			if (indexPath.row == 11) { ProgressHUD.show(randomText(), icon: .eject)				}
+			if (indexPath.row == 12) { ProgressHUD.show(randomText(), icon: .card)				}
+			if (indexPath.row == 13) { ProgressHUD.show(randomText(), icon: .rotate)			}
+			if (indexPath.row == 14) { ProgressHUD.show(randomText(), icon: .like)				}
+			if (indexPath.row == 15) { ProgressHUD.show(randomText(), icon: .dislike)			}
+			if (indexPath.row == 16) { ProgressHUD.show(randomText(), icon: .privacy)			}
+			if (indexPath.row == 17) { ProgressHUD.show(randomText(), icon: .cart)				}
+			if (indexPath.row == 18) { ProgressHUD.show(randomText(), icon: .search)			}
 		}
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func randomText() -> String? {
+
+		let array = [textShort, textLong, textSucceed, textFailed, textAdded, nil]
+		let index = Int.random(in: 0..<array.count)
+
+		return array[index]
 	}
 }
