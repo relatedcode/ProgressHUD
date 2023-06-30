@@ -4,16 +4,22 @@
 
 <img src="https://related.chat/hud/001.gif" width="80"> <img src="https://related.chat/hud/002.gif" width="80"> <img src="https://related.chat/hud/003.gif" width="80"> <img src="https://related.chat/hud/004.gif" width="80"> <img src="https://related.chat/hud/005.gif" width="80"> <img src="https://related.chat/hud/006.gif" width="80"> <img src="https://related.chat/hud/007.gif" width="80"> <img src="https://related.chat/hud/008.gif" width="80"> <img src="https://related.chat/hud/009.gif" width="80"> <img src="https://related.chat/hud/010.gif" width="80"> <img src="https://related.chat/hud/011.gif" width="80"> <img src="https://related.chat/hud/011.png" width="80"> <img src="https://related.chat/hud/012.gif" width="80"> <img src="https://related.chat/hud/012.png" width="80"> <img src="https://related.chat/hud/013.gif" width="80"> <img src="https://related.chat/hud/013.png" width="80"> <img src="https://related.chat/hud/014.gif" width="80"> <img src="https://related.chat/hud/014.png" width="80"> <img src="https://related.chat/hud/015.gif" width="80"> <img src="https://related.chat/hud/015.png" width="80">
 
-## WHAT'S NEW IN 13.7.0
+## WHAT'S NEW
+
+### Version: 13.7.1
+
+- The `mediaSize` and `marginSize` options are now available to adjust the HUD dimensions.
+
+### Version: 13.7.0
 
 - New `AnimationType.none` has been implemented. So you can display some text without animation.
 
-## WHAT'S NEW IN 13.6.2
+### Version: 13.6.2
 
 - We have the optional `delay:` parameter to set the timeout.
 - We have the `.remove()` function to dismiss the HUD immediately.
 
-## WHAT'S NEW IN 13.5 and 13.6
+### Version: 13.5 and 13.6
 
 - Bugfix related to iPad split screen.
 - Bugfix related to showProgress.
@@ -116,6 +122,11 @@ ProgressHUD.colorProgress = .systemBlue
 
 ```swift
 ProgressHUD.colorStatus = .label
+```
+
+```swift
+ProgressHUD.mediaSize = 100
+ProgressHUD.marginSize = 50
 ```
 
 ```swift

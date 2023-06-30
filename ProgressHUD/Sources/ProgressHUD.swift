@@ -95,6 +95,16 @@ extension AlertIcon {
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 public extension ProgressHUD {
 
+	class var mediaSize: CGFloat {
+		get { shared.mediaSize }
+		set { shared.mediaSize = newValue }
+	}
+
+	class var marginSize: CGFloat {
+		get { shared.marginSize }
+		set { shared.marginSize = newValue }
+	}
+
 	class var animationType: AnimationType {
 		get { shared.animationType }
 		set { shared.animationType = newValue }
@@ -253,13 +263,16 @@ public class ProgressHUD: UIView {
 
 	private var timer: Timer?
 
+	private var mediaSize: CGFloat = 70
+	private var marginSize: CGFloat = 30
+
 	private var viewBackground: UIView?
 	private var toolbarHUD: UIToolbar?
 	private var labelStatus: UILabel?
 
 	private var viewProgress: ProgressView?
 	private var viewAnimatedIcon: UIView?
-	private var staticImageView: UIImageView?
+	private var viewStaticImage: UIImageView?
 	private var viewAnimation: UIView?
 
 	private var animationType	= AnimationType.systemActivityIndicator
@@ -505,7 +518,7 @@ private extension ProgressHUD {
 
 		if (viewProgress == nil) {
 			viewProgress = ProgressView(colorProgress)
-			viewProgress?.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
+			viewProgress?.frame = CGRect(x: 0, y: 0, width: mediaSize, height: mediaSize)
 		}
 
 		if (viewProgress?.superview == nil) {
@@ -531,7 +544,7 @@ private extension ProgressHUD {
 	private func setupAnimatedIcon(_ animatedIcon: AnimatedIcon) {
 
 		if (viewAnimatedIcon == nil) {
-			viewAnimatedIcon = UIView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+			viewAnimatedIcon = UIView(frame: CGRect(x: 0, y: 0, width: mediaSize, height: mediaSize))
 		}
 
 		if (viewAnimatedIcon?.superview == nil) {
@@ -555,23 +568,23 @@ private extension ProgressHUD {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func removeStaticImage() {
 
-		staticImageView?.removeFromSuperview()
-		staticImageView = nil
+		viewStaticImage?.removeFromSuperview()
+		viewStaticImage = nil
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupStaticImage(_ staticImage: UIImage) {
 
-		if (staticImageView == nil) {
-			staticImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+		if (viewStaticImage == nil) {
+			viewStaticImage = UIImageView(frame: CGRect(x: 0, y: 0, width: mediaSize, height: mediaSize))
 		}
 
-		if (staticImageView?.superview == nil) {
-			toolbarHUD?.addSubview(staticImageView!)
+		if (viewStaticImage?.superview == nil) {
+			toolbarHUD?.addSubview(viewStaticImage!)
 		}
 
-		staticImageView?.image = staticImage
-		staticImageView?.contentMode = .scaleAspectFit
+		viewStaticImage?.image = staticImage
+		viewStaticImage?.contentMode = .scaleAspectFit
 	}
 }
 
@@ -590,7 +603,7 @@ private extension ProgressHUD {
 	private func setupAnimationView() {
 
 		if (viewAnimation == nil) {
-			viewAnimation = UIView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+			viewAnimation = UIView(frame: CGRect(x: 0, y: 0, width: mediaSize, height: mediaSize))
 		}
 
 		if (viewAnimation?.superview == nil) {
@@ -641,24 +654,15 @@ private extension ProgressHUD {
 	private func setupSizesBoth(_ text: String) {
 
 		var rect = rectText(text)
+		let base = mediaSize + 2 * marginSize
 
-		let marginX: CGFloat = 30
-		let marginY: CGFloat = 30
+		let width = max(base, rect.size.width + 2 * marginSize)
+		let height = max(base, rect.size.height + 2 * marginSize + mediaSize)
 
-		let heightA: CGFloat = 60
-		let marginA: CGFloat = 10
-
-		var width = rect.size.width + 2 * marginX
-		var height = rect.size.height + 2 * marginY + heightA - marginA
-
-		if (width < 120) { width = 120 }
-
-		let center = CGPoint(x: width / 2, y: marginY + heightA / 2)
+		let center = CGPoint(x: width / 2, y: marginSize + mediaSize / 2)
 
 		rect.origin.x = (width - rect.size.width) / 2
-		rect.origin.y = (height - rect.size.height) / 2 + heightA - marginA
-
-		height += marginA
+		rect.origin.y = (height - rect.size.height) / 2 + (mediaSize + marginSize) / 2
 
 		setupSizes(width, height, center, rect)
 	}
@@ -667,14 +671,10 @@ private extension ProgressHUD {
 	private func setupSizesTextOnly(_ text: String) {
 
 		var rect = rectText(text)
+		let base = mediaSize + 2 * marginSize
 
-		let marginX: CGFloat = 30
-		let marginY: CGFloat = 30
-
-		var width = rect.size.width + 2 * marginX
-		let height = rect.size.height + 2 * marginY
-
-		if (width < 120) { width = 120 }
+		let width = max(base, rect.size.width + 2 * marginSize)
+		let height = max(base, rect.size.height + 2 * marginSize)
 
 		rect.origin.x = (width - rect.size.width) / 2
 		rect.origin.y = (height - rect.size.height) / 2
@@ -685,8 +685,8 @@ private extension ProgressHUD {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupSizesTextNone() {
 
-		let width: CGFloat = 120
-		let height: CGFloat = 120
+		let width = mediaSize + 2 * marginSize
+		let height = mediaSize + 2 * marginSize
 
 		let center = CGPoint(x: width / 2, y: height / 2)
 
@@ -700,7 +700,7 @@ private extension ProgressHUD {
 
 		viewProgress?.center = center
 		viewAnimatedIcon?.center = center
-		staticImageView?.center = center
+		viewStaticImage?.center = center
 		viewAnimation?.center = center
 
 		labelStatus?.frame = rect
@@ -743,7 +743,7 @@ private extension ProgressHUD {
 
 		let mainWindow = UIApplication.shared.windows.first ?? UIWindow()
 		let screen = mainWindow.bounds
-		let center = CGPoint(x: screen.size.width/2, y: (screen.size.height-heightKeyboard)/2)
+		let center = CGPoint(x: screen.size.width / 2, y: (screen.size.height - heightKeyboard) / 2)
 
 		UIView.animate(withDuration: animationDuration, delay: 0, options: .allowUserInteraction, animations: { [self] in
 			toolbarHUD?.center = center
@@ -844,11 +844,12 @@ private extension ProgressHUD {
 	private func animationSystemActivityIndicator(_ view: UIView) {
 
 		let spinner = UIActivityIndicatorView(style: .large)
+		let scale = view.frame.size.width / spinner.frame.size.width
+		spinner.transform = CGAffineTransform(scaleX: scale, y: scale)
 		spinner.frame = view.bounds
 		spinner.color = colorAnimation
 		spinner.hidesWhenStopped = true
 		spinner.startAnimating()
-		spinner.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
 		view.addSubview(spinner)
 	}
 
@@ -860,7 +861,8 @@ private extension ProgressHUD {
 
 		let spacing = 3.0
 		let radius = (width - spacing * 2) / 3
-		let ypos = (height - radius) / 2
+		let center = CGPoint(x: radius / 2, y: radius / 2)
+		let positionY = (height - radius) / 2
 
 		let beginTime = CACurrentMediaTime()
 		let beginTimes = [0.36, 0.24, 0.12]
@@ -874,11 +876,11 @@ private extension ProgressHUD {
 		animation.repeatCount = HUGE
 		animation.isRemovedOnCompletion = false
 
-		let path = UIBezierPath(arcCenter: CGPoint(x: radius/2, y: radius/2), radius: radius/2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
+		let path = UIBezierPath(arcCenter: center, radius: radius / 2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
 
 		for i in 0..<3 {
 			let layer = CAShapeLayer()
-			layer.frame = CGRect(x: (radius + spacing) * CGFloat(i), y: ypos, width: radius, height: radius)
+			layer.frame = CGRect(x: (radius + spacing) * CGFloat(i), y: positionY, width: radius, height: radius)
 			layer.path = path.cgPath
 			layer.fillColor = colorAnimation.cgColor
 
@@ -909,7 +911,7 @@ private extension ProgressHUD {
 		animation.repeatCount = HUGE
 		animation.isRemovedOnCompletion = false
 
-		let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: lineWidth, height: height), cornerRadius: width/2)
+		let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: lineWidth, height: height), cornerRadius: width / 2)
 
 		for i in 0..<5 {
 			let layer = CAShapeLayer()
@@ -930,7 +932,7 @@ private extension ProgressHUD {
 
 		let width = view.frame.size.width
 		let height = view.frame.size.height
-		let center = CGPoint(x: width/2, y: height/2)
+		let center = CGPoint(x: width / 2, y: height / 2)
 		let radius = width / 2
 		
 		let duration = 1.0
@@ -968,7 +970,7 @@ private extension ProgressHUD {
 
 		let width = view.frame.size.width
 		let height = view.frame.size.height
-		let center = CGPoint(x: width/2, y: height/2)
+		let center = CGPoint(x: width / 2, y: height / 2)
 		let radius = width / 2
 
 		let duration = 1.0
@@ -1013,7 +1015,7 @@ private extension ProgressHUD {
 
 		let width = view.frame.size.width
 		let height = view.frame.size.height
-		let center = CGPoint(x: width/2, y: height/2)
+		let center = CGPoint(x: width / 2, y: height / 2)
 		let radius = width / 2
 
 		let duration = 1.0
@@ -1056,7 +1058,7 @@ private extension ProgressHUD {
 
 		let width = view.frame.size.width
 		let height = view.frame.size.height
-		let center = CGPoint(x: width/2, y: height/2)
+		let center = CGPoint(x: width / 2, y: height / 2)
 		let radius = width / 2
 
 		let duration = 1.25
@@ -1108,7 +1110,7 @@ private extension ProgressHUD {
 		let spacing = 3.0
 		let radius = (width - 4 * spacing) / 3.5
 		let radiusX = (width - radius) / 2
-		let center = CGPoint(x: radius/2, y: radius/2)
+		let center = CGPoint(x: radius / 2, y: radius / 2)
 
 		let duration = 1.0
 		let beginTime = CACurrentMediaTime()
@@ -1131,7 +1133,7 @@ private extension ProgressHUD {
 		animation.repeatCount = HUGE
 		animation.isRemovedOnCompletion = false
 
-		let path = UIBezierPath(arcCenter: center, radius: radius/2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
+		let path = UIBezierPath(arcCenter: center, radius: radius / 2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
 
 		for i in 0..<8 {
 			let angle = .pi / 4 * CGFloat(i)
@@ -1174,13 +1176,13 @@ private extension ProgressHUD {
 		animation.repeatCount = HUGE
 		animation.isRemovedOnCompletion = false
 
-		let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: lineWidth, height: lineHeight), cornerRadius: lineWidth/2)
+		let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: lineWidth, height: lineHeight), cornerRadius: lineWidth / 2)
 
 		for i in 0..<8 {
 			let angle = .pi / 4 * CGFloat(i)
 
 			let line = CAShapeLayer()
-			line.frame = CGRect(x: (containerSize-lineWidth)/2, y: (containerSize-lineHeight)/2, width: lineWidth, height: lineHeight)
+			line.frame = CGRect(x: (containerSize - lineWidth) / 2, y: (containerSize - lineHeight) / 2, width: lineWidth, height: lineHeight)
 			line.path = path.cgPath
 			line.backgroundColor = nil
 			line.fillColor = colorAnimation.cgColor
@@ -1202,16 +1204,16 @@ private extension ProgressHUD {
 
 		let width = view.frame.size.width
 		let height = view.frame.size.height
-		let center = CGPoint(x: width/2, y: height/2)
+		let center1 = CGPoint(x: width / 2, y: height / 2)
 
 		let spacing = 3.0
-		let radius = (width - 4 * spacing) / 3.5
+		let radius = (width - 4 * spacing) / 4
+		let center2 = CGPoint(x: radius / 2, y: radius / 2)
 
 		let duration = 1.5
 
-		let path = UIBezierPath(arcCenter: CGPoint(x: radius/2, y: radius/2), radius: radius/2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
-
-		let pathPosition = UIBezierPath(arcCenter: center, radius: radius*2, startAngle: 1.5 * .pi, endAngle: 3.5 * .pi, clockwise: true)
+		let path1 = UIBezierPath(arcCenter: center1, radius: radius * 2, startAngle: 1.5 * .pi, endAngle: 3.5 * .pi, clockwise: true)
+		let path2 = UIBezierPath(arcCenter: center2, radius: radius / 2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
 
 		for i in 0..<5 {
 			let rate = Float(i) * 1 / 5
@@ -1228,7 +1230,7 @@ private extension ProgressHUD {
 			let animationPosition = CAKeyframeAnimation(keyPath: "position")
 			animationPosition.duration = duration
 			animationPosition.repeatCount = HUGE
-			animationPosition.path = pathPosition.cgPath
+			animationPosition.path = path1.cgPath
 
 			let animation = CAAnimationGroup()
 			animation.animations = [animationScale, animationPosition]
@@ -1239,7 +1241,7 @@ private extension ProgressHUD {
 
 			let layer = CAShapeLayer()
 			layer.frame = CGRect(x: 0, y: 0, width: radius, height: radius)
-			layer.path = path.cgPath
+			layer.path = path2.cgPath
 			layer.fillColor = colorAnimation.cgColor
 
 			layer.add(animation, forKey: "animation")
@@ -1252,7 +1254,7 @@ private extension ProgressHUD {
 
 		let width = view.frame.size.width
 		let height = view.frame.size.height
-		let center = CGPoint(x: width/2, y: height/2)
+		let center = CGPoint(x: width / 2, y: height / 2)
 
 		let beginTime		= 0.5
 		let durationStart	= 1.2
@@ -1282,7 +1284,7 @@ private extension ProgressHUD {
 		animation.isRemovedOnCompletion = false
 		animation.fillMode = .forwards
 
-		let path = UIBezierPath(arcCenter: center, radius: width/2, startAngle: -0.5 * .pi, endAngle: 1.5 * .pi, clockwise: true)
+		let path = UIBezierPath(arcCenter: center, radius: width / 2, startAngle: -0.5 * .pi, endAngle: 1.5 * .pi, clockwise: true)
 
 		let layer = CAShapeLayer()
 		layer.frame = CGRect(x: 0, y: 0, width: width, height: height)
@@ -1462,8 +1464,8 @@ private class ProgressView: UIView {
 
 		let width = frame.size.width
 		let height = frame.size.height
+		let center = CGPoint(x: width / 2, y: height / 2)
 
-		let center = CGPoint(x: width/2, y: height/2)
 		let radiusCircle = width / 2
 		let radiusProgress = width / 2 - 5
 
