@@ -30,7 +30,7 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS.
 
 ## INSTALLATION
 
-### CocoaPods:
+### CocoaPods
 
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate the `ProgressHUD` into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
