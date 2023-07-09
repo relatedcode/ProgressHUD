@@ -6,6 +6,12 @@
 
 ## WHAT'S NEW
 
+### Version: 13.7.2
+
+- The `showFailed` and `showError` methods can now handle `Error?` parameters as well.
+- SF Symbols can be displayed by defining it's name `ProgressHUD.show(symbol: "car.fill")`
+- Fix the `setupDelayTimer` method. Now `[weak self]` is used within the timer's closure to prevent potential retain cycles and avoid memory leaks.
+
 ### Version: 13.7.1
 
 - The `mediaSize` and `marginSize` options are now available to adjust the HUD dimensions.
@@ -85,6 +91,14 @@ ProgressHUD.show("Some text...", icon: .privacy, delay: 2.0)
 ```
 
 ```swift
+ProgressHUD.show(symbol: "box.truck")
+```
+
+```swift
+ProgressHUD.show("Some text...", symbol: "figure.2.arms.open")
+```
+
+```swift
 ProgressHUD.dismiss()
 ```
 
@@ -98,7 +112,7 @@ ProgressHUD.remove()
 
 ## CUSTOMIZATION
 
-You can customize the color, font, image, animation type, and some other options by using the following methods:
+You can customize attributes like color, font, image, animation type, size, and more by using these methods:
 
 ```swift
 ProgressHUD.animationType = .circleStrokeSpin
@@ -141,7 +155,7 @@ ProgressHUD.imageSuccess = UIImage(named: "success.png")
 ProgressHUD.imageError = UIImage(named: "error.png")
 ```
 
-The list of predefined animation and icon types are as follows:
+A comprehensive list of the predefined animation and icon types:
 
 ```swift
 public enum AnimationType {

@@ -205,6 +205,14 @@ public extension ProgressHUD {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func showFailed(_ error: Error?, interaction: Bool = true, delay: TimeInterval? = nil) {
+
+		DispatchQueue.main.async {
+			shared.setup(text: error?.localizedDescription, animatedIcon: .failed, interaction: interaction, delay: delay)
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func showAdded(_ text: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 
 		DispatchQueue.main.async {
@@ -224,6 +232,16 @@ public extension ProgressHUD {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func show(_ text: String? = nil, symbol: String, interaction: Bool = true, delay: TimeInterval? = nil) {
+
+		let image = UIImage(systemName: symbol)?.withTintColor(shared.colorAnimation, renderingMode: .alwaysOriginal)
+
+		DispatchQueue.main.async {
+			shared.setup(text: text, staticImage: image, interaction: interaction, delay: delay)
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func showSuccess(_ text: String? = nil, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 
 		DispatchQueue.main.async {
@@ -236,6 +254,14 @@ public extension ProgressHUD {
 
 		DispatchQueue.main.async {
 			shared.setup(text: text, staticImage: image ?? shared.imageError, interaction: interaction, delay: delay)
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func showError(_ error: Error?, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+
+		DispatchQueue.main.async {
+			shared.setup(text: error?.localizedDescription, staticImage: image ?? shared.imageError, interaction: interaction, delay: delay)
 		}
 	}
 
@@ -385,8 +411,9 @@ private extension ProgressHUD {
 		let count = text?.count ?? 0
 		let delay = delay ?? Double(count) * 0.03 + 1.25
 
-		timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [self] _ in
-			dismissHUD()
+		timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
+			guard let self = self else { return }
+			self.dismissHUD()
 		}
 	}
 }
@@ -934,7 +961,7 @@ private extension ProgressHUD {
 		let height = view.frame.size.height
 		let center = CGPoint(x: width / 2, y: height / 2)
 		let radius = width / 2
-		
+
 		let duration = 1.0
 
 		let animationScale = CABasicAnimation(keyPath: "transform.scale")

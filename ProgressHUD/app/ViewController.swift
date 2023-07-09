@@ -26,6 +26,7 @@ class ViewController: UITableViewController {
 
 	private var timer: Timer?
 	private var status: String?
+	private var counter = 0.0
 
 	private let textShort	= "Please wait..."
 	private let textLong	= "Please wait. We need some more time to work out this situation."
@@ -113,18 +114,23 @@ extension ViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionProgressStart(_ status: String? = nil) {
 
-		timer?.invalidate()
-		timer = nil
+		counter = 0
+		ProgressHUD.showProgress(status, counter/100)
 
-		var intervalCount = 0.0
-		ProgressHUD.showProgress(status, intervalCount/100)
+		timer = Timer.scheduledTimer(withTimeInterval: 0.025, repeats: true) { [weak self] _ in
+			guard let self = self else { return }
+			self.actionProgress(status)
+		}
+	}
 
-		timer = Timer.scheduledTimer(withTimeInterval: 0.025, repeats: true) { [self] _ in
-			intervalCount += 1
-			ProgressHUD.showProgress(status, intervalCount/100)
-			if (intervalCount >= 100) {
-				actionProgressStop(status)
-			}
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func actionProgress(_ status: String?) {
+
+		counter += 1
+		ProgressHUD.showProgress(status, counter/100)
+
+		if (counter >= 100) {
+			actionProgressStop(status)
 		}
 	}
 
@@ -134,7 +140,7 @@ extension ViewController {
 		timer?.invalidate()
 		timer = nil
 
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
 			ProgressHUD.showSucceed(status, interaction: false, delay: 0.75)
 		}
 	}
@@ -213,22 +219,22 @@ extension ViewController {
 // MARK: - UITableViewDelegate
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 extension ViewController {
-	
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
+
 		tableView.deselectRow(at: indexPath, animated: true)
-		
+
 		if (indexPath.section == 0) && (indexPath.row == 1) { view.endEditing(true) 			}
 		if (indexPath.section == 0) && (indexPath.row == 2) { ProgressHUD.dismiss()				}
 		if (indexPath.section == 0) && (indexPath.row == 3) { ProgressHUD.remove()				}
-		
+
 		if (indexPath.section == 1) {
 			if (indexPath.row == 0) { ProgressHUD.show();			status = nil				}
 			if (indexPath.row == 1) { ProgressHUD.show(textShort);	status = textShort			}
 			if (indexPath.row == 2) { ProgressHUD.show(textLong);	status = textLong			}
 		}
-		
+
 		if (indexPath.section == 2)	{
 			if (indexPath.row == 0)	{ ProgressHUD.animationType = .none							}
 			if (indexPath.row == 1)	{ ProgressHUD.animationType = .systemActivityIndicator		}
@@ -244,27 +250,27 @@ extension ViewController {
 			if (indexPath.row == 11) { ProgressHUD.animationType = .circleStrokeSpin			}
 			ProgressHUD.show(status)
 		}
-		
+
 		if (indexPath.section == 3) {
 			if (indexPath.row == 0) { actionProgressStart()										}
 			if (indexPath.row == 1) { actionProgressStart(textShort)							}
 			if (indexPath.row == 2) { actionProgressStart(textLong)								}
 		}
-		
+
 		if (indexPath.section == 4) {
 			if (indexPath.row == 0) { ProgressHUD.showProgress(0.1, interaction: true)			}
 			if (indexPath.row == 1) { ProgressHUD.showProgress(0.4, interaction: true)			}
 			if (indexPath.row == 2) { ProgressHUD.showProgress(0.6, interaction: true)			}
 			if (indexPath.row == 3) { ProgressHUD.showProgress(0.9, interaction: true)			}
 		}
-		
+
 		if (indexPath.section == 5) {
 			if (indexPath.row == 0) { ProgressHUD.showSuccess()									}
 			if (indexPath.row == 1) { ProgressHUD.showSuccess(textSuccess)						}
 			if (indexPath.row == 2) { ProgressHUD.showError()									}
 			if (indexPath.row == 3) { ProgressHUD.showError(textError)							}
 		}
-		
+
 		if (indexPath.section == 6) {
 			if (indexPath.row == 0) { ProgressHUD.showSucceed()									}
 			if (indexPath.row == 1) { ProgressHUD.showSucceed(textSucceed)						}
@@ -273,7 +279,7 @@ extension ViewController {
 			if (indexPath.row == 4) { ProgressHUD.showAdded()									}
 			if (indexPath.row == 5) { ProgressHUD.showAdded(textAdded)							}
 		}
-		
+
 		if (indexPath.section == 7) {
 			if (indexPath.row == 0) { ProgressHUD.show(randomText(), icon: .heart)				}
 			if (indexPath.row == 1) { ProgressHUD.show(randomText(), icon: .doc)				}
@@ -296,7 +302,7 @@ extension ViewController {
 			if (indexPath.row == 18) { ProgressHUD.show(randomText(), icon: .search)			}
 		}
 	}
-	
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func randomText() -> String? {
 
