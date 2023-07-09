@@ -9,8 +9,8 @@
 ### Version: 13.7.2
 
 - The `showFailed` and `showError` methods can now handle `Error?` parameters as well.
-- SF Symbols can be displayed by defining it's name `ProgressHUD.show(symbol: "car.fill")`
-- Fix the `setupDelayTimer` method. Now `[weak self]` is used within the timer's closure to prevent potential retain cycles and avoid memory leaks.
+- SF Symbols can be displayed directly by defining it's name `ProgressHUD.show(symbol: "car.fill")`
+- The `setupDelayTimer` method is fixed. Now `[weak self]` is used within the timer's closure to prevent potential retain cycles and avoid memory leaks.
 
 ### Version: 13.7.1
 
