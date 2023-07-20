@@ -32,13 +32,15 @@
 
 ## OVERVIEW
 
-ProgressHUD is a convenient and intuitive HUD tool designed specifically for iOS. It enables seamless presentation of concise alerts or notifications to users of your app in a simple and non-disruptive way.
+**ProgressHUD** is a convenient and intuitive HUD tool designed specifically for iOS. It enables seamless presentation of concise alerts or notifications to users of your app in a simple and non-disruptive way.
 
 ## INSTALLATION
 
 ### CocoaPods
 
-[CocoaPods](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects. For usage and installation instructions, visit their website. To integrate the `ProgressHUD` into your Xcode project using CocoaPods, specify it in your `Podfile`:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
+
+To incorporate the **ProgressHUD** library into your Xcode project utilizing CocoaPods, please reference it within your `Podfile` as shown below:
 
 ```ruby
 pod 'ProgressHUD'
@@ -48,7 +50,7 @@ pod 'ProgressHUD'
 
 [Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
 
-Once you've configured your `Package.swift` manifest file, you may proceed to include `ProgressHUD` in the dependencies section of the same file.
+Once you've configured your `Package.swift` manifest file, you may proceed to include **ProgressHUD** in the dependencies section of the same file.
 
 ```swift
 dependencies: [ .package(url: "https://github.com/relatedcode/ProgressHUD.git", from: "13.7.2") ]
@@ -56,7 +58,7 @@ dependencies: [ .package(url: "https://github.com/relatedcode/ProgressHUD.git", 
 
 ### Manually
 
-If you prefer not to use any of the dependency managers, you can integrate `ProgressHUD` into your project manually. Just copy the `ProgressHUD.swift` file in your Xcode project.
+If you prefer not to use any of the dependency managers, you can integrate **ProgressHUD** into your project manually. Just copy the `ProgressHUD.swift` file in your Xcode project.
 
 ## QUICK START
 
