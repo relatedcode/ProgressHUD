@@ -46,9 +46,9 @@ pod 'ProgressHUD'
 
 ### Swift Package Manager
 
-[Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code.
+[Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
 
-After you set up your Package.swift manifest file, you can add `ProgressHUD` as a dependency by adding it to the dependencies value of your Package.swift.
+Once you've configured your `Package.swift` manifest file, you may proceed to include `ProgressHUD` in the dependencies section of the same file.
 
 ```swift
 dependencies: [ .package(url: "https://github.com/relatedcode/ProgressHUD.git", from: "13.7.2") ]
