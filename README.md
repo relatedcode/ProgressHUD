@@ -44,6 +44,16 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS.
 pod 'ProgressHUD'
 ```
 
+### Swift Package Manager
+
+[Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code.
+
+After you set up your Package.swift manifest file, you can add `ProgressHUD` as a dependency by adding it to the dependencies value of your Package.swift.
+
+```swift
+dependencies: [ .package(url: "https://github.com/relatedcode/ProgressHUD.git", from: "13.7.2") ]
+```
+
 ### Manually
 
 If you prefer not to use any of the dependency managers, you can integrate `ProgressHUD` into your project manually. Just copy the `ProgressHUD.swift` file in your Xcode project.
