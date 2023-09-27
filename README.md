@@ -2,6 +2,10 @@
 
 ## WHAT'S NEW
 
+### Version: 13.8.0
+
+- Introduced an incredibly straightforward notification banner feature.
+
 ### Version: 13.7.3
 
 - Fixed a bug where a thin line occasionally appeared on the right side of the HUD.
@@ -50,17 +54,26 @@ pod 'ProgressHUD'
 
 [Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
 
-Once you've configured your `Package.swift` manifest file, you may proceed to include **ProgressHUD** in the dependencies section of the same file.
+To add **ProgressHUD** as a dependency to your project, follow these steps:
 
-```swift
-dependencies: [ .package(url: "https://github.com/relatedcode/ProgressHUD.git", from: "13.7.3") ]
-```
+1. Open your Swift project in Xcode.
+2. Navigate to `File` -> `Add Package Dependencies...`.
+3. Paste `https://github.com/relatedcode/ProgressHUD.git` into the search bar.
+4. Choose the version you want to use and click `Add Package`.
 
 ### Manually
 
 If you prefer not to use any of the dependency managers, you can integrate **ProgressHUD** into your project manually. Just copy the `ProgressHUD.swift` file in your Xcode project.
 
 ## QUICK START
+
+```swift
+ProgressHUD.showBanner("Banner title", "Banner message to display.")
+```
+
+```swift
+ProgressHUD.hideBanner()
+```
 
 ```swift
 ProgressHUD.show("Some text...")
