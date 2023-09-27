@@ -12,17 +12,98 @@
 import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AnimationType {
+
+	var name: String {
+		switch self {
+		case .none:
+			return "No Animation"
+		case .systemActivityIndicator:
+			return "System Activity Indicator"
+		case .horizontalCirclesPulse:
+			return "Horizontal Circles Pulse"
+		case .lineScaling:
+			return "Line Scaling"
+		case .singleCirclePulse:
+			return "Single Circle Pulse"
+		case .multipleCirclePulse:
+			return "Multiple Circle Pulse"
+		case .singleCircleScaleRipple:
+			return "Single Circle Scale Ripple"
+		case .multipleCircleScaleRipple:
+			return "Multiple Circle Scale Ripple"
+		case .circleSpinFade:
+			return "Circle Spin Fade"
+		case .lineSpinFade:
+			return "Line Spin Fade"
+		case .circleRotateChase:
+			return "Circle Rotate Chase"
+		case .circleStrokeSpin:
+			return "Circle Stroke Spin"
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AlertIcon {
+
+	var name: String {
+		switch self {
+		case .heart:
+			return "Heart"
+		case .doc:
+			return "Doc"
+		case .bookmark:
+			return "Bookmark"
+		case .moon:
+			return "Moon"
+		case .star:
+			return "Star"
+		case .exclamation:
+			return "Exclamation"
+		case .flag:
+			return "Flag"
+		case .message:
+			return "Message"
+		case .question:
+			return "Question"
+		case .bolt:
+			return "Bolt"
+		case .shuffle:
+			return "Shuffle"
+		case .eject:
+			return "Eject"
+		case .card:
+			return "Card"
+		case .rotate:
+			return "Rotate"
+		case .like:
+			return "Like"
+		case .dislike:
+			return "Dislike"
+		case .privacy:
+			return "Privacy"
+		case .cart:
+			return "Cart"
+		case .search:
+			return "Search"
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 class ViewController: UITableViewController {
 
 	@IBOutlet var cellText: UITableViewCell!
 
-	private var types: [String] = []
+	private var animations = AnimationType.allCases
+	private var alerticons = AlertIcon.allCases
+
 	private var actions1: [String] = []
 	private var actions2: [String] = []
 	private var actions3: [String] = []
 	private var actions4: [String] = []
 	private var actions5: [String] = []
-	private var actions6: [String] = []
 
 	private var timer: Timer?
 	private var status: String?
@@ -48,19 +129,6 @@ class ViewController: UITableViewController {
 		actions1.append("Animation - Short text")
 		actions1.append("Animation - Longer text")
 
-		types.append("No Animation")
-		types.append("System Activity Indicator")
-		types.append("Horizontal Circles Pulse")
-		types.append("Line Scaling")
-		types.append("Single Circle Pulse")
-		types.append("Multiple Circle Pulse")
-		types.append("Single Circle Scale Ripple")
-		types.append("Multiple Circle Scale Ripple")
-		types.append("Circle Spin Fade")
-		types.append("Line Spin Fade")
-		types.append("Circle Rotate Chase")
-		types.append("Circle Stroke Spin")
-
 		actions2.append("Progress - No text")
 		actions2.append("Progress - Short text")
 		actions2.append("Progress - Longer text")
@@ -82,28 +150,8 @@ class ViewController: UITableViewController {
 		actions5.append("Added - No text")
 		actions5.append("Added - Short text")
 
-		actions6.append("Heart")
-		actions6.append("Doc")
-		actions6.append("Bookmark")
-		actions6.append("Moon")
-		actions6.append("Star")
-		actions6.append("Exclamation")
-		actions6.append("Flag")
-		actions6.append("Message")
-		actions6.append("Question")
-		actions6.append("Bolt")
-		actions6.append("Shuffle")
-		actions6.append("Eject")
-		actions6.append("Card")
-		actions6.append("Rotate")
-		actions6.append("Like")
-		actions6.append("Dislike")
-		actions6.append("Privacy")
-		actions6.append("Cart")
-		actions6.append("Search")
-
-		ProgressHUD.colorAnimation = .systemBlue
-		ProgressHUD.colorProgress = .systemBlue
+		ProgressHUD.colorAnimation = .systemRed
+		ProgressHUD.colorProgress = .systemRed
 	}
 }
 
@@ -160,13 +208,13 @@ extension ViewController {
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
 		if (section == 0) { return 4				}
-		if (section == 1) { return actions1.count	}
-		if (section == 2) { return types.count		}
+		if (section == 1) { return animations.count	}
+		if (section == 2) { return actions1.count	}
 		if (section == 3) { return actions2.count	}
 		if (section == 4) { return actions3.count	}
 		if (section == 5) { return actions4.count	}
 		if (section == 6) { return actions5.count	}
-		if (section == 7) { return actions6.count	}
+		if (section == 7) { return alerticons.count	}
 
 		return 0
 	}
@@ -180,13 +228,13 @@ extension ViewController {
 		if (indexPath.section == 0) && (indexPath.row == 2) { return self.tableView(tableView, cellWithText: "Dismiss HUD")			}
 		if (indexPath.section == 0) && (indexPath.row == 3) { return self.tableView(tableView, cellWithText: "Remove HUD")			}
 
-		if (indexPath.section == 1) { return self.tableView(tableView, cellWithText: actions1[indexPath.row])	}
-		if (indexPath.section == 2) { return self.tableView(tableView, cellWithText: types[indexPath.row])		}
-		if (indexPath.section == 3) { return self.tableView(tableView, cellWithText: actions2[indexPath.row])	}
-		if (indexPath.section == 4) { return self.tableView(tableView, cellWithText: actions3[indexPath.row])	}
-		if (indexPath.section == 5) { return self.tableView(tableView, cellWithText: actions4[indexPath.row])	}
-		if (indexPath.section == 6) { return self.tableView(tableView, cellWithText: actions5[indexPath.row])	}
-		if (indexPath.section == 7) { return self.tableView(tableView, cellWithText: actions6[indexPath.row])	}
+		if (indexPath.section == 1) { return self.tableView(tableView, cellWithText: animations[indexPath.row].name)	}
+		if (indexPath.section == 2) { return self.tableView(tableView, cellWithText: actions1[indexPath.row])			}
+		if (indexPath.section == 3) { return self.tableView(tableView, cellWithText: actions2[indexPath.row])			}
+		if (indexPath.section == 4) { return self.tableView(tableView, cellWithText: actions3[indexPath.row])			}
+		if (indexPath.section == 5) { return self.tableView(tableView, cellWithText: actions4[indexPath.row])			}
+		if (indexPath.section == 6) { return self.tableView(tableView, cellWithText: actions5[indexPath.row])			}
+		if (indexPath.section == 7) { return self.tableView(tableView, cellWithText: alerticons[indexPath.row].name)	}
 
 		return UITableViewCell()
 	}
@@ -204,13 +252,13 @@ extension ViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
-		if (section == 1) { return "Animation"			}
-		if (section == 2) { return "Animation Types"	}
+		if (section == 1) { return "Animation Types"	}
+		if (section == 2) { return "Animation"			}
 		if (section == 3) { return "Progress"			}
 		if (section == 4) { return "Progress"			}
 		if (section == 5) { return "Action - Static"	}
 		if (section == 6) { return "Action - Animated"	}
-		if (section == 7) { return "Icons - Static"		}
+		if (section == 7) { return "Alert Icons"		}
 
 		return nil
 	}
@@ -229,26 +277,15 @@ extension ViewController {
 		if (indexPath.section == 0) && (indexPath.row == 2) { ProgressHUD.dismiss()				}
 		if (indexPath.section == 0) && (indexPath.row == 3) { ProgressHUD.remove()				}
 
-		if (indexPath.section == 1) {
+		if (indexPath.section == 1)	{
+			ProgressHUD.animationType = animations[indexPath.row]
+			ProgressHUD.show(status)
+		}
+
+		if (indexPath.section == 2) {
 			if (indexPath.row == 0) { ProgressHUD.show();			status = nil				}
 			if (indexPath.row == 1) { ProgressHUD.show(textShort);	status = textShort			}
 			if (indexPath.row == 2) { ProgressHUD.show(textLong);	status = textLong			}
-		}
-
-		if (indexPath.section == 2)	{
-			if (indexPath.row == 0)	{ ProgressHUD.animationType = .none							}
-			if (indexPath.row == 1)	{ ProgressHUD.animationType = .systemActivityIndicator		}
-			if (indexPath.row == 2)	{ ProgressHUD.animationType = .horizontalCirclesPulse		}
-			if (indexPath.row == 3)	{ ProgressHUD.animationType = .lineScaling					}
-			if (indexPath.row == 4)	{ ProgressHUD.animationType = .singleCirclePulse			}
-			if (indexPath.row == 5)	{ ProgressHUD.animationType = .multipleCirclePulse			}
-			if (indexPath.row == 6)	{ ProgressHUD.animationType = .singleCircleScaleRipple		}
-			if (indexPath.row == 7)	{ ProgressHUD.animationType = .multipleCircleScaleRipple	}
-			if (indexPath.row == 8)	{ ProgressHUD.animationType = .circleSpinFade				}
-			if (indexPath.row == 9)	{ ProgressHUD.animationType = .lineSpinFade					}
-			if (indexPath.row == 10) { ProgressHUD.animationType = .circleRotateChase			}
-			if (indexPath.row == 11) { ProgressHUD.animationType = .circleStrokeSpin			}
-			ProgressHUD.show(status)
 		}
 
 		if (indexPath.section == 3) {
@@ -281,25 +318,8 @@ extension ViewController {
 		}
 
 		if (indexPath.section == 7) {
-			if (indexPath.row == 0) { ProgressHUD.show(randomText(), icon: .heart)				}
-			if (indexPath.row == 1) { ProgressHUD.show(randomText(), icon: .doc)				}
-			if (indexPath.row == 2) { ProgressHUD.show(randomText(), icon: .bookmark)			}
-			if (indexPath.row == 3) { ProgressHUD.show(randomText(), icon: .moon)				}
-			if (indexPath.row == 4) { ProgressHUD.show(randomText(), icon: .star)				}
-			if (indexPath.row == 5) { ProgressHUD.show(randomText(), icon: .exclamation)		}
-			if (indexPath.row == 6) { ProgressHUD.show(randomText(), icon: .flag)				}
-			if (indexPath.row == 7) { ProgressHUD.show(randomText(), icon: .message)			}
-			if (indexPath.row == 8) { ProgressHUD.show(randomText(), icon: .question)			}
-			if (indexPath.row == 9) { ProgressHUD.show(randomText(), icon: .bolt)				}
-			if (indexPath.row == 10) { ProgressHUD.show(randomText(), icon: .shuffle)			}
-			if (indexPath.row == 11) { ProgressHUD.show(randomText(), icon: .eject)				}
-			if (indexPath.row == 12) { ProgressHUD.show(randomText(), icon: .card)				}
-			if (indexPath.row == 13) { ProgressHUD.show(randomText(), icon: .rotate)			}
-			if (indexPath.row == 14) { ProgressHUD.show(randomText(), icon: .like)				}
-			if (indexPath.row == 15) { ProgressHUD.show(randomText(), icon: .dislike)			}
-			if (indexPath.row == 16) { ProgressHUD.show(randomText(), icon: .privacy)			}
-			if (indexPath.row == 17) { ProgressHUD.show(randomText(), icon: .cart)				}
-			if (indexPath.row == 18) { ProgressHUD.show(randomText(), icon: .search)			}
+			let alerticon = alerticons[indexPath.row]
+			ProgressHUD.show(randomText(), icon: alerticon)
 		}
 	}
 

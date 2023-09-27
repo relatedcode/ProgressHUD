@@ -2,6 +2,10 @@
 
 ## WHAT'S NEW
 
+### Version: 13.7.3
+
+- Fixed a bug where a thin line occasionally appeared on the right side of the HUD.
+
 ### Version: 13.7.2
 
 - Any SF Symbols can be displayed directly by defining its name `ProgressHUD.show(symbol: "car.fill")`
@@ -49,7 +53,7 @@ pod 'ProgressHUD'
 Once you've configured your `Package.swift` manifest file, you may proceed to include **ProgressHUD** in the dependencies section of the same file.
 
 ```swift
-dependencies: [ .package(url: "https://github.com/relatedcode/ProgressHUD.git", from: "13.7.2") ]
+dependencies: [ .package(url: "https://github.com/relatedcode/ProgressHUD.git", from: "13.7.3") ]
 ```
 
 ### Manually

@@ -13,7 +13,7 @@ import UIKit
 
 // MARK: - AnimationType
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-public enum AnimationType {
+public enum AnimationType: CaseIterable {
 
 	case none
 	case systemActivityIndicator
@@ -40,7 +40,7 @@ public enum AnimatedIcon {
 
 // MARK: - AlertIcon
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-public enum AlertIcon {
+public enum AlertIcon: CaseIterable {
 
 	case heart
 	case doc
@@ -494,9 +494,6 @@ private extension ProgressHUD {
 		}
 
 		toolbarHUD?.backgroundColor = colorHUD
-
-		toolbarHUD?.layer.borderWidth = 0.0
-		toolbarHUD?.layer.borderColor = UIColor.clear.cgColor
 	}
 }
 
@@ -548,11 +545,13 @@ private extension ProgressHUD {
 			viewProgress?.frame = CGRect(x: 0, y: 0, width: mediaSize, height: mediaSize)
 		}
 
-		if (viewProgress?.superview == nil) {
-			toolbarHUD?.addSubview(viewProgress!)
+		guard let viewProgress = viewProgress else { return }
+
+		if (viewProgress.superview == nil) {
+			toolbarHUD?.addSubview(viewProgress)
 		}
 
-		viewProgress?.setProgress(progress)
+		viewProgress.setProgress(progress)
 	}
 }
 
@@ -574,17 +573,19 @@ private extension ProgressHUD {
 			viewAnimatedIcon = UIView(frame: CGRect(x: 0, y: 0, width: mediaSize, height: mediaSize))
 		}
 
-		if (viewAnimatedIcon?.superview == nil) {
-			toolbarHUD?.addSubview(viewAnimatedIcon!)
+		guard let viewAnimatedIcon = viewAnimatedIcon else { return }
+
+		if (viewAnimatedIcon.superview == nil) {
+			toolbarHUD?.addSubview(viewAnimatedIcon)
 		}
 
-		viewAnimatedIcon?.layer.sublayers?.forEach {
+		viewAnimatedIcon.layer.sublayers?.forEach {
 			$0.removeFromSuperlayer()
 		}
 
-		if (animatedIcon == .succeed)	{ animatedIconSucceed(viewAnimatedIcon!)	}
-		if (animatedIcon == .failed)	{ animatedIconFailed(viewAnimatedIcon!)		}
-		if (animatedIcon == .added)		{ animatedIconAdded(viewAnimatedIcon!)		}
+		if (animatedIcon == .succeed)	{ animatedIconSucceed(viewAnimatedIcon)	}
+		if (animatedIcon == .failed)	{ animatedIconFailed(viewAnimatedIcon)	}
+		if (animatedIcon == .added)		{ animatedIconAdded(viewAnimatedIcon)	}
 	}
 }
 
@@ -606,12 +607,14 @@ private extension ProgressHUD {
 			viewStaticImage = UIImageView(frame: CGRect(x: 0, y: 0, width: mediaSize, height: mediaSize))
 		}
 
-		if (viewStaticImage?.superview == nil) {
-			toolbarHUD?.addSubview(viewStaticImage!)
+		guard let viewStaticImage = viewStaticImage else { return }
+
+		if (viewStaticImage.superview == nil) {
+			toolbarHUD?.addSubview(viewStaticImage)
 		}
 
-		viewStaticImage?.image = staticImage
-		viewStaticImage?.contentMode = .scaleAspectFit
+		viewStaticImage.image = staticImage
+		viewStaticImage.contentMode = .scaleAspectFit
 	}
 }
 
@@ -633,29 +636,31 @@ private extension ProgressHUD {
 			viewAnimation = UIView(frame: CGRect(x: 0, y: 0, width: mediaSize, height: mediaSize))
 		}
 
-		if (viewAnimation?.superview == nil) {
-			toolbarHUD?.addSubview(viewAnimation!)
+		guard let viewAnimation = viewAnimation else { return }
+
+		if (viewAnimation.superview == nil) {
+			toolbarHUD?.addSubview(viewAnimation)
 		}
 
-		viewAnimation?.subviews.forEach {
+		viewAnimation.subviews.forEach {
 			$0.removeFromSuperview()
 		}
 
-		viewAnimation?.layer.sublayers?.forEach {
+		viewAnimation.layer.sublayers?.forEach {
 			$0.removeFromSuperlayer()
 		}
 
-		if (animationType == .systemActivityIndicator)		{ animationSystemActivityIndicator(viewAnimation!)		}
-		if (animationType == .horizontalCirclesPulse)		{ animationHorizontalCirclesPulse(viewAnimation!)		}
-		if (animationType == .lineScaling)					{ animationLineScaling(viewAnimation!)					}
-		if (animationType == .singleCirclePulse)			{ animationSingleCirclePulse(viewAnimation!)			}
-		if (animationType == .multipleCirclePulse)			{ animationMultipleCirclePulse(viewAnimation!)			}
-		if (animationType == .singleCircleScaleRipple)		{ animationSingleCircleScaleRipple(viewAnimation!)		}
-		if (animationType == .multipleCircleScaleRipple)	{ animationMultipleCircleScaleRipple(viewAnimation!)	}
-		if (animationType == .circleSpinFade)				{ animationCircleSpinFade(viewAnimation!)				}
-		if (animationType == .lineSpinFade)					{ animationLineSpinFade(viewAnimation!)					}
-		if (animationType == .circleRotateChase)			{ animationCircleRotateChase(viewAnimation!)			}
-		if (animationType == .circleStrokeSpin)				{ animationCircleStrokeSpin(viewAnimation!)				}
+		if (animationType == .systemActivityIndicator)		{ animationSystemActivityIndicator(viewAnimation)	}
+		if (animationType == .horizontalCirclesPulse)		{ animationHorizontalCirclesPulse(viewAnimation)	}
+		if (animationType == .lineScaling)					{ animationLineScaling(viewAnimation)				}
+		if (animationType == .singleCirclePulse)			{ animationSingleCirclePulse(viewAnimation)			}
+		if (animationType == .multipleCirclePulse)			{ animationMultipleCirclePulse(viewAnimation)		}
+		if (animationType == .singleCircleScaleRipple)		{ animationSingleCircleScaleRipple(viewAnimation)	}
+		if (animationType == .multipleCircleScaleRipple)	{ animationMultipleCircleScaleRipple(viewAnimation)	}
+		if (animationType == .circleSpinFade)				{ animationCircleSpinFade(viewAnimation)			}
+		if (animationType == .lineSpinFade)					{ animationLineSpinFade(viewAnimation)				}
+		if (animationType == .circleRotateChase)			{ animationCircleRotateChase(viewAnimation)			}
+		if (animationType == .circleStrokeSpin)				{ animationCircleStrokeSpin(viewAnimation)			}
 	}
 }
 
@@ -723,7 +728,7 @@ private extension ProgressHUD {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupSizes(_ width: CGFloat, _ height: CGFloat, _ center: CGPoint, _ rect: CGRect) {
 
-		toolbarHUD?.bounds = CGRect(x: 0, y: 0, width: width, height: height)
+		toolbarHUD?.bounds = CGRect(x: 0, y: 0, width: ceil(width), height: ceil(height))
 
 		viewProgress?.center = center
 		viewAnimatedIcon?.center = center
@@ -900,7 +905,7 @@ private extension ProgressHUD {
 		animation.timingFunctions = [timingFunction, timingFunction]
 		animation.values = [1, 0.3, 1]
 		animation.duration = 1
-		animation.repeatCount = HUGE
+		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(arcCenter: center, radius: radius / 2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
@@ -935,7 +940,7 @@ private extension ProgressHUD {
 		animation.timingFunctions = [timingFunction, timingFunction]
 		animation.values = [1, 0.4, 1]
 		animation.duration = 1
-		animation.repeatCount = HUGE
+		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: lineWidth, height: height), cornerRadius: width / 2)
@@ -978,7 +983,7 @@ private extension ProgressHUD {
 		animation.animations = [animationScale, animationOpacity]
 		animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animation.duration = duration
-		animation.repeatCount = HUGE
+		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
@@ -1018,7 +1023,7 @@ private extension ProgressHUD {
 		animation.animations = [animationScale, animationOpacity]
 		animation.timingFunction = CAMediaTimingFunction(name: .linear)
 		animation.duration = duration
-		animation.repeatCount = HUGE
+		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
@@ -1063,7 +1068,7 @@ private extension ProgressHUD {
 		let animation = CAAnimationGroup()
 		animation.animations = [animationScale, animationOpacity]
 		animation.duration = duration
-		animation.repeatCount = HUGE
+		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
@@ -1108,7 +1113,7 @@ private extension ProgressHUD {
 		let animation = CAAnimationGroup()
 		animation.animations = [animationScale, animationOpacity]
 		animation.duration = duration
-		animation.repeatCount = HUGE
+		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
@@ -1157,7 +1162,7 @@ private extension ProgressHUD {
 		animation.animations = [animationScale, animationOpacity]
 		animation.timingFunction = CAMediaTimingFunction(name: .linear)
 		animation.duration = duration
-		animation.repeatCount = HUGE
+		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(arcCenter: center, radius: radius / 2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
@@ -1200,7 +1205,7 @@ private extension ProgressHUD {
 		animation.timingFunctions = [timingFunction, timingFunction]
 		animation.values = [1, 0.3, 1]
 		animation.duration = duration
-		animation.repeatCount = HUGE
+		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: lineWidth, height: lineHeight), cornerRadius: lineWidth / 2)
@@ -1246,24 +1251,24 @@ private extension ProgressHUD {
 			let rate = Float(i) * 1 / 5
 			let fromScale = 1 - rate
 			let toScale = 0.2 + rate
-			let timeFunc = CAMediaTimingFunction(controlPoints: 0.5, 0.15 + rate, 0.25, 1)
 
 			let animationScale = CABasicAnimation(keyPath: "transform.scale")
 			animationScale.duration = duration
-			animationScale.repeatCount = HUGE
+			animationScale.repeatCount = .infinity
 			animationScale.fromValue = fromScale
 			animationScale.toValue = toScale
 
 			let animationPosition = CAKeyframeAnimation(keyPath: "position")
 			animationPosition.duration = duration
-			animationPosition.repeatCount = HUGE
+			animationPosition.repeatCount = .infinity
 			animationPosition.path = path1.cgPath
 
 			let animation = CAAnimationGroup()
 			animation.animations = [animationScale, animationPosition]
-			animation.timingFunction = timeFunc
+			animation.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 0.15 + rate, 0.25, 1)
+
 			animation.duration = duration
-			animation.repeatCount = HUGE
+			animation.repeatCount = .infinity
 			animation.isRemovedOnCompletion = false
 
 			let layer = CAShapeLayer()
