@@ -11,7 +11,7 @@
 
 ### Version: 13.8.0
 
-- Introduced an incredibly straightforward notification banner feature.
+- Introduced an incredibly straightforward notification Banner feature.
 
 ### Version: 13.7.3
 
