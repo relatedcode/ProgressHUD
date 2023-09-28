@@ -2,6 +2,13 @@
 
 ## WHAT'S NEW
 
+### Version: 13.8.1
+
+- Implemented custom delay option for Banners
+- Fixed the Banner orientation resizing issue
+- Corrected the device orientation HUD positioning issue
+- Added multi-window support: custom window can be defined now
+
 ### Version: 13.8.0
 
 - Introduced an incredibly straightforward notification banner feature.

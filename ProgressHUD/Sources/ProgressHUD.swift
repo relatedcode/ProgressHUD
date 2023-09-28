@@ -115,6 +115,11 @@ public extension ProgressHUD {
 // MARK: - HUD customization
 public extension ProgressHUD {
 
+	class var window: UIWindow {
+		get { shared.main }
+		set { shared.main = newValue }
+	}
+
 	class var mediaSize: CGFloat {
 		get { shared.mediaSize }
 		set { shared.mediaSize = newValue }
@@ -282,9 +287,9 @@ public extension ProgressHUD {
 // MARK: - Banner
 public extension ProgressHUD {
 
-	class func showBanner(_ title: String?, _ message: String?) {
+	class func showBanner(_ title: String?, _ message: String?, delay: TimeInterval = 3.0) {
 		DispatchQueue.main.async {
-			shared.showBanner(title: title, message: message)
+			shared.showBanner(title: title, message: message, delay: delay)
 		}
 	}
 
@@ -298,16 +303,25 @@ public extension ProgressHUD {
 // MARK: - ProgressHUD
 public class ProgressHUD: UIView {
 
+	private var main = UIApplication.shared.windows.first ?? UIWindow()
+
+	// Banner properties
 	private var viewBanner: UIToolbar?
-	private var timerBanner: Timer?
-
 	private var colorBanner = UIColor.clear
+	private var timerBanner: Timer?
+	private var observerBanner: NSObjectProtocol?
+
+	private var textBannerTitle = ""
 	private var colorBannerTitle = UIColor.label
-	private var colorBannerMessage = UIColor.darkGray
-
 	private var fontBannerTitle = UIFont.boldSystemFont(ofSize: 16)
-	private var fontBannerMessage = UIFont.systemFont(ofSize: 14)
+	private var labelBannerTitle: UILabel?
 
+	private var textBannerMessage = ""
+	private var colorBannerMessage = UIColor.darkGray
+	private var fontBannerMessage = UIFont.systemFont(ofSize: 14)
+	private var labelBannerMessage: UILabel?
+
+	// HUD properties
 	private var timerHUD: Timer?
 
 	private var mediaSize: CGFloat = 70
@@ -363,78 +377,111 @@ public class ProgressHUD: UIView {
 // MARK: - Banner Methods
 private extension ProgressHUD {
 
-	private func showBanner(title: String?, message: String?) {
-		guard let window = UIApplication.shared.windows.first else { return }
+	private func showBanner(title: String?, message: String?, delay: TimeInterval) {
+		removeBanner()
 
-		if let banner = viewBanner {
-			banner.removeFromSuperview()
-			viewBanner = nil
-		}
+		textBannerTitle = title ?? ""
+		textBannerMessage = message ?? ""
 
-		let title = title ?? ""
-		let message = message ?? ""
+		viewBanner = UIToolbar()
+		viewBanner?.isTranslucent = true
+		viewBanner?.clipsToBounds = true
+		viewBanner?.layer.cornerRadius = 10
+		viewBanner?.backgroundColor = colorBanner
 
-		let widthBanner = window.frame.width - 32
-		let widthLabel = window.frame.width - 64
+		labelBannerTitle = UILabel()
+		labelBannerTitle?.text = textBannerTitle
+		labelBannerTitle?.font = fontBannerTitle
+		labelBannerTitle?.textColor = colorBannerTitle
 
-		let size = CGSize(width: widthLabel, height: .greatestFiniteMagnitude)
-		let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
-		let attributes = [NSAttributedString.Key.font: fontBannerMessage]
-		let attributed = NSAttributedString(string: message, attributes: attributes)
-		let rect = attributed.boundingRect(with: size, options: options, context: nil)
-		let multiline = (rect.height > fontBannerMessage.lineHeight)
+		labelBannerMessage = UILabel()
+		labelBannerMessage?.text = textBannerMessage
+		labelBannerMessage?.font = fontBannerMessage
+		labelBannerMessage?.textColor = colorBannerMessage
 
-		let heightBanner: CGFloat = multiline ? 80 : 64
-		let heightMessage: CGFloat = multiline ? 40 : 20
+		resizeBanner()
 
-		let banner = UIToolbar(frame: CGRect(x: 16, y: -100, width: widthBanner, height: heightBanner))
-		banner.backgroundColor = colorBanner
-		banner.layer.cornerRadius = 10
-		banner.clipsToBounds = true
-		banner.barStyle = .default
-		banner.isTranslucent = true
+		if let viewBanner, let labelBannerTitle, let labelBannerMessage  {
+			main.addSubview(viewBanner)
+			viewBanner.addSubview(labelBannerTitle)
+			viewBanner.addSubview(labelBannerMessage)
 
-		let labelTitle = UILabel(frame: CGRect(x: 16, y: 8, width: widthLabel, height: 24))
-		labelTitle.text = title
-		labelTitle.font = fontBannerTitle
-		labelTitle.textColor = colorBannerTitle
-
-		let labelMessage = UILabel(frame: CGRect(x: 16, y: 32, width: widthLabel, height: heightMessage))
-		labelMessage.text = message
-		labelMessage.font = fontBannerMessage
-		labelMessage.textColor = colorBannerMessage
-		labelMessage.numberOfLines = multiline ? 2 : 1
-
-		banner.addSubview(labelTitle)
-		banner.addSubview(labelMessage)
-		window.addSubview(banner)
-
-		UIView.animate(withDuration: 0.25) {
-			banner.frame = CGRect(x: 16, y: window.safeAreaInsets.top, width: widthBanner, height: heightBanner)
+			let y = viewBanner.frame.origin.y
+			viewBanner.frame.origin.y = -100
+			UIView.animate(withDuration: 0.25) {
+				viewBanner.frame.origin.y = y
+			}
 		}
 
 		timerBanner?.invalidate()
-		timerBanner = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { [weak self] _ in
+		timerBanner = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
 			guard let self = self else { return }
 			self.hideBanner()
 		}
 
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideBanner))
-		banner.addGestureRecognizer(tapGesture)
+		viewBanner?.addGestureRecognizer(tapGesture)
 
-		viewBanner = banner
+		createBannerObserver()
 	}
 
 	@objc private func hideBanner() {
 		guard let banner = viewBanner else { return }
 
+		removeBannerObserver()
 		UIView.animate(withDuration: 0.25, animations: {
-			banner.frame = CGRect(x: 16, y: -100, width: banner.frame.width, height: banner.frame.height)
-		}) { _ in
-			banner.removeFromSuperview()
-		}
+			banner.frame.origin.y = -100
+		}, completion: { _ in
+			self.removeBanner()
+		})
+	}
 
+	private func removeBanner() {
+		labelBannerMessage?.removeFromSuperview()
+		labelBannerTitle?.removeFromSuperview()
+		viewBanner?.removeFromSuperview()
+
+		labelBannerMessage = nil
+		labelBannerTitle = nil
 		viewBanner = nil
+	}
+
+	private func removeBannerObserver() {
+		if let observer = observerBanner {
+			NotificationCenter.default.removeObserver(observer)
+		}
+	}
+
+	private func createBannerObserver() {
+		observerBanner = NotificationCenter.default.addObserver(forName: orientationDidChange, object: nil, queue: .main) { notification in
+			DispatchQueue.main.async {
+				self.resizeBanner()
+			}
+		}
+	}
+
+	private func resizeBanner() {
+		let widthBanner = main.frame.width - 32
+		let widthLabel = main.frame.width - 64
+
+		let multiline = bannerMultiline(widthLabel)
+		let heightBanner: CGFloat = multiline ? 80 : 64
+		let heightMessage: CGFloat = multiline ? 40 : 20
+
+		viewBanner?.frame = CGRect(x: 16, y: main.safeAreaInsets.top, width: widthBanner, height: heightBanner)
+		labelBannerTitle?.frame = CGRect(x: 16, y: 8, width: widthLabel, height: 24)
+		labelBannerMessage?.frame = CGRect(x: 16, y: 32, width: widthLabel, height: heightMessage)
+
+		labelBannerMessage?.numberOfLines = multiline ? 2 : 1
+	}
+
+	private func bannerMultiline(_ widthLabel: CGFloat) -> Bool {
+		let size = CGSize(width: widthLabel, height: .greatestFiniteMagnitude)
+		let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+		let attributes = [NSAttributedString.Key.font: fontBannerMessage]
+		let attributed = NSAttributedString(string: textBannerMessage, attributes: attributes)
+		let rect = attributed.boundingRect(with: size, options: options, context: nil)
+		return rect.height > fontBannerMessage.lineHeight
 	}
 }
 
@@ -535,9 +582,8 @@ private extension ProgressHUD {
 
 	private func setupBackground(_ interaction: Bool) {
 		if (viewBackground == nil) {
-			let mainWindow = UIApplication.shared.windows.first ?? UIWindow()
 			viewBackground = UIView(frame: bounds)
-			mainWindow.addSubview(viewBackground!)
+			main.addSubview(viewBackground!)
 		}
 
 		viewBackground?.backgroundColor = interaction ? .clear : colorBackground
@@ -801,14 +847,14 @@ private extension ProgressHUD {
 			heightKeyboard = keyboardHeight()
 		}
 
-		let mainWindow = UIApplication.shared.windows.first ?? UIWindow()
-		let screen = mainWindow.bounds
-		let center = CGPoint(x: screen.size.width / 2, y: (screen.size.height - heightKeyboard) / 2)
+		DispatchQueue.main.async { [self] in
+			let center = CGPoint(x: main.bounds.size.width / 2, y: (main.bounds.size.height - heightKeyboard) / 2)
 
-		UIView.animate(withDuration: animationDuration, delay: 0, options: .allowUserInteraction, animations: { [self] in
-			toolbarHUD?.center = center
-			viewBackground?.frame = screen
-		}, completion: nil)
+			UIView.animate(withDuration: animationDuration, delay: 0, options: .allowUserInteraction) { [self] in
+				viewBackground?.frame = main.bounds
+				toolbarHUD?.center = center
+			}
+		}
 	}
 
 	private func keyboardHeight() -> CGFloat {

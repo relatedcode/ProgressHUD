@@ -224,10 +224,7 @@ extension ViewController {
 		tableView.deselectRow(at: indexPath, animated: true)
 
 		if (indexPath.section == 0) {
-			let title = "Banner title"
-			let message = toggleText()
-
-			if (indexPath.row == 0) { ProgressHUD.showBanner(title, message) }
+			if (indexPath.row == 0) { ProgressHUD.showBanner("Banner title", toggleText()) }
 			if (indexPath.row == 1) { ProgressHUD.hideBanner() }
 		}
 
