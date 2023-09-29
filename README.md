@@ -2,12 +2,16 @@
 
 ## WHAT'S NEW
 
+### Version: 13.8.2
+
+- Refactored internal code architecture.
+
 ### Version: 13.8.1
 
-- Implemented custom delay option for Banners
-- Fixed the Banner orientation resizing issue
-- Corrected the device orientation HUD positioning issue
-- Added multi-window support: custom window can be defined now
+- Implemented custom delay option for Banners.
+- Fixed the Banner orientation resizing issue.
+- Corrected the device orientation HUD positioning issue.
+- Added multi-window support: custom window can be defined now.
 
 ### Version: 13.8.0
 
@@ -19,27 +23,27 @@
 
 ### Version: 13.7.2
 
-- Any SF Symbols can be displayed directly by defining its name `ProgressHUD.show(symbol: "car.fill")`
-- The `showFailed` and `showError` methods can now handle `Error?` parameters as well. In this case the `localizedDescription` will be displayed.
-- The `setupDelayTimer` method is fixed. Now `[weak self]` is used within the timer's closure to prevent potential retain cycles and avoid memory leaks.
+- Display any SF Symbols by specifying their names, e.g., `ProgressHUD.show(symbol: "car.fill")`.
+- Enhanced `showFailed` and `showError` methods to accept optional `Error?` parameters. When provided, the `localizedDescription` will be shown.
+- Fixed `setupDelayTimer` method by incorporating `[weak self]` in the timer's closure to prevent potential retain cycles and mitigate memory leaks.
 
 ### Version: 13.7.1
 
-- The `mediaSize` and `marginSize` options are now available to adjust the HUD dimensions.
+- Added `mediaSize` and `marginSize` options for customizable HUD dimensions.
 
 ### Version: 13.7.0
 
-- New `AnimationType.none` has been implemented. So you can display some text without animation.
+- Introduced `AnimationType.none` for text display without animation.
 
 ### Version: 13.6.2
 
-- We have the optional `delay:` parameter to set the timeout.
-- We have the `.remove()` function to dismiss the HUD immediately.
+- Added optional `delay:` parameter for setting timeout.
+- Introduced `.remove()` function for immediate HUD dismissal.
 
 ### Version: 13.5 and 13.6
 
-- Bugfix related to iPad split screen.
-- Bugfix related to showProgress.
+- Fixed iPad split-screen related bug.
+- Resolved issue with `showProgress`.
 
 ## OVERVIEW
 
@@ -70,12 +74,16 @@ To add **ProgressHUD** as a dependency to your project, follow these steps:
 
 ### Manually
 
-If you prefer not to use any of the dependency managers, you can integrate **ProgressHUD** into your project manually. Just copy the `ProgressHUD.swift` file in your Xcode project.
+If you prefer not to use any of the dependency managers above, you can integrate **ProgressHUD** into your project manually. Just copy all the `*.swift` files from the `ProgressHUD/Sources` folder into your Xcode project.
 
 ## QUICK START
 
 ```swift
 ProgressHUD.showBanner("Banner title", "Banner message to display.")
+```
+
+```swift
+ProgressHUD.showBanner("Banner title", "Message to display.", delay: 2.0)
 ```
 
 ```swift

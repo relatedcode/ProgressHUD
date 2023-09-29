@@ -10,6 +10,12 @@
 		295B8482248C1C5B003E8AE6 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 295B8480248C1C5B003E8AE6 /* ViewController.xib */; };
 		295B8483248C1C5B003E8AE6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B8481248C1C5B003E8AE6 /* ViewController.swift */; };
 		299876DB248FCB290025E297 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299876DA248FCB290025E297 /* ProgressHUD.swift */; };
+		29A3BDAC2AC6A0810034CAF3 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDAA2AC6A0810034CAF3 /* ProgressView.swift */; };
+		29A3BDAD2AC6A0810034CAF3 /* ProgressHUD+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDAB2AC6A0810034CAF3 /* ProgressHUD+Animations.swift */; };
+		29A3BDAF2AC6A5EF0034CAF3 /* ProgressHUD+AnimatedIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDAE2AC6A5EF0034CAF3 /* ProgressHUD+AnimatedIcon.swift */; };
+		29A3BDB12AC6A7500034CAF3 /* ProgressHUD+Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDB02AC6A7500034CAF3 /* ProgressHUD+Banner.swift */; };
+		29A3BDB32AC6ACA90034CAF3 /* ProgressHUD+Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDB22AC6ACA90034CAF3 /* ProgressHUD+Enums.swift */; };
+		29A3BDB52AC6AF780034CAF3 /* ProgressHUD+Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDB42AC6AF780034CAF3 /* ProgressHUD+Public.swift */; };
 		29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D29EF81D9A59E4006CA074 /* AppDelegate.swift */; };
 		29D29F011D9A59E4006CA074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F001D9A59E4006CA074 /* Assets.xcassets */; };
 		29D29F041D9A59E4006CA074 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F021D9A59E4006CA074 /* LaunchScreen.storyboard */; };
@@ -20,6 +26,12 @@
 		295B8480248C1C5B003E8AE6 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		295B8481248C1C5B003E8AE6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		299876DA248FCB290025E297 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		29A3BDAA2AC6A0810034CAF3 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		29A3BDAB2AC6A0810034CAF3 /* ProgressHUD+Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+Animations.swift"; sourceTree = "<group>"; };
+		29A3BDAE2AC6A5EF0034CAF3 /* ProgressHUD+AnimatedIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+AnimatedIcon.swift"; sourceTree = "<group>"; };
+		29A3BDB02AC6A7500034CAF3 /* ProgressHUD+Banner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+Banner.swift"; sourceTree = "<group>"; };
+		29A3BDB22AC6ACA90034CAF3 /* ProgressHUD+Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+Enums.swift"; sourceTree = "<group>"; };
+		29A3BDB42AC6AF780034CAF3 /* ProgressHUD+Public.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+Public.swift"; sourceTree = "<group>"; };
 		29D29EF11D9A59E4006CA074 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D29EF81D9A59E4006CA074 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29D29F001D9A59E4006CA074 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,6 +55,12 @@
 			isa = PBXGroup;
 			children = (
 				299876DA248FCB290025E297 /* ProgressHUD.swift */,
+				29A3BDAE2AC6A5EF0034CAF3 /* ProgressHUD+AnimatedIcon.swift */,
+				29A3BDAB2AC6A0810034CAF3 /* ProgressHUD+Animations.swift */,
+				29A3BDB02AC6A7500034CAF3 /* ProgressHUD+Banner.swift */,
+				29A3BDB22AC6ACA90034CAF3 /* ProgressHUD+Enums.swift */,
+				29A3BDB42AC6AF780034CAF3 /* ProgressHUD+Public.swift */,
+				29A3BDAA2AC6A0810034CAF3 /* ProgressView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -163,9 +181,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				295B8483248C1C5B003E8AE6 /* ViewController.swift in Sources */,
+				29A3BDB32AC6ACA90034CAF3 /* ProgressHUD+Enums.swift in Sources */,
 				29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */,
+				29A3BDB12AC6A7500034CAF3 /* ProgressHUD+Banner.swift in Sources */,
 				299876DB248FCB290025E297 /* ProgressHUD.swift in Sources */,
+				29A3BDB52AC6AF780034CAF3 /* ProgressHUD+Public.swift in Sources */,
+				29A3BDAD2AC6A0810034CAF3 /* ProgressHUD+Animations.swift in Sources */,
 				29D99E7E2AC4A3300073EE38 /* NavController.swift in Sources */,
+				29A3BDAC2AC6A0810034CAF3 /* ProgressView.swift in Sources */,
+				29A3BDAF2AC6A5EF0034CAF3 /* ProgressHUD+AnimatedIcon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

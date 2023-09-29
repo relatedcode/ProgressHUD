@@ -63,30 +63,30 @@ class ViewController: UITableViewController {
 
 	@IBOutlet var cellText: UITableViewCell!
 
-	private var animations = AnimationType.allCases
-	private var alerticons = AlertIcon.allCases
+	var animations = AnimationType.allCases
+	var alerticons = AlertIcon.allCases
 
-	private var actions1: [String] = []
-	private var actions2: [String] = []
-	private var actions3: [String] = []
-	private var actions4: [String] = []
-	private var actions5: [String] = []
+	var actions1: [String] = []
+	var actions2: [String] = []
+	var actions3: [String] = []
+	var actions4: [String] = []
+	var actions5: [String] = []
 
-	private var timer: Timer?
-	private var status: String?
-	private var counter = 0.0
+	var timer: Timer?
+	var status: String?
+	var counter = 0.0
 
-	private let textShort	= "Please wait..."
-	private let textLong	= "Please wait. We need some more time to work out this situation."
+	let textShort	= "Please wait..."
+	let textLong	= "Please wait. We need some more time to work out this situation."
 
-	private let textSuccess	= "That was awesome!"
-	private let textError	= "Something went wrong."
+	let textSuccess	= "That was awesome!"
+	let textError	= "Something went wrong."
 
-	private let textSucceed	= "That was awesome!"
-	private let textFailed	= "Something went wrong."
-	private let textAdded	= "Successfully added."
+	let textSucceed	= "That was awesome!"
+	let textFailed	= "Something went wrong."
+	let textAdded	= "Successfully added."
 
-	private var boolText = false
+	var boolText = false
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
