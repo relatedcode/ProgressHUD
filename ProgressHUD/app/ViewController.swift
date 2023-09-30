@@ -259,11 +259,9 @@ extension ViewController {
 
 	func loadSymbols() {
 		if let bundle = Bundle(identifier: "com.apple.CoreGlyphs") {
-		if let path = bundle.path(forResource: "symbol_search", ofType: "plist") {
-				if let temp = NSDictionary(contentsOfFile: path) {
-					if let values = temp as? [String: [String]] {
-						symbols = Array(values.keys)
-					}
+			if let path = bundle.path(forResource: "symbol_search", ofType: "plist") {
+				if let values = NSDictionary(contentsOfFile: path) as? [String: [String]] {
+					symbols = Array(values.keys)
 				}
 			}
 		}
