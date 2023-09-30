@@ -163,17 +163,11 @@ public extension ProgressHUD {
 // MARK: - Static Image
 public extension ProgressHUD {
 
-	class func show(_ text: String? = nil, icon: AlertIcon, interaction: Bool = true, delay: TimeInterval? = nil) {
-		DispatchQueue.main.async {
-			let image = icon.image?.withTintColor(shared.colorAnimation, renderingMode: .alwaysOriginal)
-			shared.setup(text: text, staticImage: image, interaction: interaction, delay: delay)
-		}
-	}
-
 	class func show(_ text: String? = nil, symbol: String, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			let image = UIImage(systemName: symbol)?.withTintColor(shared.colorAnimation, renderingMode: .alwaysOriginal)
-			shared.setup(text: text, staticImage: image, interaction: interaction, delay: delay)
+			let image = UIImage(systemName: symbol) ?? UIImage(systemName: "questionmark")
+			let colored = image?.withTintColor(shared.colorAnimation, renderingMode: .alwaysOriginal)
+			shared.setup(text: text, staticImage: colored, interaction: interaction, delay: delay)
 		}
 	}
 

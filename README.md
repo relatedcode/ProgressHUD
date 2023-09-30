@@ -2,6 +2,11 @@
 
 ## WHAT'S NEW
 
+### Version: 13.8.3
+
+- Removed the `AlertIcon` feature. Please use the `symbol:` parameter for similar functionality.
+- The `questionmark` symbol will be displayed when the specified symbol name does not exist.
+
 ### Version: 13.8.2
 
 - Refactored internal code architecture.
@@ -123,14 +128,6 @@ ProgressHUD.showProgress("Loading...", 0.42)
 ```
 
 ```swift
-ProgressHUD.show(icon: .heart)
-```
-
-```swift
-ProgressHUD.show("Some text...", icon: .privacy, delay: 2.0)
-```
-
-```swift
 ProgressHUD.show(symbol: "box.truck")
 ```
 
@@ -189,13 +186,10 @@ ProgressHUD.fontStatus = .boldSystemFont(ofSize: 24)
 
 ```swift
 ProgressHUD.imageSuccess = UIImage(named: "success.png")
-```
-
-```swift
 ProgressHUD.imageError = UIImage(named: "error.png")
 ```
 
-A comprehensive list of the predefined animation and icon types:
+A comprehensive list of the predefined animation types:
 
 ```swift
 public enum AnimationType {
@@ -219,30 +213,6 @@ public enum AnimatedIcon {
 	case succeed
 	case failed
 	case added
-}
-```
-
-```swift
-public enum AlertIcon {
-	case heart
-	case doc
-	case bookmark
-	case moon
-	case star
-	case exclamation
-	case flag
-	case message
-	case question
-	case bolt
-	case shuffle
-	case eject
-	case card
-	case rotate
-	case like
-	case dislike
-	case privacy
-	case cart
-	case search
 }
 ```
 
