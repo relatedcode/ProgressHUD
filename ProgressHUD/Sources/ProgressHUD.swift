@@ -13,7 +13,7 @@ import UIKit
 
 public class ProgressHUD: UIView {
 
-	var main = UIApplication.shared.windows.first ?? UIWindow()
+	var main: UIWindow!
 
 	// Banner properties
 	var viewBanner: UIToolbar?
@@ -91,7 +91,7 @@ extension ProgressHUD {
 
 		removeDelayTimer()
 
-		setupNotifications()
+		setupWindow()
 		setupBackground(interaction)
 		setupToolbar()
 		setupStatus(text)
@@ -124,6 +124,7 @@ extension ProgressHUD {
 		}
 
 		setupSizes(text, animation)
+		setupNotifications()
 		setupPosition()
 		displayHUD()
 	}
@@ -170,7 +171,17 @@ extension ProgressHUD {
 	}
 }
 
-// MARK: - Background View
+// MARK: - Window
+extension ProgressHUD {
+
+	private func setupWindow() {
+		if (main == nil) {
+			main = UIApplication.shared.windows.first
+		}
+	}
+}
+
+// MARK: - Background
 extension ProgressHUD {
 
 	private func removeBackground() {
@@ -455,19 +466,17 @@ extension ProgressHUD {
 		}
 	}
 
-	private func keyboardHeight() -> CGFloat {
-		if let keyboardWindowClass = NSClassFromString("UIRemoteKeyboardWindow"),
-			let inputSetContainerView = NSClassFromString("UIInputSetContainerView"),
-			let inputSetHostView = NSClassFromString("UIInputSetHostView") {
-
-			for window in UIApplication.shared.windows {
-				if window.isKind(of: keyboardWindowClass) {
-					for firstSubView in window.subviews {
-						if firstSubView.isKind(of: inputSetContainerView) {
-							for secondSubView in firstSubView.subviews {
-								if secondSubView.isKind(of: inputSetHostView) {
-									return secondSubView.frame.size.height
-								}
+	func keyboardHeight() -> CGFloat {
+		let windows = UIApplication.shared.windows
+		for window in windows {
+			for view in window.subviews {
+				if String(describing: type(of: view)).hasPrefix("UIInputSetContainerView") {
+					for subview in view.subviews {
+						if String(describing: type(of: subview)).hasPrefix("UIInputSetHostView") {
+							let screenRect = UIScreen.main.bounds
+							let keyboardRect = window.convert(subview.frame, to: nil)
+							if keyboardRect.intersects(screenRect) {
+								return subview.frame.height
 							}
 						}
 					}

@@ -2,6 +2,11 @@
 
 ## WHAT'S NEW
 
+### Version: 13.8.4
+
+- Corrected the window initialization issue where the `ProgressHUD` class was initialized before the 'main' window was created.
+- Resolved the keyboard height discrepancy that occurred when the keyboard was already visible before displaying the HUD.
+
 ### Version: 13.8.3
 
 - Removed the `AlertIcon` feature. Please use the `symbol:` parameter for similar functionality.
