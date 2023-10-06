@@ -2,7 +2,7 @@
 
 ## WHAT'S NEW
 
-For detailed changes, please refer to the [Changelog](CHANGELOG.md).
+For detailed changes, please refer to the [Change log](CHANGELOG.md).
 
 ## OVERVIEW
 
