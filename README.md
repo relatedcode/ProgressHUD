@@ -2,58 +2,7 @@
 
 ## WHAT'S NEW
 
-### Version: 13.8.4
-
-- Corrected the window initialization issue where the `ProgressHUD` class was initialized before the 'main' window was created.
-- Resolved the keyboard height discrepancy that occurred when the keyboard was already visible before displaying the HUD.
-
-### Version: 13.8.3
-
-- Removed the `AlertIcon` feature. Please use the `symbol:` parameter for similar functionality.
-- The `questionmark` symbol will be displayed when the specified symbol name does not exist.
-
-### Version: 13.8.2
-
-- Refactored internal code architecture.
-
-### Version: 13.8.1
-
-- Implemented custom delay option for Banners.
-- Fixed the Banner orientation resizing issue.
-- Corrected the device orientation HUD positioning issue.
-- Added multi-window support: custom window can be defined now.
-
-### Version: 13.8.0
-
-- Introduced an incredibly straightforward notification Banner feature.
-
-### Version: 13.7.3
-
-- Fixed a bug where a thin line occasionally appeared on the right side of the HUD.
-
-### Version: 13.7.2
-
-- Display any SF Symbols by specifying their names, e.g., `ProgressHUD.show(symbol: "car.fill")`.
-- Enhanced `showFailed` and `showError` methods to accept optional `Error?` parameters. When provided, the `localizedDescription` will be shown.
-- Fixed `setupDelayTimer` method by incorporating `[weak self]` in the timer's closure to prevent potential retain cycles and mitigate memory leaks.
-
-### Version: 13.7.1
-
-- Added `mediaSize` and `marginSize` options for customizable HUD dimensions.
-
-### Version: 13.7.0
-
-- Introduced `AnimationType.none` for text display without animation.
-
-### Version: 13.6.2
-
-- Added optional `delay:` parameter for setting timeout.
-- Introduced `.remove()` function for immediate HUD dismissal.
-
-### Version: 13.5 and 13.6
-
-- Fixed iPad split-screen related bug.
-- Resolved issue with `showProgress`.
+For detailed changes, please refer to the [Changelog](CHANGELOG.md).
 
 ## OVERVIEW
 
