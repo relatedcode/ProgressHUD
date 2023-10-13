@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.author = { 'Related Code' => 'info@relatedcode.com' }
 
   s.source = { :git => 'https://github.com/relatedcode/ProgressHUD.git', :tag => s.version }
-  s.source_files = 'ProgressHUD/Sources/*.swift'
+  s.source_files = 'ProgressHUD/Sources/*.swift', 'ProgressHUD/Sources/Animations/*.swift'
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 
