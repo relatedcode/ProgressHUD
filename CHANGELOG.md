@@ -1,5 +1,13 @@
 # Change Log
 
+## [13.8.6](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.6)
+
+Released on 2023-10-13.
+
+#### Fixed
+
+- Corrected an issue where displaying a banner would fail if a HUD had not been shown before the banner.
+
 ## [13.8.5](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.5)
 
 Released on 2023-10-13.

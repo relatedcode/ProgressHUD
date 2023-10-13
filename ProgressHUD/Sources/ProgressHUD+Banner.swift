@@ -15,6 +15,7 @@ import UIKit
 extension ProgressHUD {
 
 	func showBanner(title: String?, message: String?, delay: TimeInterval) {
+		setupWindow()
 		removeBanner()
 
 		textBannerTitle = title ?? ""

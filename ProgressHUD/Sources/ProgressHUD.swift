@@ -27,7 +27,7 @@ public class ProgressHUD: UIView {
 	var labelBannerTitle: UILabel?
 
 	var textBannerMessage = ""
-	var colorBannerMessage = UIColor.darkGray
+	var colorBannerMessage = UIColor.secondaryLabel
 	var fontBannerMessage = UIFont.systemFont(ofSize: 14)
 	var labelBannerMessage: UILabel?
 
@@ -174,7 +174,7 @@ extension ProgressHUD {
 // MARK: - Window
 extension ProgressHUD {
 
-	private func setupWindow() {
+	func setupWindow() {
 		if (main == nil) {
 			main = UIApplication.shared.windows.first
 		}
@@ -475,7 +475,7 @@ extension ProgressHUD {
 		}
 	}
 
-	func keyboardHeight() -> CGFloat {
+	private func keyboardHeight() -> CGFloat {
 		let windows = UIApplication.shared.windows
 		for window in windows {
 			for view in window.subviews {
