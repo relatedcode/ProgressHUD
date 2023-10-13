@@ -46,7 +46,7 @@ public class ProgressHUD: UIView {
 	var viewStaticImage: UIImageView?
 	var viewAnimation: UIView?
 
-	var animationType	= AnimationType.systemActivityIndicator
+	var animationType	= AnimationType.activityIndicator
 
 	var colorBackground	= UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
 	var colorHUD		= UIColor.systemGray
@@ -350,17 +350,26 @@ extension ProgressHUD {
 			$0.removeFromSuperlayer()
 		}
 
-		if (animationType == .systemActivityIndicator)		{ animationSystemActivityIndicator(viewAnimation, colorAnimation)	}
-		if (animationType == .horizontalCirclesPulse)		{ animationHorizontalCirclesPulse(viewAnimation, colorAnimation)	}
-		if (animationType == .lineScaling)					{ animationLineScaling(viewAnimation, colorAnimation)				}
-		if (animationType == .singleCirclePulse)			{ animationSingleCirclePulse(viewAnimation, colorAnimation)			}
-		if (animationType == .multipleCirclePulse)			{ animationMultipleCirclePulse(viewAnimation, colorAnimation)		}
-		if (animationType == .singleCircleScaleRipple)		{ animationSingleCircleScaleRipple(viewAnimation, colorAnimation)	}
-		if (animationType == .multipleCircleScaleRipple)	{ animationMultipleCircleScaleRipple(viewAnimation, colorAnimation)	}
-		if (animationType == .circleSpinFade)				{ animationCircleSpinFade(viewAnimation, colorAnimation)			}
-		if (animationType == .lineSpinFade)					{ animationLineSpinFade(viewAnimation, colorAnimation)				}
-		if (animationType == .circleRotateChase)			{ animationCircleRotateChase(viewAnimation, colorAnimation)			}
-		if (animationType == .circleStrokeSpin)				{ animationCircleStrokeSpin(viewAnimation, colorAnimation)			}
+		if (animationType == .activityIndicator)		{ animationActivityIndicator(viewAnimation, colorAnimation)		}
+		if (animationType == .ballVerticalBounce)		{ animationBallVerticalBounce(viewAnimation, colorAnimation)	}
+		if (animationType == .barSweepToggle)			{ animationBarSweepToggle(viewAnimation, colorAnimation)		}
+		if (animationType == .circleArcDotSpin)			{ animationCircleArcDotSpin(viewAnimation, colorAnimation)		}
+		if (animationType == .circleBarSpinFade)		{ animationCircleBarSpinFade(viewAnimation, colorAnimation)		}
+		if (animationType == .circleDotSpinFade)		{ animationCircleDotSpinFade(viewAnimation, colorAnimation)		}
+		if (animationType == .circlePulseMultiple)		{ animationCirclePulseMultiple(viewAnimation, colorAnimation)	}
+		if (animationType == .circlePulseSingle)		{ animationCirclePulseSingle(viewAnimation, colorAnimation)		}
+		if (animationType == .circleRippleMultiple)		{ animationCircleRippleMultiple(viewAnimation, colorAnimation)	}
+		if (animationType == .circleRippleSingle)		{ animationCircleRippleSingle(viewAnimation, colorAnimation)	}
+		if (animationType == .circleRotateChase)		{ animationCircleRotateChase(viewAnimation, colorAnimation)		}
+		if (animationType == .circleStrokeSpin)			{ animationCircleStrokeSpin(viewAnimation, colorAnimation)		}
+		if (animationType == .dualDotSidestep)			{ animationDualDotSidestep(viewAnimation, colorAnimation)		}
+		if (animationType == .horizontalBarScaling)		{ animationHorizontalBarScaling(viewAnimation, colorAnimation)	}
+		if (animationType == .horizontalDotScaling)		{ animationHorizontalDotScaling(viewAnimation, colorAnimation)	}
+		if (animationType == .pacmanProgress)			{ animationPacmanProgress(viewAnimation, colorAnimation)		}
+		if (animationType == .quintupleDotDance)		{ animationQuintupleDotDance(viewAnimation, colorAnimation)		}
+		if (animationType == .semiRingRotation)			{ animationSemiRingRotation(viewAnimation, colorAnimation)		}
+		if (animationType == .squareCircuitSnake)		{ animationSquareCircuitSnake(viewAnimation, colorAnimation)	}
+		if (animationType == .triangleDotShift)			{ animationTriangleDotShift(viewAnimation, colorAnimation)		}
 	}
 }
 

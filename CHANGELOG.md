@@ -1,5 +1,19 @@
 # Change Log
 
+## [13.8.5](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.5)
+
+Released on 2023-10-13.
+
+#### Added
+
+- Introduced 9 new animations to offer a more engaging and visually captivating user experience.
+
+#### Changed
+
+- Refactored existing animation names, including adjustments to the `AnimationType` enum.
+- Split the animations-related source files for better maintainability and organization.
+- Updated a few of the existing animations in terms of shape, size, and duration.
+
 ## [13.8.4](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.4)
 
 Released on 2023-10-05.

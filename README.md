@@ -146,19 +146,28 @@ ProgressHUD.imageError = UIImage(named: "error.png")
 A comprehensive list of the predefined animation types:
 
 ```swift
-public enum AnimationType {
+public enum AnimationType: CaseIterable {
 	case none
-	case systemActivityIndicator
-	case horizontalCirclesPulse
-	case lineScaling
-	case singleCirclePulse
-	case multipleCirclePulse
-	case singleCircleScaleRipple
-	case multipleCircleScaleRipple
-	case circleSpinFade
-	case lineSpinFade
+	case activityIndicator
+	case ballVerticalBounce
+	case barSweepToggle
+	case circleArcDotSpin
+	case circleBarSpinFade
+	case circleDotSpinFade
+	case circlePulseMultiple
+	case circlePulseSingle
+	case circleRippleMultiple
+	case circleRippleSingle
 	case circleRotateChase
 	case circleStrokeSpin
+	case dualDotSidestep
+	case horizontalBarScaling
+	case horizontalDotScaling
+	case pacmanProgress
+	case quintupleDotDance
+	case semiRingRotation
+	case squareCircuitSnake
+	case triangleDotShift
 }
 ```
 
