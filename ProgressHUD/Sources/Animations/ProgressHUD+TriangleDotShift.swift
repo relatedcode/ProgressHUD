@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Triangle Dot Shift
 extension ProgressHUD {
 
-	func animationTriangleDotShift(_ view: UIView, _ color: UIColor) {
+	func animationTriangleDotShift(_ view: UIView) {
 		let height = view.frame.size.height
 		let width = view.frame.size.width
 		let radius = width / 5
@@ -34,27 +34,27 @@ extension ProgressHUD {
 
 			let layer = CAShapeLayer()
 			layer.path = path.cgPath
-			layer.fillColor = color.cgColor
+			layer.fillColor = colorAnimation.cgColor
 			view.layer.addSublayer(layer)
 
 			let animationGroup: CAAnimationGroup
 			if i == 0 {
-				animationGroup = moveRightAnimationGroup(targetValue: width - radius * 2)
+				animationGroup = moveRightAnimationGroup(width - radius * 2)
 			} else if i == 1 {
-				animationGroup = moveBottomAnimationGroup(targetValue: width - radius * 2)
+				animationGroup = moveBottomAnimationGroup(width - radius * 2)
 			} else {
-				animationGroup = moveUpAnimationGroup(targetValue: width - radius * 2)
+				animationGroup = moveUpAnimationGroup(width - radius * 2)
 			}
 
 			layer.add(animationGroup, forKey: "animation")
 		}
 	}
 
-	private func moveRightAnimationGroup(targetValue: CGFloat) -> CAAnimationGroup {
+	private func moveRightAnimationGroup(_ toValue: CGFloat) -> CAAnimationGroup {
 		let animation = CABasicAnimation(keyPath: "position.x")
 		animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animation.fromValue = 0
-		animation.toValue = targetValue
+		animation.toValue = toValue
 		animation.duration = 0.6
 
 		let animationGroup = CAAnimationGroup()
@@ -65,17 +65,17 @@ extension ProgressHUD {
 		return animationGroup
 	}
 
-	private func moveBottomAnimationGroup(targetValue: CGFloat) -> CAAnimationGroup {
+	private func moveBottomAnimationGroup(_ toValue: CGFloat) -> CAAnimationGroup {
 		let animationX = CABasicAnimation(keyPath: "position.y")
 		animationX.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animationX.fromValue = 0
-		animationX.toValue = targetValue
+		animationX.toValue = toValue
 		animationX.duration = 0.6
 
 		let animationY = CABasicAnimation(keyPath: "position.x")
 		animationY.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animationY.fromValue = 0
-		animationY.toValue = -targetValue / 2
+		animationY.toValue = -toValue / 2
 		animationY.duration = 0.6
 
 		let animationGroup = CAAnimationGroup()
@@ -86,17 +86,17 @@ extension ProgressHUD {
 		return animationGroup
 	}
 
-	private func moveUpAnimationGroup(targetValue: CGFloat) -> CAAnimationGroup {
+	private func moveUpAnimationGroup(_ toValue: CGFloat) -> CAAnimationGroup {
 		let animationX = CABasicAnimation(keyPath: "position.y")
 		animationX.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animationX.fromValue = 0
-		animationX.toValue = -targetValue
+		animationX.toValue = -toValue
 		animationX.duration = 0.6
 
 		let animationY = CABasicAnimation(keyPath: "position.x")
 		animationY.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animationY.fromValue = 0
-		animationY.toValue = -targetValue / 2
+		animationY.toValue = -toValue / 2
 		animationY.duration = 0.6
 
 		let animationGroup = CAAnimationGroup()

@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Circle Arc Dot Spin
 extension ProgressHUD {
 
-	func animationCircleArcDotSpin(_ view: UIView, _ color: UIColor) {
+	func animationCircleArcDotSpin(_ view: UIView) {
 		let space = view.frame.width / 8
 		let x = view.bounds.minX + space / 2
 		let y = view.bounds.minY + space / 2
@@ -35,7 +35,7 @@ extension ProgressHUD {
 			let y = center.y + radius * sin(angle)
 
 			let circle = UIView(frame: CGRect(x: x - size / 2, y: y - size / 2, width: size, height: size))
-			circle.backgroundColor = color
+			circle.backgroundColor = colorAnimation
 			circle.layer.cornerRadius = size / 2
 			containerView.addSubview(circle)
 
@@ -47,10 +47,10 @@ extension ProgressHUD {
 			circle.layer.add(animation, forKey: "circleAnimation")
 		}
 
-		animateArcRotation(containerView, color)
+		animateArcRotation(containerView)
 	}
 
-	private func animateArcRotation(_ view: UIView, _ color: UIColor) {
+	private func animateArcRotation(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let center = CGPoint(x: width / 2, y: height / 2)
@@ -80,7 +80,7 @@ extension ProgressHUD {
 		layer.frame = CGRect(x: 0, y: 0, width: width, height: height)
 		layer.path = path.cgPath
 		layer.fillColor = nil
-		layer.strokeColor = color.cgColor
+		layer.strokeColor = colorAnimation.cgColor
 		layer.lineWidth = view.frame.width / 6
 		layer.lineCap = .round
 

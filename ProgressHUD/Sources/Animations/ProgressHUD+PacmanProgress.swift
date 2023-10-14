@@ -14,18 +14,18 @@ import UIKit
 // MARK: - Pacman Progress
 extension ProgressHUD {
 
-	func animationPacmanProgress(_ view: UIView, _ color: UIColor) {
-		createPacman(view, color)
-		createCircle(view, color)
+	func animationPacmanProgress(_ view: UIView) {
+		createPacman(view)
+		createCircle(view)
 	}
 
-	private func createPacman(_ view: UIView, _ color: UIColor) {
+	private func createPacman(_ view: UIView) {
 		let width = view.frame.size.width
 		let size = width / 1.5
 		let duration = 0.7
 		let timingFunction = CAMediaTimingFunction(name: .default)
 
-		let pacman = drawWith(size: CGSize(width: size, height: size), color: color)
+		let pacman = drawWith(CGSize(width: size, height: size))
 		let x = (view.layer.bounds.size.width - width) / 2
 		let y = (view.layer.bounds.size.height - size) / 2
 		pacman.frame = CGRect(x: x, y: y, width: size, height: size)
@@ -52,11 +52,11 @@ extension ProgressHUD {
 		view.layer.addSublayer(pacman)
 	}
 
-	private func createCircle(_ view: UIView, _ color: UIColor) {
+	private func createCircle(_ view: UIView) {
 		let width = view.frame.size.width
 		let size = width / 6
 
-		let circle = drawWith(size: CGSize(width: size, height: size), color: color)
+		let circle = drawWith(CGSize(width: size, height: size))
 		let x = (view.layer.bounds.size.width - width) / 2 + width - size
 		let y = (view.layer.bounds.size.height - size) / 2
 		circle.frame = CGRect(x: x, y: y, width: size, height: size)
@@ -76,14 +76,14 @@ extension ProgressHUD {
 		view.layer.addSublayer(circle)
 	}
 
-	private func drawWith(size: CGSize, color: UIColor) -> CALayer {
+	private func drawWith(_ size: CGSize) -> CALayer {
 		let layer = CAShapeLayer()
 		let path = UIBezierPath()
 
 		let center = CGPoint(x: size.width / 2, y: size.height / 2)
 		path.addArc(withCenter: center, radius: size.width / 4, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
 		layer.fillColor = nil
-		layer.strokeColor = color.cgColor
+		layer.strokeColor = colorAnimation.cgColor
 		layer.lineWidth = size.width / 2
 
 		layer.backgroundColor = nil

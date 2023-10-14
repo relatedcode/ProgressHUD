@@ -14,12 +14,12 @@ import UIKit
 // MARK: - Activity Indicator
 extension ProgressHUD {
 
-	func animationActivityIndicator(_ view: UIView, _ color: UIColor) {
+	func animationActivityIndicator(_ view: UIView) {
 		let spinner = UIActivityIndicatorView(style: .large)
 		let scale = view.frame.size.width / spinner.frame.size.width
 		spinner.transform = CGAffineTransform(scaleX: scale, y: scale)
 		spinner.frame = view.bounds
-		spinner.color = color
+		spinner.color = colorAnimation
 		spinner.hidesWhenStopped = true
 		spinner.startAnimating()
 		view.addSubview(spinner)

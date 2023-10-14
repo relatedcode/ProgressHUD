@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Bar Sweep Toggle
 extension ProgressHUD {
 
-	func animationBarSweepToggle(_ view: UIView, _ color: UIColor) {
+	func animationBarSweepToggle(_ view: UIView) {
 		let height = view.frame.size.height
 		let width = view.frame.size.width
 
@@ -29,7 +29,7 @@ extension ProgressHUD {
 
 		let layerBar = CAShapeLayer()
 		layerBar.path = pathBar.cgPath
-		layerBar.strokeColor = color.cgColor
+		layerBar.strokeColor = colorAnimation.cgColor
 		layerBar.lineWidth = heightBar
 		layerBar.lineCap = .round
 		view.layer.addSublayer(layerBar)
@@ -65,11 +65,11 @@ extension ProgressHUD {
 		layerBar.add(animationPosition, forKey: "position")
 
 		let frame = CGRect(x: -border, y: (height - heightBar) / 2 - border, width: width + 2 * border, height: heightBar + 2 * border)
-
 		let pathBorder = UIBezierPath(roundedRect: frame, cornerRadius: height)
+
 		let layerBorder = CAShapeLayer()
 		layerBorder.path = pathBorder.cgPath
-		layerBorder.strokeColor = color.cgColor
+		layerBorder.strokeColor = colorAnimation.cgColor
 		layerBorder.fillColor = UIColor.clear.cgColor
 		layerBorder.lineWidth = border
 		view.layer.addSublayer(layerBorder)

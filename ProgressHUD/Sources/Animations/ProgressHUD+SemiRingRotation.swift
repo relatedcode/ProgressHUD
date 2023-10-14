@@ -14,27 +14,27 @@ import UIKit
 // MARK: - Semi-Ring Rotation
 extension ProgressHUD {
 
-	func animationSemiRingRotation(_ view: UIView, _ color: UIColor) {
+	func animationSemiRingRotation(_ view: UIView) {
 		let width = view.frame.size.width
 		let sizeLarge = width
 		let sizeSmall = width / 2
 		let duration = 1.6
 
-		drawCircleOf(.twoHalfRingsVertical, duration, view.layer, sizeSmall, color, true)
-		drawCircleOf(.twoHalfRingsHorizontal, duration, view.layer, sizeLarge, color, false)
+		drawCircleOf(.twoHalfRingsVertical, duration, view.layer, sizeSmall, true)
+		drawCircleOf(.twoHalfRingsHorizontal, duration, view.layer, sizeLarge, false)
 	}
 
-	private func drawCircleOf(_ shape: ShapeType, _ duration: CFTimeInterval, _ layer: CALayer, _ size: CGFloat, _ color: UIColor, _ reverse: Bool) {
-		let circle = shape.layerWith(size: CGSize(width: size, height: size), color: color)
-		let frame = CGRect(x: (layer.bounds.size.width - size) / 2, y: (layer.bounds.size.height - size) / 2, width: size, height: size)
-		let animation = createAnimationIn(duration: duration, reverse: reverse)
-
-		circle.frame = frame
+	private func drawCircleOf(_ shape: ShapeType, _ duration: CFTimeInterval, _ layer: CALayer, _ size: CGFloat, _ reverse: Bool) {
+		let animation = createAnimation(duration, reverse)
+		let circle = shape.layerWith(CGSize(width: size, height: size))
+		let x = (layer.bounds.size.width - size) / 2
+		let y = (layer.bounds.size.height - size) / 2
+		circle.frame = CGRect(x: x, y: y, width: size, height: size)
 		circle.add(animation, forKey: "animation")
 		layer.addSublayer(circle)
 	}
 
-	private func createAnimationIn(duration: CFTimeInterval, reverse: Bool) -> CAAnimation {
+	private func createAnimation(_ duration: CFTimeInterval, _ reverse: Bool) -> CAAnimation {
 		let timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 
 		let animationScale = CAKeyframeAnimation(keyPath: "transform.scale")
@@ -60,7 +60,7 @@ extension ProgressHUD {
 		case twoHalfRingsVertical
 		case twoHalfRingsHorizontal
 
-		func layerWith(size: CGSize, color: UIColor) -> CALayer {
+		func layerWith(_ size: CGSize) -> CALayer {
 			let width = size.width
 			let height = size.height
 
@@ -71,7 +71,7 @@ extension ProgressHUD {
 			let layer = CAShapeLayer()
 			layer.lineWidth = 6.0
 			layer.fillColor = nil
-			layer.strokeColor = color.cgColor
+			layer.strokeColor = colorAnimation.cgColor
 			layer.backgroundColor = nil
 			layer.lineCap = .round
 			layer.frame = CGRect(x: 0, y: 0, width: width, height: height)

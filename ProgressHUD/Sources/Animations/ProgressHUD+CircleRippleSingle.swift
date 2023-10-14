@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Circle Ripple Single
 extension ProgressHUD {
 
-	func animationCircleRippleSingle(_ view: UIView, _ color: UIColor) {
+	func animationCircleRippleSingle(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let center = CGPoint(x: width / 2, y: height / 2)
@@ -48,7 +48,7 @@ extension ProgressHUD {
 		layer.path = path.cgPath
 		layer.backgroundColor = nil
 		layer.fillColor = nil
-		layer.strokeColor = color.cgColor
+		layer.strokeColor = colorAnimation.cgColor
 		layer.lineWidth = 3
 
 		layer.add(animation, forKey: "animation")

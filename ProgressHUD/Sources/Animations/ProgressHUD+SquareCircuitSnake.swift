@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Square Circuit Snake
 extension ProgressHUD {
 
-	func animationSquareCircuitSnake(_ view: UIView, _ color: UIColor) {
+	func animationSquareCircuitSnake(_ view: UIView) {
 		let space = view.frame.width / 6
 		let x = view.bounds.minX + space / 2
 		let y = view.bounds.minY + space / 2
@@ -23,10 +23,10 @@ extension ProgressHUD {
 		let containerView = UIView(frame: CGRect(x: x, y: y, width: width, height: height))
 		view.addSubview(containerView)
 
-		squareLoadingAnimation(containerView, color)
+		squareLoadingAnimation(containerView)
 	}
 
-	private func squareLoadingAnimation(_ view: UIView, _ color: UIColor) {
+	private func squareLoadingAnimation(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 
@@ -65,21 +65,21 @@ extension ProgressHUD {
 
 		let rect = CGRect(x: 0, y: 0, width: width, height: height)
 
-		let layerMove = createShapeLayer(frame: rect, path: path.cgPath, color: color)
+		let layerMove = createShapeLayer(rect, path, colorAnimation)
 		layerMove.add(animationGroup, forKey: "animation")
 		view.layer.addSublayer(layerMove)
 
-		let layerBase = createShapeLayer(frame: rect, path: path.cgPath, color: color.withAlphaComponent(0.3))
+		let layerBase = createShapeLayer(rect, path, colorAnimation.withAlphaComponent(0.3))
 		view.layer.addSublayer(layerBase)
 	}
 
-	private func createShapeLayer(frame: CGRect, path: CGPath, color: UIColor) -> CAShapeLayer {
+	private func createShapeLayer(_ rect: CGRect, _ path: UIBezierPath, _ color: UIColor) -> CAShapeLayer {
 		let layer = CAShapeLayer()
-		layer.frame = frame
-		layer.path = path
+		layer.frame = rect
+		layer.path = path.cgPath
 		layer.fillColor = nil
 		layer.strokeColor = color.cgColor
-		layer.lineWidth = frame.width / 6
+		layer.lineWidth = rect.width / 6
 		layer.lineCap = .round
 		return layer
 	}

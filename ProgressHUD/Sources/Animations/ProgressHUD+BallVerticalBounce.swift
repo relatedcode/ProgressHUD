@@ -14,9 +14,9 @@ import UIKit
 // MARK: - Ball Vertical Bounce
 extension ProgressHUD {
 
-	func animationBallVerticalBounce(_ view: UIView, _ color: UIColor) {
+	func animationBallVerticalBounce(_ view: UIView) {
 		let line = CAShapeLayer()
-		line.strokeColor = color.cgColor
+		line.strokeColor = colorAnimation.cgColor
 		line.lineWidth = view.frame.height / 15
 		line.lineCap = .round
 		line.fillColor = UIColor.clear.cgColor
@@ -26,14 +26,14 @@ extension ProgressHUD {
 		let animationDownCurve = CAKeyframeAnimation(keyPath: "path")
 		animationDownCurve.timingFunction = CAMediaTimingFunction(name: .easeOut)
 		animationDownCurve.duration = 2.1 * speed
-		animationDownCurve.values = [initialCurvePath(in: view).cgPath, downCurvePath(in: view).cgPath]
+		animationDownCurve.values = [initialCurvePath(view).cgPath, downCurvePath(view).cgPath]
 		animationDownCurve.autoreverses = true
 		animationDownCurve.beginTime = 2.9 * speed
 
 		let animationTopCurve = CAKeyframeAnimation(keyPath: "path")
 		animationTopCurve.timingFunction = CAMediaTimingFunction(name: .easeOut)
 		animationTopCurve.duration = 0.4 * speed
-		animationTopCurve.values = [initialCurvePath(in: view).cgPath, topCurvePath(in: view).cgPath]
+		animationTopCurve.values = [initialCurvePath(view).cgPath, topCurvePath(view).cgPath]
 		animationTopCurve.autoreverses = true
 		animationTopCurve.beginTime = 7.1 * speed
 
@@ -43,12 +43,12 @@ extension ProgressHUD {
 		animationGroup.repeatCount = .infinity
 
 		line.add(animationGroup, forKey: "pathAnimation")
-		line.path = initialCurvePath(in: view).cgPath
+		line.path = initialCurvePath(view).cgPath
 
-		createBallAnimation(in: view, with: color, speed: speed)
+		createBallAnimation(view, speed)
 	}
 
-	private func initialCurvePath(in view: UIView) -> UIBezierPath {
+	private func initialCurvePath(_ view: UIView) -> UIBezierPath {
 		let width = view.frame.size.width
 		let height = view.frame.size.height + view.frame.size.height / 3
 		let path = UIBezierPath()
@@ -57,7 +57,7 @@ extension ProgressHUD {
 		return path
 	}
 
-	private func downCurvePath(in view: UIView) -> UIBezierPath {
+	private func downCurvePath(_ view: UIView) -> UIBezierPath {
 		let width = view.frame.size.width
 		let height = view.frame.size.height + view.frame.size.height / 3
 		let path = UIBezierPath()
@@ -66,7 +66,7 @@ extension ProgressHUD {
 		return path
 	}
 
-	private func topCurvePath(in view: UIView) -> UIBezierPath {
+	private func topCurvePath(_ view: UIView) -> UIBezierPath {
 		let width = view.frame.size.width
 		let height = view.frame.size.height + view.frame.size.height / 3
 		let path = UIBezierPath()
@@ -75,13 +75,13 @@ extension ProgressHUD {
 		return path
 	}
 
-	private func createBallAnimation(in view: UIView, with color: UIColor, speed: Double) {
+	private func createBallAnimation(_ view: UIView, _ speed: Double) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let size = width / 4
 		let yPosition = height - height / 3
 
-		let circle = drawCircleWith(CGSize(width: size, height: size), color)
+		let circle = drawCircleWith(CGSize(width: size, height: size))
 		circle.frame = CGRect(x: width / 2 - size / 2, y: height / 20, width: size, height: size)
 
 		let animation = CABasicAnimation(keyPath: "transform.translation.y")
@@ -96,7 +96,7 @@ extension ProgressHUD {
 		view.layer.addSublayer(circle)
 	}
 
-	private func drawCircleWith(_ size: CGSize, _ color: UIColor) -> CALayer {
+	private func drawCircleWith(_ size: CGSize) -> CALayer {
 		let path = UIBezierPath()
 		let radius = size.width / 4
 		let center = CGPoint(x: size.width / 2, y: size.height / 2)
@@ -104,7 +104,7 @@ extension ProgressHUD {
 
 		let layer = CAShapeLayer()
 		layer.fillColor = nil
-		layer.strokeColor = color.cgColor
+		layer.strokeColor = colorAnimation.cgColor
 		layer.lineWidth = size.width / 2
 		layer.backgroundColor = nil
 		layer.path = path.cgPath

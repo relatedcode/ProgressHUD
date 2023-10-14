@@ -34,6 +34,7 @@ extension AnimationType {
 		case .pacmanProgress:			return "Pacman Progress"
 		case .quintupleDotDance:		return "Quintuple Dot Dance"
 		case .semiRingRotation:			return "Semi-Ring Rotation"
+		case .sfSymbolBounce:			return "SF Symbol Bounce"
 		case .squareCircuitSnake:		return "Square Circuit Snake"
 		case .triangleDotShift:			return "Triangle Dot Shift"
 		}
@@ -220,7 +221,11 @@ extension ViewController {
 		}
 
 		if (indexPath.section == 2)	{
-			ProgressHUD.animationType = animations[indexPath.row]
+			let animation = animations[indexPath.row]
+			ProgressHUD.animationType = animation
+			if (animation == .sfSymbolBounce) {
+				ProgressHUD.animationSymbol = symbol()
+			}
 			ProgressHUD.show(status)
 		}
 

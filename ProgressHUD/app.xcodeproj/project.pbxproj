@@ -19,6 +19,7 @@
 		29D29F011D9A59E4006CA074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F001D9A59E4006CA074 /* Assets.xcassets */; };
 		29D29F041D9A59E4006CA074 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F021D9A59E4006CA074 /* LaunchScreen.storyboard */; };
 		29D99E7E2AC4A3300073EE38 /* NavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D99E7D2AC4A3300073EE38 /* NavController.swift */; };
+		29E576A12ADB05B200929F5B /* ProgressHUD+SFSymbolBounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E576A02ADB05B100929F5B /* ProgressHUD+SFSymbolBounce.swift */; };
 		29FD93C82AD9781A0054B585 /* ProgressHUD+BarSweepToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FD93B42AD9781A0054B585 /* ProgressHUD+BarSweepToggle.swift */; };
 		29FD93C92AD9781A0054B585 /* ProgressHUD+DualDotSidestep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FD93B52AD9781A0054B585 /* ProgressHUD+DualDotSidestep.swift */; };
 		29FD93CA2AD9781A0054B585 /* ProgressHUD+QuintupleDotDance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FD93B62AD9781A0054B585 /* ProgressHUD+QuintupleDotDance.swift */; };
@@ -56,6 +57,7 @@
 		29D29F031D9A59E4006CA074 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		29D29F051D9A59E4006CA074 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29D99E7D2AC4A3300073EE38 /* NavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavController.swift; sourceTree = "<group>"; };
+		29E576A02ADB05B100929F5B /* ProgressHUD+SFSymbolBounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+SFSymbolBounce.swift"; sourceTree = "<group>"; };
 		29FD93B42AD9781A0054B585 /* ProgressHUD+BarSweepToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+BarSweepToggle.swift"; sourceTree = "<group>"; };
 		29FD93B52AD9781A0054B585 /* ProgressHUD+DualDotSidestep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+DualDotSidestep.swift"; sourceTree = "<group>"; };
 		29FD93B62AD9781A0054B585 /* ProgressHUD+QuintupleDotDance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+QuintupleDotDance.swift"; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				29FD93B92AD9781A0054B585 /* ProgressHUD+PacmanProgress.swift */,
 				29FD93B62AD9781A0054B585 /* ProgressHUD+QuintupleDotDance.swift */,
 				29FD93BE2AD9781A0054B585 /* ProgressHUD+SemiRingRotation.swift */,
+				29E576A02ADB05B100929F5B /* ProgressHUD+SFSymbolBounce.swift */,
 				29FD93C02AD9781A0054B585 /* ProgressHUD+SquareCircuitSnake.swift */,
 				29FD93C42AD9781A0054B585 /* ProgressHUD+TriangleDotShift.swift */,
 			);
@@ -258,6 +261,7 @@
 				29FD93C82AD9781A0054B585 /* ProgressHUD+BarSweepToggle.swift in Sources */,
 				29FD93CB2AD9781A0054B585 /* ProgressHUD+CirclePulseSingle.swift in Sources */,
 				299876DB248FCB290025E297 /* ProgressHUD.swift in Sources */,
+				29E576A12ADB05B200929F5B /* ProgressHUD+SFSymbolBounce.swift in Sources */,
 				29A3BDB52AC6AF780034CAF3 /* ProgressHUD+Public.swift in Sources */,
 				29FD93D52AD9781A0054B585 /* ProgressHUD+CircleRotateChase.swift in Sources */,
 				29FD93D42AD9781A0054B585 /* ProgressHUD+SquareCircuitSnake.swift in Sources */,
@@ -421,7 +425,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 13.8.6;
+				MARKETING_VERSION = 14.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -452,7 +456,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 13.8.6;
+				MARKETING_VERSION = 14.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Horizontal Bar Scaling
 extension ProgressHUD {
 
-	func animationHorizontalBarScaling(_ view: UIView, _ color: UIColor) {
+	func animationHorizontalBarScaling(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 
@@ -39,7 +39,7 @@ extension ProgressHUD {
 			layer.frame = CGRect(x: lineWidth * 2 * CGFloat(i), y: 0, width: lineWidth, height: height)
 			layer.path = path.cgPath
 			layer.backgroundColor = nil
-			layer.fillColor = color.cgColor
+			layer.fillColor = colorAnimation.cgColor
 
 			animation.beginTime = beginTime - beginTimes[i]
 

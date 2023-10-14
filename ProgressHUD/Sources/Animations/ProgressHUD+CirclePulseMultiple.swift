@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Circle Pulse Multiple
 extension ProgressHUD {
 
-	func animationCirclePulseMultiple(_ view: UIView, _ color: UIColor) {
+	func animationCirclePulseMultiple(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let center = CGPoint(x: width / 2, y: height / 2)
@@ -47,7 +47,7 @@ extension ProgressHUD {
 			let layer = CAShapeLayer()
 			layer.frame = CGRect(x: 0, y: 0, width: width, height: height)
 			layer.path = path.cgPath
-			layer.fillColor = color.cgColor
+			layer.fillColor = colorAnimation.cgColor
 			layer.opacity = 0
 
 			animation.beginTime = beginTime + beginTimes[i]

@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Circle Bar Spin Fade
 extension ProgressHUD {
 
-	func animationCircleBarSpinFade(_ view: UIView, _ color: UIColor) {
+	func animationCircleBarSpinFade(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 
@@ -43,15 +43,19 @@ extension ProgressHUD {
 			let angle = .pi / 4 * CGFloat(i)
 
 			let line = CAShapeLayer()
-			line.frame = CGRect(x: (containerSize - lineWidth) / 2, y: (containerSize - lineHeight) / 2, width: lineWidth, height: lineHeight)
+			let lineX = (containerSize - lineWidth) / 2
+			let lineY = (containerSize - lineHeight) / 2
+			line.frame = CGRect(x: lineX, y: lineY, width: lineWidth, height: lineHeight)
 			line.path = path.cgPath
 			line.backgroundColor = nil
-			line.fillColor = color.cgColor
+			line.fillColor = colorAnimation.cgColor
 
 			let container = CALayer()
-			container.frame = CGRect(x: radius * (cos(angle) + 1), y: radius * (sin(angle) + 1), width: containerSize, height: containerSize)
-			container.addSublayer(line)
+			let containerX = radius * (cos(angle) + 1)
+			let containerY = radius * (sin(angle) + 1)
+			container.frame = CGRect(x: containerX, y: containerY, width: containerSize, height: containerSize)
 			container.sublayerTransform = CATransform3DMakeRotation(.pi / 2 + angle, 0, 0, 1)
+			container.addSublayer(line)
 
 			animation.beginTime = beginTime - beginTimes[i]
 

@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Circle Stroke Spin
 extension ProgressHUD {
 
-	func animationCircleStrokeSpin(_ view: UIView, _ color: UIColor) {
+	func animationCircleStrokeSpin(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let center = CGPoint(x: width / 2, y: height / 2)
@@ -53,7 +53,7 @@ extension ProgressHUD {
 		layer.frame = CGRect(x: 0, y: 0, width: width, height: height)
 		layer.path = path.cgPath
 		layer.fillColor = nil
-		layer.strokeColor = color.cgColor
+		layer.strokeColor = colorAnimation.cgColor
 		layer.lineWidth = 3
 
 		layer.add(animation, forKey: "animation")

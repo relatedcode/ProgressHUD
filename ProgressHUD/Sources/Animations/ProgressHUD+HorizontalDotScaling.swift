@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Horizontal Dot Scaling
 extension ProgressHUD {
 
-	func animationHorizontalDotScaling(_ view: UIView, _ color: UIColor) {
+	func animationHorizontalDotScaling(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 
@@ -41,7 +41,7 @@ extension ProgressHUD {
 			let layer = CAShapeLayer()
 			layer.frame = CGRect(x: (radius + spacing) * CGFloat(i), y: positionY, width: radius, height: radius)
 			layer.path = path.cgPath
-			layer.fillColor = color.cgColor
+			layer.fillColor = colorAnimation.cgColor
 
 			animation.beginTime = beginTime - beginTimes[i]
 

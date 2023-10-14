@@ -32,6 +32,7 @@ public enum AnimationType: CaseIterable {
 	case pacmanProgress
 	case quintupleDotDance
 	case semiRingRotation
+	case sfSymbolBounce
 	case squareCircuitSnake
 	case triangleDotShift
 }

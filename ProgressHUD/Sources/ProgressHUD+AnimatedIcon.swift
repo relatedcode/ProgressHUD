@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Succeed
 extension ProgressHUD {
 
-	func animatedIconSucceed(_ view: UIView, _ color: UIColor) {
+	func animatedIconSucceed(_ view: UIView) {
 		let length = view.frame.width
 		let delay = (alpha == 0) ? 0.25 : 0.0
 
@@ -34,7 +34,7 @@ extension ProgressHUD {
 		let layer = CAShapeLayer()
 		layer.path = path.cgPath
 		layer.fillColor = UIColor.clear.cgColor
-		layer.strokeColor = color.cgColor
+		layer.strokeColor = colorAnimation.cgColor
 		layer.lineWidth = 9
 		layer.lineCap = .round
 		layer.lineJoin = .round
@@ -48,7 +48,7 @@ extension ProgressHUD {
 // MARK: - Failed
 extension ProgressHUD {
 
-	func animatedIconFailed(_ view: UIView, _ color: UIColor) {
+	func animatedIconFailed(_ view: UIView) {
 		let length = view.frame.width
 		let delay = (alpha == 0) ? 0.25 : 0.0
 
@@ -74,7 +74,7 @@ extension ProgressHUD {
 			let layer = CAShapeLayer()
 			layer.path = paths[i].cgPath
 			layer.fillColor = UIColor.clear.cgColor
-			layer.strokeColor = color.cgColor
+			layer.strokeColor = colorAnimation.cgColor
 			layer.lineWidth = 9
 			layer.lineCap = .round
 			layer.lineJoin = .round
@@ -91,7 +91,7 @@ extension ProgressHUD {
 // MARK: - Added
 extension ProgressHUD {
 
-	func animatedIconAdded(_ view: UIView, _ color: UIColor) {
+	func animatedIconAdded(_ view: UIView) {
 		let length = view.frame.width
 		let delay = (alpha == 0) ? 0.25 : 0.0
 
@@ -117,7 +117,7 @@ extension ProgressHUD {
 			let layer = CAShapeLayer()
 			layer.path = paths[i].cgPath
 			layer.fillColor = UIColor.clear.cgColor
-			layer.strokeColor = color.cgColor
+			layer.strokeColor = colorAnimation.cgColor
 			layer.lineWidth = 9
 			layer.lineCap = .round
 			layer.lineJoin = .round

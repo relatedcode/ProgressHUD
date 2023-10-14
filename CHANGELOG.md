@@ -1,5 +1,17 @@
 # Change Log
 
+## [14.0.0](https://github.com/relatedcode/ProgressHUD/releases/tag/14.0.0)
+
+Released on 2023-10-14.
+
+#### Added
+
+- Introduced the 'SF Symbol Bounce' animation feature, allowing for the display of over 5000 animated SF Symbols to enhance visual engagement.
+
+#### Changed
+
+- Enhanced the existing animations through various code optimizations.
+
 ## [13.8.6](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.6)
 
 Released on 2023-10-13.

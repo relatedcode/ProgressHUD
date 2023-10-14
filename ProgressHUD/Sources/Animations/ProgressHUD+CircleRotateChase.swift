@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Circle Rotate Chase
 extension ProgressHUD {
 
-	func animationCircleRotateChase(_ view: UIView, _ color: UIColor) {
+	func animationCircleRotateChase(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let center1 = CGPoint(x: width / 2, y: height / 2)
@@ -55,7 +55,7 @@ extension ProgressHUD {
 			let layer = CAShapeLayer()
 			layer.frame = CGRect(x: 0, y: 0, width: radius, height: radius)
 			layer.path = path2.cgPath
-			layer.fillColor = color.cgColor
+			layer.fillColor = colorAnimation.cgColor
 
 			layer.add(animation, forKey: "animation")
 			view.layer.addSublayer(layer)

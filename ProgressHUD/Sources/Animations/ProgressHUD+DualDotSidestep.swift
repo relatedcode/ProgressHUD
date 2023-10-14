@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Dual Dot Sidestep
 extension ProgressHUD {
 
-	func animationDualDotSidestep(_ view: UIView, _ color: UIColor) {
+	func animationDualDotSidestep(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let radius = width / 4
@@ -22,30 +22,30 @@ extension ProgressHUD {
 		let startX = radius
 		let lineWidth = 3.0
 
-		let hollowCircle = createCircleLayer(CGPoint(x: startX, y: startY), radius - lineWidth / 2, color, false, view, lineWidth)
+		let hollowCircle = createCircleLayer(CGPoint(x: startX, y: startY), radius - lineWidth / 2, false, view, lineWidth)
 
-		let filledCircle = createCircleLayer(CGPoint(x: width - startX, y: startY), radius, color, true, view, lineWidth)
+		let filledCircle = createCircleLayer(CGPoint(x: width - startX, y: startY), radius, true, view, lineWidth)
 
-		let animationGroup1 = moveAnimationGroup(targetValue: width - radius * 2)
+		let animationGroup1 = moveAnimationGroup(width - radius * 2)
 		hollowCircle.add(animationGroup1, forKey: "animation")
 
-		let animationGroup2 = moveAnimationGroup(targetValue: -(width - radius * 2))
+		let animationGroup2 = moveAnimationGroup(-(width - radius * 2))
 		filledCircle.add(animationGroup2, forKey: "animation")
 
-		let zPositionAnimation1 = createZPositionAnimation(fromValue: 0, toValue: 1)
+		let zPositionAnimation1 = createZPositionAnimation(0, 1)
 		hollowCircle.add(zPositionAnimation1, forKey: "zPositionAnimation")
 
-		let zPositionAnimation2 = createZPositionAnimation(fromValue: 1, toValue: 0)
+		let zPositionAnimation2 = createZPositionAnimation(1, 0)
 		filledCircle.add(zPositionAnimation2, forKey: "zPositionAnimation")
 	}
 
-	private func createCircleLayer(_ center: CGPoint, _ radius: CGFloat, _ color: UIColor, _ filled: Bool, _ view: UIView, _ lineWidth: Double) -> CAShapeLayer {
+	private func createCircleLayer(_ center: CGPoint, _ radius: CGFloat, _ filled: Bool, _ view: UIView, _ lineWidth: Double) -> CAShapeLayer {
 		let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
 
 		let layer = CAShapeLayer()
 		layer.path = path.cgPath
-		layer.strokeColor = filled ? UIColor.clear.cgColor : color.cgColor
-		layer.fillColor = filled ? color.cgColor : UIColor.clear.cgColor
+		layer.strokeColor = filled ? UIColor.clear.cgColor : colorAnimation.cgColor
+		layer.fillColor = filled ? colorAnimation.cgColor : UIColor.clear.cgColor
 		layer.lineWidth = filled ? 0.0 : lineWidth
 		layer.zPosition = filled ? 1.0 : 0.0
 		view.layer.addSublayer(layer)
@@ -53,7 +53,7 @@ extension ProgressHUD {
 		return layer
 	}
 
-	private func createZPositionAnimation(fromValue: CGFloat, toValue: CGFloat) -> CAKeyframeAnimation {
+	private func createZPositionAnimation(_ fromValue: CGFloat, _ toValue: CGFloat) -> CAKeyframeAnimation {
 		let animation = CAKeyframeAnimation(keyPath: "zPosition")
 		animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animation.values = [fromValue, toValue]
@@ -63,11 +63,11 @@ extension ProgressHUD {
 		return animation
 	}
 
-	private func moveAnimationGroup(targetValue: CGFloat) -> CAAnimationGroup {
+	private func moveAnimationGroup(_ toValue: CGFloat) -> CAAnimationGroup {
 		let animation = CABasicAnimation(keyPath: "position.x")
 		animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animation.fromValue = 0
-		animation.toValue = targetValue
+		animation.toValue = toValue
 		animation.duration = 1.0
 		animation.autoreverses = true
 

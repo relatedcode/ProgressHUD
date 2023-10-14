@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Circle Dot Spin Fade
 extension ProgressHUD {
 
-	func animationCircleDotSpinFade(_ view: UIView, _ color: UIColor) {
+	func animationCircleDotSpinFade(_ view: UIView) {
 		let width = view.frame.size.width
 
 		let spacing = 3.0
@@ -50,7 +50,7 @@ extension ProgressHUD {
 
 			let layer = CAShapeLayer()
 			layer.path = path.cgPath
-			layer.fillColor = color.cgColor
+			layer.fillColor = colorAnimation.cgColor
 			layer.backgroundColor = nil
 			layer.frame = CGRect(x: radiusX * (cos(angle) + 1), y: radiusX * (sin(angle) + 1), width: radius, height: radius)
 

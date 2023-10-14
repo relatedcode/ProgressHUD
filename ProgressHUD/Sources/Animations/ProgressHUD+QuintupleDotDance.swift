@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Quintuple Dot Dance
 extension ProgressHUD {
 
-	func animationQuintupleDotDance(_ view: UIView, _ color: UIColor) {
+	func animationQuintupleDotDance(_ view: UIView) {
 		let height = view.frame.size.height
 		let width = view.frame.size.width
 		let radius = width / 20
@@ -36,25 +36,25 @@ extension ProgressHUD {
 			let layer = CAShapeLayer()
 			layer.path = path.cgPath
 			layer.fillColor = UIColor.clear.cgColor
-			layer.strokeColor = color.cgColor
+			layer.strokeColor = colorAnimation.cgColor
 			layer.lineWidth = stroke
 			view.layer.addSublayer(layer)
 
 			let animationGroup: CAAnimationGroup
 			if i == 0 {
-				let targetValue = startX + (circleWidth*numberOfCircles) + circleSpacing * 2
-				animationGroup = createHorizontalAnimationGroup(targetValue: targetValue)
+				let toValue = startX + (circleWidth*numberOfCircles) + circleSpacing * 2
+				animationGroup = createHorizontalAnimationGroup(toValue)
 			} else if (i % 2 == 1) {
-				animationGroup = createUpDownAnimationGroup(toValue: -height / 3)
+				animationGroup = createUpDownAnimationGroup(-height / 3)
 			} else {
-				animationGroup = createUpDownAnimationGroup(toValue: height / 3)
+				animationGroup = createUpDownAnimationGroup(height / 3)
 			}
 
 			layer.add(animationGroup, forKey: "animation")
 		}
 	}
 
-	private func createUpDownAnimationGroup(toValue: CGFloat) -> CAAnimationGroup {
+	private func createUpDownAnimationGroup(_ toValue: CGFloat) -> CAAnimationGroup {
 		let animation = CABasicAnimation(keyPath: "position.y")
 		animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animation.autoreverses = true
@@ -70,12 +70,12 @@ extension ProgressHUD {
 		return animationGroup
 	}
 
-	private func createHorizontalAnimationGroup(targetValue: CGFloat) -> CAAnimationGroup {
+	private func createHorizontalAnimationGroup(_ toValue: CGFloat) -> CAAnimationGroup {
 		let animation = CABasicAnimation(keyPath: "position.x")
 		animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animation.autoreverses = true
 		animation.fromValue = 0
-		animation.toValue = targetValue
+		animation.toValue = toValue
 		animation.duration = 1.0
 
 		let animationGroup = CAAnimationGroup()

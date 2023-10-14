@@ -63,6 +63,11 @@ public extension ProgressHUD {
 		set { shared.animationType = newValue }
 	}
 
+	class var animationSymbol: String {
+		get { shared.animationSymbol }
+		set { shared.animationSymbol = newValue }
+	}
+
 	class var colorBackground: UIColor {
 		get { shared.colorBackground }
 		set { shared.colorBackground = newValue }
