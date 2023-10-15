@@ -109,7 +109,7 @@ public extension ProgressHUD {
 	}
 }
 
-// MARK: - HUD General
+// MARK: - HUD Removal
 public extension ProgressHUD {
 
 	class func dismiss() {
@@ -123,44 +123,54 @@ public extension ProgressHUD {
 			shared.removeHUD()
 		}
 	}
+}
 
-	class func show(_ text: String? = nil, interaction: Bool = true) {
+// MARK: - Progress
+public extension ProgressHUD {
+
+	class func progress(_ value: CGFloat, interaction: Bool = false) {
 		DispatchQueue.main.async {
-			shared.setup(text: text, interaction: interaction)
+			shared.progress(text: nil, value: value, interaction: interaction)
+		}
+	}
+
+	class func progress(_ text: String?, _ value: CGFloat, interaction: Bool = false) {
+		DispatchQueue.main.async {
+			shared.progress(text: text, value: value, interaction: interaction)
 		}
 	}
 }
 
-// MARK: - Animated Icon
+// MARK: - Live Icon
 public extension ProgressHUD {
 
-	class func show(_ text: String? = nil, icon: AnimatedIcon, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func liveIcon(_ text: String? = nil, icon: LiveIcon, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			shared.setup(text: text, animatedIcon: icon, interaction: interaction, delay: delay)
+			shared.liveIcon(text: text, icon: icon, interaction: interaction, delay: delay)
 		}
 	}
 
-	class func showSucceed(_ text: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func succeed(_ text: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			shared.setup(text: text, animatedIcon: .succeed, interaction: interaction, delay: delay)
+			shared.liveIcon(text: text, icon: .succeed, interaction: interaction, delay: delay)
 		}
 	}
 
-	class func showFailed(_ text: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func failed(_ text: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			shared.setup(text: text, animatedIcon: .failed, interaction: interaction, delay: delay)
+			shared.liveIcon(text: text, icon: .failed, interaction: interaction, delay: delay)
 		}
 	}
 
-	class func showFailed(_ error: Error?, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func failed(_ error: Error?, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			shared.setup(text: error?.localizedDescription, animatedIcon: .failed, interaction: interaction, delay: delay)
+			shared.liveIcon(text: error?.localizedDescription, icon: .failed, interaction: interaction, delay: delay)
 		}
 	}
 
-	class func showAdded(_ text: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func added(_ text: String? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			shared.setup(text: text, animatedIcon: .added, interaction: interaction, delay: delay)
+			shared.liveIcon(text: text, icon: .added, interaction: interaction, delay: delay)
 		}
 	}
 }
@@ -168,45 +178,62 @@ public extension ProgressHUD {
 // MARK: - Static Image
 public extension ProgressHUD {
 
-	class func show(_ text: String? = nil, symbol: String, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func image(_ text: String? = nil, image: UIImage?, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			let image = UIImage(systemName: symbol) ?? UIImage(systemName: "questionmark")
-			let colored = image?.withTintColor(shared.colorAnimation, renderingMode: .alwaysOriginal)
-			shared.setup(text: text, staticImage: colored, interaction: interaction, delay: delay)
+			shared.staticImage(text: text, image: image, interaction: interaction, delay: delay)
 		}
 	}
 
-	class func showSuccess(_ text: String? = nil, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func symbol(_ text: String? = nil, name: String, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			shared.setup(text: text, staticImage: image ?? shared.imageSuccess, interaction: interaction, delay: delay)
+			let image = UIImage(systemName: name) ?? UIImage(systemName: "questionmark")
+			let config = UIImage.SymbolConfiguration(weight: .bold)
+			let modified = image?.applyingSymbolConfiguration(config)
+			let colored = modified?.withTintColor(colorAnimation, renderingMode: .alwaysOriginal)
+			shared.staticImage(text: text, image: colored, interaction: interaction, delay: delay)
 		}
 	}
 
-	class func showError(_ text: String? = nil, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func success(_ text: String? = nil, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			shared.setup(text: text, staticImage: image ?? shared.imageError, interaction: interaction, delay: delay)
+			shared.staticImage(text: text, image: image ?? imageSuccess, interaction: interaction, delay: delay)
 		}
 	}
 
-	class func showError(_ error: Error?, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+	class func error(_ text: String? = nil, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
-			shared.setup(text: error?.localizedDescription, staticImage: image ?? shared.imageError, interaction: interaction, delay: delay)
+			shared.staticImage(text: text, image: image ?? imageError, interaction: interaction, delay: delay)
+		}
+	}
+
+	class func error(_ error: Error?, image: UIImage? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
+		DispatchQueue.main.async {
+			shared.staticImage(text: error?.localizedDescription, image: image ?? imageError, interaction: interaction, delay: delay)
 		}
 	}
 }
 
-// MARK: - Progress
+// MARK: - Animation
 public extension ProgressHUD {
 
-	class func showProgress(_ progress: CGFloat, interaction: Bool = false) {
+	class func animate(_ text: String? = nil, interaction: Bool = true) {
 		DispatchQueue.main.async {
-			shared.setup(text: nil, progress: progress, interaction: interaction)
+			shared.animate(text: text, interaction: interaction)
 		}
 	}
 
-	class func showProgress(_ text: String?, _ progress: CGFloat, interaction: Bool = false) {
+	class func animate(_ text: String? = nil, _ type: AnimationType, interaction: Bool = true) {
 		DispatchQueue.main.async {
-			shared.setup(text: text, progress: progress, interaction: interaction)
+			animationType = type
+			shared.animate(text: text, interaction: interaction)
+		}
+	}
+
+	class func animate(_ text: String? = nil, symbol: String, interaction: Bool = true) {
+		DispatchQueue.main.async {
+			animationType = .sfSymbolBounce
+			animationSymbol = symbol
+			shared.animate(text: text, interaction: interaction)
 		}
 	}
 }
@@ -214,13 +241,13 @@ public extension ProgressHUD {
 // MARK: - Banner
 public extension ProgressHUD {
 
-	class func showBanner(_ title: String?, _ message: String?, delay: TimeInterval = 3.0) {
+	class func banner(_ title: String?, _ message: String?, delay: TimeInterval = 3.0) {
 		DispatchQueue.main.async {
 			shared.showBanner(title: title, message: message, delay: delay)
 		}
 	}
 
-	class func hideBanner() {
+	class func bannerHide() {
 		DispatchQueue.main.async {
 			shared.hideBanner()
 		}

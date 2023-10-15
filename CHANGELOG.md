@@ -1,5 +1,16 @@
 # Change Log
 
+## [14.1.0](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.0)
+
+Released on 2023-10-15.
+
+#### Changed
+
+- Renamed the `AnimatedIcon` enum to `LiveIcon`.
+- The general `show` method has been split into multiple specialized methods: `animate`, `progress`, `liveIcon`, `image`, `symbol`.
+- Updated the Static Image SF Symbol weight configuration to utilize a bold setting.
+- Conducted minor code improvements for better maintainability and performance.
+
 ## [14.0.0](https://github.com/relatedcode/ProgressHUD/releases/tag/14.0.0)
 
 Released on 2023-10-14.

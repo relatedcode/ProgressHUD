@@ -75,9 +75,9 @@ class ProgressView: UIView {
 		addSubview(labelPercentage)
 	}
 
-	func setProgress(_ value: CGFloat, duration: TimeInterval = 0.2) {
+	func setProgress(_ value: CGFloat) {
 		let animation = CABasicAnimation(keyPath: "strokeEnd")
-		animation.duration = duration
+		animation.duration = 0.2
 		animation.fromValue = progress
 		animation.toValue = value
 		animation.fillMode = .both

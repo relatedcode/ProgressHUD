@@ -114,31 +114,31 @@ class ViewController: UITableViewController {
 // MARK: - Progress Methods
 extension ViewController {
 
-	func actionProgressStart(_ status: String? = nil) {
+	func progressStart(_ status: String? = nil) {
 		counter = 0
-		ProgressHUD.showProgress(status, counter/100)
+		ProgressHUD.progress(status, counter/100)
 
 		timer = Timer.scheduledTimer(withTimeInterval: 0.025, repeats: true) { [weak self] _ in
 			guard let self = self else { return }
-			self.actionProgress(status)
+			self.progressStep(status)
 		}
 	}
 
-	func actionProgress(_ status: String?) {
+	func progressStep(_ status: String?) {
 		counter += 1
-		ProgressHUD.showProgress(status, counter/100)
+		ProgressHUD.progress(status, counter/100)
 
 		if (counter >= 100) {
-			actionProgressStop(status)
+			progressStop(status)
 		}
 	}
 
-	func actionProgressStop(_ status: String?) {
+	func progressStop(_ status: String?) {
 		timer?.invalidate()
 		timer = nil
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-			ProgressHUD.showSucceed(status, interaction: false, delay: 0.75)
+			ProgressHUD.succeed(status, interaction: false, delay: 0.75)
 		}
 	}
 }
@@ -197,8 +197,8 @@ extension ViewController {
 		if (section == 3) { return "Animation"			}
 		if (section == 4) { return "Progress"			}
 		if (section == 5) { return "Progress"			}
-		if (section == 6) { return "Action - Static"	}
-		if (section == 7) { return "Action - Animated"	}
+		if (section == 6) { return "Static Image"		}
+		if (section == 7) { return "Live Icon"			}
 		return nil
 	}
 }
@@ -210,8 +210,8 @@ extension ViewController {
 		tableView.deselectRow(at: indexPath, animated: true)
 
 		if (indexPath.section == 0) {
-			if (indexPath.row == 0) { ProgressHUD.showBanner("Banner title", toggleText()) }
-			if (indexPath.row == 1) { ProgressHUD.hideBanner() }
+			if (indexPath.row == 0) { ProgressHUD.banner("Banner title", toggleText()) }
+			if (indexPath.row == 1) { ProgressHUD.bannerHide() }
 		}
 
 		if (indexPath.section == 1) {
@@ -222,48 +222,48 @@ extension ViewController {
 
 		if (indexPath.section == 2)	{
 			let animation = animations[indexPath.row]
-			ProgressHUD.animationType = animation
-			if (animation == .sfSymbolBounce) {
-				ProgressHUD.animationSymbol = symbol()
+			if (animation != .sfSymbolBounce) {
+				ProgressHUD.animate(status, animation)
+			} else {
+				ProgressHUD.animate(status, symbol: symbol())
 			}
-			ProgressHUD.show(status)
 		}
 
 		if (indexPath.section == 3) {
-			if (indexPath.row == 0) { ProgressHUD.show();			status = nil		}
-			if (indexPath.row == 1) { ProgressHUD.show(textShort);	status = textShort	}
-			if (indexPath.row == 2) { ProgressHUD.show(textLong);	status = textLong	}
+			if (indexPath.row == 0) { ProgressHUD.animate();			status = nil		}
+			if (indexPath.row == 1) { ProgressHUD.animate(textShort);	status = textShort	}
+			if (indexPath.row == 2) { ProgressHUD.animate(textLong);	status = textLong	}
 		}
 
 		if (indexPath.section == 4) {
-			if (indexPath.row == 0) { actionProgressStart()				}
-			if (indexPath.row == 1) { actionProgressStart(textShort)	}
-			if (indexPath.row == 2) { actionProgressStart(textLong)		}
+			if (indexPath.row == 0) { progressStart()			}
+			if (indexPath.row == 1) { progressStart(textShort)	}
+			if (indexPath.row == 2) { progressStart(textLong)	}
 		}
 
 		if (indexPath.section == 5) {
-			if (indexPath.row == 0) { ProgressHUD.showProgress(0.1, interaction: true)	}
-			if (indexPath.row == 1) { ProgressHUD.showProgress(0.4, interaction: true)	}
-			if (indexPath.row == 2) { ProgressHUD.showProgress(0.6, interaction: true)	}
-			if (indexPath.row == 3) { ProgressHUD.showProgress(0.9, interaction: true)	}
+			if (indexPath.row == 0) { ProgressHUD.progress(0.1, interaction: true)	}
+			if (indexPath.row == 1) { ProgressHUD.progress(0.4, interaction: true)	}
+			if (indexPath.row == 2) { ProgressHUD.progress(0.6, interaction: true)	}
+			if (indexPath.row == 3) { ProgressHUD.progress(0.9, interaction: true)	}
 		}
 
 		if (indexPath.section == 6) {
-			if (indexPath.row == 0) { ProgressHUD.show(symbol: symbol())			}
-			if (indexPath.row == 1) { ProgressHUD.show(textAdded, symbol: symbol())	}
-			if (indexPath.row == 2) { ProgressHUD.showSuccess()						}
-			if (indexPath.row == 3) { ProgressHUD.showSuccess(textSuccess)			}
-			if (indexPath.row == 4) { ProgressHUD.showError()						}
-			if (indexPath.row == 5) { ProgressHUD.showError(textError)				}
+			if (indexPath.row == 0) { ProgressHUD.symbol(name: symbol())			}
+			if (indexPath.row == 1) { ProgressHUD.symbol(textAdded, name: symbol())	}
+			if (indexPath.row == 2) { ProgressHUD.success()							}
+			if (indexPath.row == 3) { ProgressHUD.success(textSuccess)				}
+			if (indexPath.row == 4) { ProgressHUD.error()							}
+			if (indexPath.row == 5) { ProgressHUD.error(textError)					}
 		}
 
 		if (indexPath.section == 7) {
-			if (indexPath.row == 0) { ProgressHUD.showSucceed()				}
-			if (indexPath.row == 1) { ProgressHUD.showSucceed(textSucceed)	}
-			if (indexPath.row == 2) { ProgressHUD.showFailed()				}
-			if (indexPath.row == 3) { ProgressHUD.showFailed(textFailed)	}
-			if (indexPath.row == 4) { ProgressHUD.showAdded()				}
-			if (indexPath.row == 5) { ProgressHUD.showAdded(textAdded)		}
+			if (indexPath.row == 0) { ProgressHUD.succeed()				}
+			if (indexPath.row == 1) { ProgressHUD.succeed(textSucceed)	}
+			if (indexPath.row == 2) { ProgressHUD.failed()				}
+			if (indexPath.row == 3) { ProgressHUD.failed(textFailed)	}
+			if (indexPath.row == 4) { ProgressHUD.added()				}
+			if (indexPath.row == 5) { ProgressHUD.added(textAdded)		}
 		}
 	}
 }

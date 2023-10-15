@@ -44,55 +44,59 @@ If you prefer not to use any of the dependency managers above, you can integrate
 ## QUICK START
 
 ```swift
-ProgressHUD.showBanner("Banner title", "Banner message to display.")
+ProgressHUD.banner("Banner title", "Banner message to display.")
 ```
 
 ```swift
-ProgressHUD.showBanner("Banner title", "Message to display.", delay: 2.0)
+ProgressHUD.banner("Banner title", "Message to display.", delay: 2.0)
 ```
 
 ```swift
-ProgressHUD.hideBanner()
+ProgressHUD.bannerHide()
 ```
 
 ```swift
-ProgressHUD.show("Some text...")
+ProgressHUD.animate("Some text...")
 ```
 
 ```swift
-ProgressHUD.show("Some text...", interaction: false)
+ProgressHUD.animate("Some text...", interaction: false)
 ```
 
 ```swift
-ProgressHUD.showSucceed()
+ProgressHUD.animate("Please wait...", .ballVerticalBounce)
 ```
 
 ```swift
-ProgressHUD.showSucceed("Some text...", delay: 1.5)
+ProgressHUD.succeed()
 ```
 
 ```swift
-ProgressHUD.showFailed()
+ProgressHUD.succeed("Some text...", delay: 1.5)
 ```
 
 ```swift
-ProgressHUD.showFailed("Some text...")
+ProgressHUD.failed()
 ```
 
 ```swift
-ProgressHUD.showProgress(0.15)
+ProgressHUD.failed("Some text...")
 ```
 
 ```swift
-ProgressHUD.showProgress("Loading...", 0.42)
+ProgressHUD.progress(0.15)
 ```
 
 ```swift
-ProgressHUD.show(symbol: "box.truck")
+ProgressHUD.progress("Loading...", 0.42)
 ```
 
 ```swift
-ProgressHUD.show("Some text...", symbol: "figure.2.arms.open")
+ProgressHUD.symbol(name: "box.truck")
+```
+
+```swift
+ProgressHUD.symbol("Some text...", name: "sun.max")
 ```
 
 ```swift
@@ -149,7 +153,7 @@ ProgressHUD.imageSuccess = UIImage(named: "success.png")
 ProgressHUD.imageError = UIImage(named: "error.png")
 ```
 
-A comprehensive list of the predefined animation types:
+A comprehensive list of the predefined enums:
 
 ```swift
 public enum AnimationType: CaseIterable {
@@ -179,7 +183,7 @@ public enum AnimationType: CaseIterable {
 ```
 
 ```swift
-public enum AnimatedIcon {
+public enum LiveIcon {
 	case succeed
 	case failed
 	case added

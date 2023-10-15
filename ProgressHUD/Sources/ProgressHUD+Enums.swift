@@ -37,8 +37,8 @@ public enum AnimationType: CaseIterable {
 	case triangleDotShift
 }
 
-// MARK: - AnimatedIcon
-public enum AnimatedIcon {
+// MARK: - LiveIcon
+public enum LiveIcon {
 	case succeed
 	case failed
 	case added

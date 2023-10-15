@@ -11,10 +11,10 @@
 
 import UIKit
 
-// MARK: - Succeed
+// MARK: - Live Icon Succeed
 extension ProgressHUD {
 
-	func animatedIconSucceed(_ view: UIView) {
+	func liveIconSucceed(_ view: UIView) {
 		let length = view.frame.width
 		let delay = (alpha == 0) ? 0.25 : 0.0
 
@@ -45,10 +45,10 @@ extension ProgressHUD {
 	}
 }
 
-// MARK: - Failed
+// MARK: - Live Icon Failed
 extension ProgressHUD {
 
-	func animatedIconFailed(_ view: UIView) {
+	func liveIconFailed(_ view: UIView) {
 		let length = view.frame.width
 		let delay = (alpha == 0) ? 0.25 : 0.0
 
@@ -88,10 +88,10 @@ extension ProgressHUD {
 	}
 }
 
-// MARK: - Added
+// MARK: - Live Icon Added
 extension ProgressHUD {
 
-	func animatedIconAdded(_ view: UIView) {
+	func liveIconAdded(_ view: UIView) {
 		let length = view.frame.width
 		let delay = (alpha == 0) ? 0.25 : 0.0
 

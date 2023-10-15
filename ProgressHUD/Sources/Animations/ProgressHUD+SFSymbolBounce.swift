@@ -19,10 +19,10 @@ extension ProgressHUD {
 		let height = view.frame.height
 
 		let image = UIImage(systemName: animationSymbol) ?? UIImage(systemName: "questionmark")
+		let config = UIImage.SymbolConfiguration(weight: .bold)
 
 		let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-		let configuration = UIImage.SymbolConfiguration(weight: .bold)
-		imageView.image = image?.applyingSymbolConfiguration(configuration)
+		imageView.image = image?.applyingSymbolConfiguration(config)
 		imageView.tintColor = colorAnimation
 		imageView.contentMode = .scaleAspectFit
 
