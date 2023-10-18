@@ -1,6 +1,4 @@
-# ‼️ Is there a reason you haven't starred this repo yet?
-
-Either let me know why, or go ahead and hit that star button now! 😃🌟🙏
+## ‼️ In case you're using Xcode 14.3.1 or an earlier version, stick with [13.8.6](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.6)
 
 ---
 
