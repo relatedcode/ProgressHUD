@@ -108,6 +108,7 @@ ProgressHUD.remove()
 ## REQUIREMENTS
 
 - iOS 13.0+
+- Xcode 15.0+
 
 ## CUSTOMIZATION
 
