@@ -2,10 +2,6 @@
 
 ---
 
-## ‼️ In case you're using Xcode 14.3.1 or an earlier version, stick with [13.8.6](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.6)
-
----
-
 <img src="https://related.chat/hud/001.gif" width="80"> <img src="https://related.chat/hud/002.gif" width="80"> <img src="https://related.chat/hud/003.gif" width="80"> <img src="https://related.chat/hud/004.gif" width="80"> <img src="https://related.chat/hud/005.gif" width="80"> <img src="https://related.chat/hud/006.gif" width="80"> <img src="https://related.chat/hud/007.gif" width="80"> <img src="https://related.chat/hud/008.gif" width="80"> <img src="https://related.chat/hud/009.gif" width="80"> <img src="https://related.chat/hud/010.gif" width="80"> <img src="https://related.chat/hud/011.gif" width="80"> <img src="https://related.chat/hud/011.png" width="80"> <img src="https://related.chat/hud/012.gif" width="80"> <img src="https://related.chat/hud/012.png" width="80"> <img src="https://related.chat/hud/013.gif" width="80"> <img src="https://related.chat/hud/013.png" width="80"> <img src="https://related.chat/hud/014.gif" width="80"> <img src="https://related.chat/hud/014.png" width="80"> <img src="https://related.chat/hud/015.gif" width="80"> <img src="https://related.chat/hud/015.png" width="80">
 
 ## WHAT'S NEW
@@ -17,6 +13,8 @@ For detailed changes, please refer to the [Change log](CHANGELOG.md).
 **ProgressHUD** is a convenient and intuitive HUD tool designed specifically for iOS. It enables seamless presentation of concise alerts or notifications to users of your app in a simple and non-disruptive way.
 
 ## INSTALLATION
+
+‼️ In case you're using Xcode 14.3.1 or an earlier version, stick with [13.8.6](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.6) ‼️
 
 ### CocoaPods
 
