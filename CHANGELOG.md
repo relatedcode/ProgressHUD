@@ -1,5 +1,13 @@
 # Change Log
 
+## [14.1.1](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.1)
+
+Released on 2024-01-22.
+
+#### Revision
+
+- Year bump.
+
 ## [14.1.0](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.0)
 
 Released on 2023-10-15.

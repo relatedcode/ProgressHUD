@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -66,10 +66,7 @@ public class ProgressHUD: UIView {
 	let keyboardDidHide			= UIResponder.keyboardDidHideNotification
 	let orientationDidChange	= UIDevice.orientationDidChangeNotification
 
-	static let shared: ProgressHUD = {
-		let instance = ProgressHUD()
-		return instance
-	} ()
+	static let shared = ProgressHUD()
 
 	convenience private init() {
 		self.init(frame: UIScreen.main.bounds)
@@ -197,7 +194,7 @@ extension ProgressHUD {
 
 		timerHUD = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
 			guard let self = self else { return }
-			self.dismissHUD()
+			dismissHUD()
 		}
 	}
 }
@@ -432,10 +429,10 @@ extension ProgressHUD {
 
 	private func setupSizes(_ text: String?, _ animation: Bool) {
 		if let text {
-			if (animation == false) || (animationType != .none) {
-				setupSizesBoth(text)
-			} else {
+			if (animation) && (animationType == .none) {
 				setupSizesTextOnly(text)
+			} else {
+				setupSizesBoth(text)
 			}
 		} else {
 			setupSizesTextNone()
