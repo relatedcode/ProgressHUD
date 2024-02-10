@@ -292,7 +292,7 @@ extension ProgressHUD {
 		labelStatus?.text = text
 		labelStatus?.font = fontStatus
 		labelStatus?.textColor = colorStatus
-		labelStatus?.isHidden = (text == nil) ? true : false
+		labelStatus?.isHidden = (text == nil)
 	}
 }
 
