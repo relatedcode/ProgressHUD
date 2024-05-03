@@ -6,7 +6,7 @@ Released on 2024-05-03.
 
 #### Added
 
-- Added the PrivacyInfo.xcprivacy file.
+- Added the `PrivacyInfo.xcprivacy` file.
 
 ## [14.1.1](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.1)
 
