@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ProgressHUD'
-  s.version = '14.1.1'
+  s.version = '14.1.2'
   s.license = 'MIT'
 
   s.summary = 'A lightweight and easy-to-use Progress HUD for iOS.'
@@ -9,6 +9,7 @@ Pod::Spec.new do |s|
 
   s.source = { :git => 'https://github.com/relatedcode/ProgressHUD.git', :tag => s.version }
   s.source_files = 'ProgressHUD/Sources/*.swift', 'ProgressHUD/Sources/Animations/*.swift'
+  s.resource_bundles = {'ProgressHUD' => ['ProgressHUD/Sources/PrivacyInfo.xcprivacy']}
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 

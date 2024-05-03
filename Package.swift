@@ -1,4 +1,5 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
+
 import PackageDescription
 
 let package = Package(
@@ -9,15 +10,18 @@ let package = Package(
     products: [
         .library(
             name: "ProgressHUD",
-            type: .static,
-            targets: ["ProgressHUD"]),
+            targets: ["ProgressHUD"]
+        ),
     ],
     targets: [
         .target(
             name: "ProgressHUD",
             dependencies: [],
             path: "./ProgressHUD",
-            sources: ["Sources"]
+            sources: ["Sources"],
+            resources: [
+                .copy("PrivacyInfo.xcprivacy")
+            ]
         ),
     ]
 )

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		295B8482248C1C5B003E8AE6 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 295B8480248C1C5B003E8AE6 /* ViewController.xib */; };
 		295B8483248C1C5B003E8AE6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B8481248C1C5B003E8AE6 /* ViewController.swift */; };
+		298F5A0B2BE4CA2D00656A68 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 298F5A0A2BE4CA2D00656A68 /* PrivacyInfo.xcprivacy */; };
 		299876DB248FCB290025E297 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299876DA248FCB290025E297 /* ProgressHUD.swift */; };
 		29A3BDAC2AC6A0810034CAF3 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDAA2AC6A0810034CAF3 /* ProgressView.swift */; };
 		29A3BDAF2AC6A5EF0034CAF3 /* ProgressHUD+LiveIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A3BDAE2AC6A5EF0034CAF3 /* ProgressHUD+LiveIcon.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		295B8480248C1C5B003E8AE6 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		295B8481248C1C5B003E8AE6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		298F5A0A2BE4CA2D00656A68 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		299876DA248FCB290025E297 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		29A3BDAA2AC6A0810034CAF3 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		29A3BDAE2AC6A5EF0034CAF3 /* ProgressHUD+LiveIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+LiveIcon.swift"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				29783DC82AD7F7AC0017A142 /* Animations */,
+				298F5A0A2BE4CA2D00656A68 /* PrivacyInfo.xcprivacy */,
 				299876DA248FCB290025E297 /* ProgressHUD.swift */,
 				29A3BDB02AC6A7500034CAF3 /* ProgressHUD+Banner.swift */,
 				29A3BDB22AC6ACA90034CAF3 /* ProgressHUD+Enums.swift */,
@@ -236,6 +239,7 @@
 			files = (
 				29D29F041D9A59E4006CA074 /* LaunchScreen.storyboard in Resources */,
 				295B8482248C1C5B003E8AE6 /* ViewController.xib in Resources */,
+				298F5A0B2BE4CA2D00656A68 /* PrivacyInfo.xcprivacy in Resources */,
 				29D29F011D9A59E4006CA074 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,7 +431,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 14.1.1;
+				MARKETING_VERSION = 14.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -458,7 +462,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 14.1.1;
+				MARKETING_VERSION = 14.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.progresshud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
