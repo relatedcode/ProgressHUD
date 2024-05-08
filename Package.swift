@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "ProgressHUD",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v13),
     ],
