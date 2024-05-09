@@ -1,5 +1,13 @@
 # Change Log
 
+## [14.1.3](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.3)
+
+Released on 2024-05-09.
+
+#### Changed
+
+- Added the `defaultLocalization` value to the `Package.swift` file.
+
 ## [14.1.2](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.2)
 
 Released on 2024-05-03.
