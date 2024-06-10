@@ -263,10 +263,10 @@ extension ProgressHUDV2 {
             main.addSubview(navbarBackground!)
         }
 
-        viewBackground?.backgroundColor = interaction ? .clear : colorBackground
+        viewBackground?.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
 		viewBackground?.isUserInteractionEnabled = !interaction
         
-        navbarBackground?.backgroundColor = interaction ? .clear : colorBackground
+        navbarBackground?.backgroundColor = .clear
         navbarBackground?.isUserInteractionEnabled = !interaction
 	}
 }
