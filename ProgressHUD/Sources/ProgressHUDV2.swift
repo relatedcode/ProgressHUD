@@ -237,7 +237,7 @@ extension ProgressHUDV2 {
 
 	private func removeBackground() {
 		viewBackground?.removeFromSuperview()
-        viewBackground?.removeFromSuperview()
+        navbarBackground?.removeFromSuperview()
 		viewBackground = nil
         navbarBackground = nil
 	}
@@ -282,14 +282,17 @@ extension ProgressHUDV2 {
 	private func setupToolbar() {
 		if (toolbarHUD == nil) {
 			toolbarHUD = UIToolbar(frame: CGRect.zero)
-			//toolbarHUD?.isTranslucent = true
 			toolbarHUD?.clipsToBounds = true
 			toolbarHUD?.layer.cornerRadius = 10
 			toolbarHUD?.layer.masksToBounds = true
+            ///Adding this configuration to make background container as white color
+            toolbarHUD?.barTintColor = .white
+            toolbarHUD?.layer.isOpaque = false
+            toolbarHUD?.isTranslucent = false
+            toolbarHUD?.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .compact)
 			viewBackground?.addSubview(toolbarHUD!)
 		}
 
-        toolbarHUD?.backgroundColor = .white
 	}
 }
 
