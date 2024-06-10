@@ -11,7 +11,7 @@
 
 import UIKit
 
-public class ProgressHUD: UIView {
+public class ProgressHUDV2: UIView {
 
 	var main: UIWindow!
 
@@ -38,6 +38,7 @@ public class ProgressHUD: UIView {
 	var marginSize: CGFloat = 30
 
 	var viewBackground: UIView?
+    var navbarBackground: UIView?
 	var toolbarHUD: UIToolbar?
 	var labelStatus: UILabel?
 
@@ -66,7 +67,7 @@ public class ProgressHUD: UIView {
 	let keyboardDidHide			= UIResponder.keyboardDidHideNotification
 	let orientationDidChange	= UIDevice.orientationDidChangeNotification
 
-	static let shared = ProgressHUD()
+	static let shared = ProgressHUDV2()
 
 	convenience private init() {
 		self.init(frame: UIScreen.main.bounds)
@@ -83,7 +84,7 @@ public class ProgressHUD: UIView {
 }
 
 // MARK: - Progress
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func progress(text: String?, value: CGFloat, interaction: Bool) {
 
@@ -107,7 +108,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Live Icon
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func liveIcon(text: String?, icon: LiveIcon, interaction: Bool, delay: TimeInterval?) {
 
@@ -132,7 +133,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Static Image
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func staticImage(text: String?, image: UIImage?, interaction: Bool, delay: TimeInterval?) {
 
@@ -157,14 +158,14 @@ extension ProgressHUD {
 }
 
 // MARK: - Animation
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
-	func animate(text: String?, interaction: Bool) {
+	func animate(text: String?, interaction: Bool, isNavbarHidden: Bool = true, isTabBarHidden: Bool = true) {
 
 		removeDelayTimer()
 
 		setupWindow()
-		setupBackground(interaction)
+		setupBackground(interaction, isNavbarHidden: isNavbarHidden, isTabBarHidden: isTabBarHidden)
 		setupToolbar()
 		setupStatus(text)
 
@@ -175,13 +176,13 @@ extension ProgressHUD {
 
 		setupSizes(text, true)
 		setupNotifications()
-		setupPosition()
+		setupPosition(nil, isNavbarHidden: isNavbarHidden, isTabBarHidden: isTabBarHidden)
 		displayHUD()
 	}
 }
 
 // MARK: - Delay Timer
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeDelayTimer() {
 		timerHUD?.invalidate()
@@ -200,7 +201,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Notifications
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeNotifications() {
 		if (didSetupNotifications) {
@@ -211,18 +212,18 @@ extension ProgressHUD {
 
 	private func setupNotifications() {
 		if (!didSetupNotifications) {
-			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardWillShow, object: nil)
-			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardWillHide, object: nil)
-			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardDidShow, object: nil)
-			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardDidHide, object: nil)
-			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: orientationDidChange, object: nil)
+//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardWillShow, object: nil)
+//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardWillHide, object: nil)
+//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardDidShow, object: nil)
+//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardDidHide, object: nil)
+//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: orientationDidChange, object: nil)
 			didSetupNotifications = true
 		}
 	}
 }
 
 // MARK: - Window
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func setupWindow() {
 		if (main == nil) {
@@ -232,26 +233,46 @@ extension ProgressHUD {
 }
 
 // MARK: - Background
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeBackground() {
 		viewBackground?.removeFromSuperview()
+        viewBackground?.removeFromSuperview()
 		viewBackground = nil
+        navbarBackground = nil
 	}
 
-	private func setupBackground(_ interaction: Bool) {
+	private func setupBackground(_ interaction: Bool, isNavbarHidden: Bool = true, isTabBarHidden: Bool = true) {
+    
+        var topBarHeight: CGFloat = 0
+        if !isNavbarHidden {
+            topBarHeight = UIApplication.shared.statusBarFrame.size.height + UINavigationController().navigationBar.frame.height
+        }
+        var tabBarHeight: CGFloat = 0
+        if !isTabBarHidden {
+            tabBarHeight = UITableViewController().tabBarController?.tabBar.frame.height ?? 0
+        }
+        let topFrame = CGRect(x: 80, y: 0, width: bounds.width-50, height: topBarHeight)
 		if (viewBackground == nil) {
-			viewBackground = UIView(frame: bounds)
+            viewBackground = UIView(frame: CGRect(x: 0, y: topBarHeight, width: bounds.width, height: bounds.height-topBarHeight-tabBarHeight))
 			main.addSubview(viewBackground!)
 		}
+        
+        if (navbarBackground == nil) {
+            navbarBackground = UIView(frame: topFrame)
+            main.addSubview(navbarBackground!)
+        }
 
-		viewBackground?.backgroundColor = interaction ? .clear : colorBackground
+        viewBackground?.backgroundColor = interaction ? .clear : colorBackground
 		viewBackground?.isUserInteractionEnabled = !interaction
+        
+        navbarBackground?.backgroundColor = interaction ? .clear : colorBackground
+        navbarBackground?.isUserInteractionEnabled = !interaction
 	}
 }
 
 // MARK: - Toolbar
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeToolbar() {
 		toolbarHUD?.removeFromSuperview()
@@ -273,7 +294,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Status Label
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeStatus() {
 		labelStatus?.removeFromSuperview()
@@ -297,7 +318,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Progress View
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeProgressView() {
 		viewProgress?.removeFromSuperview()
@@ -321,7 +342,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Live Icon
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeLiveIcon() {
 		viewLiveIcon?.removeFromSuperview()
@@ -350,7 +371,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Static Image
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeStaticImage() {
 		viewStaticImage?.removeFromSuperview()
@@ -374,7 +395,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Animation View
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeAnimationView() {
 		viewAnimation?.removeFromSuperview()
@@ -425,7 +446,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Setup Sizes
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func setupSizes(_ text: String?, _ animation: Bool) {
 		if let text {
@@ -495,9 +516,9 @@ extension ProgressHUD {
 }
 
 // MARK: - Setup Position
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
-	@objc private func setupPosition(_ notification: Notification? = nil) {
+    @objc private func setupPosition(_ notification: Notification? = nil, isNavbarHidden: Bool = true, isTabBarHidden: Bool = true) {
 		var heightKeyboard: CGFloat = 0
 		var animationDuration: TimeInterval = 0
 
@@ -517,10 +538,12 @@ extension ProgressHUD {
 		}
 
 		DispatchQueue.main.async { [self] in
-			let center = CGPoint(x: main.bounds.size.width / 2, y: (main.bounds.size.height - heightKeyboard) / 2)
-
+            var topHeight: CGFloat = 0
+            if !isNavbarHidden {
+                topHeight = UIApplication.shared.statusBarFrame.size.height + UINavigationController().navigationBar.frame.height+50
+            }
+			let center = CGPoint(x: main.bounds.size.width / 2, y: (main.bounds.size.height - topHeight) / 2)
 			UIView.animate(withDuration: animationDuration, delay: 0, options: .allowUserInteraction) { [self] in
-				viewBackground?.frame = main.bounds
 				toolbarHUD?.center = center
 			}
 		}
@@ -548,7 +571,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Display, Dismiss, Remove, Destroy
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func displayHUD() {
 		if (alpha == 0) {

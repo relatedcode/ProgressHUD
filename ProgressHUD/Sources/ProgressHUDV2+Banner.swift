@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Show Banner
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func showBanner(title: String?, message: String?, delay: TimeInterval) {
 		setupWindow()
@@ -65,7 +65,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Hide Banner
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	@objc func hideBanner() {
 		guard let banner = viewBanner else { return }
@@ -80,7 +80,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Remove Banner
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeBanner() {
 		labelBannerMessage?.removeFromSuperview()
@@ -94,7 +94,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Orientation Observer
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func removeBannerObserver() {
 		if let observer = observerBanner {
@@ -112,7 +112,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Banner Size
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	private func resizeBanner() {
 		let widthBanner = main.frame.width - 32

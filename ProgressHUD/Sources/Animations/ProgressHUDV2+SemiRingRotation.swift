@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Semi-Ring Rotation
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationSemiRingRotation(_ view: UIView) {
 		let width = view.frame.size.width

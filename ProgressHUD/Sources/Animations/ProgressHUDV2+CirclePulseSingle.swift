@@ -11,53 +11,42 @@
 
 import UIKit
 
-// MARK: - Circle Ripple Multiple
-extension ProgressHUD {
+// MARK: - Circle Pulse Single
+extension ProgressHUDV2 {
 
-	func animationCircleRippleMultiple(_ view: UIView) {
+	func animationCirclePulseSingle(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let center = CGPoint(x: width / 2, y: height / 2)
 		let radius = width / 2
 
-		let duration = 1.25
-		let beginTime = CACurrentMediaTime()
-		let beginTimes = [0, 0.2, 0.4]
-		let timingFunction = CAMediaTimingFunction(controlPoints: 0.21, 0.53, 0.56, 0.8)
+		let duration = 1.0
 
-		let animationScale = CAKeyframeAnimation(keyPath: "transform.scale")
-		animationScale.keyTimes = [0, 0.7]
-		animationScale.timingFunction = timingFunction
-		animationScale.values = [0, 1]
+		let animationScale = CABasicAnimation(keyPath: "transform.scale")
 		animationScale.duration = duration
+		animationScale.fromValue = 0
+		animationScale.toValue = 1
 
-		let animationOpacity = CAKeyframeAnimation(keyPath: "opacity")
-		animationOpacity.keyTimes = [0, 0.7, 1]
-		animationOpacity.timingFunctions = [timingFunction, timingFunction]
-		animationOpacity.values = [1, 0.7, 0]
+		let animationOpacity = CABasicAnimation(keyPath: "opacity")
 		animationOpacity.duration = duration
+		animationOpacity.fromValue = 1
+		animationOpacity.toValue = 0
 
 		let animation = CAAnimationGroup()
 		animation.animations = [animationScale, animationOpacity]
+		animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animation.duration = duration
 		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
 
-		for i in 0..<3 {
-			let layer = CAShapeLayer()
-			layer.frame = CGRect(x: 0, y: 0, width: width, height: height)
-			layer.path = path.cgPath
-			layer.backgroundColor = nil
-			layer.strokeColor = colorAnimation.cgColor
-			layer.lineWidth = 3
-			layer.fillColor = nil
+		let layer = CAShapeLayer()
+		layer.frame = CGRect(x: 0, y: 0, width: width, height: height)
+		layer.path = path.cgPath
+		layer.fillColor = colorAnimation.cgColor
 
-			animation.beginTime = beginTime + beginTimes[i]
-
-			layer.add(animation, forKey: "animation")
-			view.layer.addSublayer(layer)
-		}
+		layer.add(animation, forKey: "animation")
+		view.layer.addSublayer(layer)
 	}
 }

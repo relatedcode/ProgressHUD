@@ -11,30 +11,32 @@
 
 import UIKit
 
-// MARK: - Circle Pulse Single
-extension ProgressHUD {
+// MARK: - Circle Ripple Single
+extension ProgressHUDV2 {
 
-	func animationCirclePulseSingle(_ view: UIView) {
+	func animationCircleRippleSingle(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let center = CGPoint(x: width / 2, y: height / 2)
 		let radius = width / 2
 
 		let duration = 1.0
+		let timingFunction = CAMediaTimingFunction(controlPoints: 0.21, 0.53, 0.56, 0.8)
 
-		let animationScale = CABasicAnimation(keyPath: "transform.scale")
+		let animationScale = CAKeyframeAnimation(keyPath: "transform.scale")
+		animationScale.keyTimes = [0, 0.7]
+		animationScale.timingFunction = timingFunction
+		animationScale.values = [0.1, 1]
 		animationScale.duration = duration
-		animationScale.fromValue = 0
-		animationScale.toValue = 1
 
-		let animationOpacity = CABasicAnimation(keyPath: "opacity")
+		let animationOpacity = CAKeyframeAnimation(keyPath: "opacity")
+		animationOpacity.keyTimes = [0, 0.7, 1]
+		animationOpacity.timingFunctions = [timingFunction, timingFunction]
+		animationOpacity.values = [1, 0.7, 0]
 		animationOpacity.duration = duration
-		animationOpacity.fromValue = 1
-		animationOpacity.toValue = 0
 
 		let animation = CAAnimationGroup()
 		animation.animations = [animationScale, animationOpacity]
-		animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
 		animation.duration = duration
 		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
@@ -44,7 +46,10 @@ extension ProgressHUD {
 		let layer = CAShapeLayer()
 		layer.frame = CGRect(x: 0, y: 0, width: width, height: height)
 		layer.path = path.cgPath
-		layer.fillColor = colorAnimation.cgColor
+		layer.backgroundColor = nil
+		layer.fillColor = nil
+		layer.strokeColor = colorAnimation.cgColor
+		layer.lineWidth = 3
 
 		layer.add(animation, forKey: "animation")
 		view.layer.addSublayer(layer)

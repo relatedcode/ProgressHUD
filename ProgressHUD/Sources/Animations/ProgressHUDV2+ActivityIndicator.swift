@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Activity Indicator
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationActivityIndicator(_ view: UIView) {
 		let spinner = UIActivityIndicatorView(style: .large)

@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Triangle Dot Shift
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationTriangleDotShift(_ view: UIView) {
 		let height = view.frame.size.height

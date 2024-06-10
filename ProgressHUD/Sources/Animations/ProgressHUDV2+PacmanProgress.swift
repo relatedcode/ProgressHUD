@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Pacman Progress
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationPacmanProgress(_ view: UIView) {
 		createPacman(view)

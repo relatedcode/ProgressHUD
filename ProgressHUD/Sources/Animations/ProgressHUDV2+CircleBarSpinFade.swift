@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Circle Bar Spin Fade
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationCircleBarSpinFade(_ view: UIView) {
 		let width = view.frame.size.width

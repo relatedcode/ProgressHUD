@@ -11,48 +11,37 @@
 
 import UIKit
 
-// MARK: - Circle Dot Spin Fade
-extension ProgressHUD {
+// MARK: - Horizontal Dot Scaling
+extension ProgressHUDV2 {
 
-	func animationCircleDotSpinFade(_ view: UIView) {
+	func animationHorizontalDotScaling(_ view: UIView) {
 		let width = view.frame.size.width
+		let height = view.frame.size.height
 
 		let spacing = 3.0
-		let radius = (width - 4 * spacing) / 3.5
-		let radiusX = (width - radius) / 2
+		let radius = (width - spacing * 2) / 3
 		let center = CGPoint(x: radius / 2, y: radius / 2)
+		let positionY = (height - radius) / 2
 
-		let duration = 1.0
 		let beginTime = CACurrentMediaTime()
-		let beginTimes: [CFTimeInterval] = [0.84, 0.72, 0.6, 0.48, 0.36, 0.24, 0.12, 0]
+		let beginTimes = [0.36, 0.24, 0.12]
+		let timingFunction = CAMediaTimingFunction(controlPoints: 0.2, 0.68, 0.18, 1.08)
 
-		let animationScale = CAKeyframeAnimation(keyPath: "transform.scale")
-		animationScale.keyTimes = [0, 0.5, 1]
-		animationScale.values = [1, 0.4, 1]
-		animationScale.duration = duration
-
-		let animationOpacity = CAKeyframeAnimation(keyPath: "opacity")
-		animationOpacity.keyTimes = [0, 0.5, 1]
-		animationOpacity.values = [1, 0.3, 1]
-		animationOpacity.duration = duration
-
-		let animation = CAAnimationGroup()
-		animation.animations = [animationScale, animationOpacity]
-		animation.timingFunction = CAMediaTimingFunction(name: .linear)
-		animation.duration = duration
+		let animation = CAKeyframeAnimation(keyPath: "transform.scale")
+		animation.keyTimes = [0, 0.5, 1]
+		animation.timingFunctions = [timingFunction, timingFunction]
+		animation.values = [1, 0.3, 1]
+		animation.duration = 1
 		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
 
 		let path = UIBezierPath(arcCenter: center, radius: radius / 2, startAngle: 0, endAngle: 2 * .pi, clockwise: false)
 
-		for i in 0..<8 {
-			let angle = .pi / 4 * CGFloat(i)
-
+		for i in 0..<3 {
 			let layer = CAShapeLayer()
+			layer.frame = CGRect(x: (radius + spacing) * CGFloat(i), y: positionY, width: radius, height: radius)
 			layer.path = path.cgPath
 			layer.fillColor = colorAnimation.cgColor
-			layer.backgroundColor = nil
-			layer.frame = CGRect(x: radiusX * (cos(angle) + 1), y: radiusX * (sin(angle) + 1), width: radius, height: radius)
 
 			animation.beginTime = beginTime - beginTimes[i]
 

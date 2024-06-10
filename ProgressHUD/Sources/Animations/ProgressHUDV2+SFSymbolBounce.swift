@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - SF Symbol Bounce
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationSFSymbolBounce(_ view: UIView) {
 		let width = view.frame.width

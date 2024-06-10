@@ -73,7 +73,8 @@ class ViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = "ProgressHUD"
+		title = "ProgressHUDV2"
+        setupNavbarButton()
 
 		DispatchQueue.main.async {
 			self.loadSymbols()
@@ -106,9 +107,20 @@ class ViewController: UITableViewController {
 		actions5.append("Added - No text")
 		actions5.append("Added - Short text")
 
-		ProgressHUD.colorAnimation = .systemRed
-		ProgressHUD.colorProgress = .systemRed
+		ProgressHUDV2.colorAnimation = .systemRed
+		ProgressHUDV2.colorProgress = .systemRed
 	}
+    
+    private func setupNavbarButton() {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        let logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(buttonTapped))
+            self.navigationItem.leftBarButtonItem  = logoutBarButtonItem
+    }
+    
+    @objc
+    private func buttonTapped() {
+        print("button tapped")
+    }
 }
 
 // MARK: - Progress Methods
@@ -116,7 +128,7 @@ extension ViewController {
 
 	func progressStart(_ status: String? = nil) {
 		counter = 0
-		ProgressHUD.progress(status, counter/100)
+		ProgressHUDV2.progress(status, counter/100)
 
 		timer = Timer.scheduledTimer(withTimeInterval: 0.025, repeats: true) { [weak self] _ in
 			guard let self = self else { return }
@@ -126,7 +138,7 @@ extension ViewController {
 
 	func progressStep(_ status: String?) {
 		counter += 1
-		ProgressHUD.progress(status, counter/100)
+		ProgressHUDV2.progress(status, counter/100)
 
 		if (counter >= 100) {
 			progressStop(status)
@@ -138,7 +150,7 @@ extension ViewController {
 		timer = nil
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-			ProgressHUD.succeed(status, interaction: false, delay: 0.75)
+			ProgressHUDV2.succeed(status, interaction: false, delay: 0.75)
 		}
 	}
 }
@@ -210,29 +222,28 @@ extension ViewController {
 		tableView.deselectRow(at: indexPath, animated: true)
 
 		if (indexPath.section == 0) {
-			if (indexPath.row == 0) { ProgressHUD.banner("Banner title", toggleText()) }
-			if (indexPath.row == 1) { ProgressHUD.bannerHide() }
+			if (indexPath.row == 0) { ProgressHUDV2.banner("Banner title", toggleText()) }
+			if (indexPath.row == 1) { ProgressHUDV2.bannerHide() }
 		}
 
 		if (indexPath.section == 1) {
 			if (indexPath.row == 1) { view.endEditing(true) }
-			if (indexPath.row == 2) { ProgressHUD.dismiss()	}
-			if (indexPath.row == 3) { ProgressHUD.remove()	}
+			if (indexPath.row == 2) { ProgressHUDV2.dismiss()	}
+			if (indexPath.row == 3) { ProgressHUDV2.remove()	}
 		}
 
 		if (indexPath.section == 2)	{
 			let animation = animations[indexPath.row]
 			if (animation != .sfSymbolBounce) {
-				ProgressHUD.animate(status, animation)
+                ProgressHUDV2.animate(status, animation, interaction: false, isNavbarHidden: self.navigationController?.isNavigationBarHidden ?? false, isTabBarHidden: self.tabBarController?.tabBar.isHidden ?? false)
 			} else {
-				ProgressHUD.animate(status, symbol: symbol())
+				ProgressHUDV2.animate(status, symbol: symbol())
 			}
 		}
-
 		if (indexPath.section == 3) {
-			if (indexPath.row == 0) { ProgressHUD.animate();			status = nil		}
-			if (indexPath.row == 1) { ProgressHUD.animate(textShort);	status = textShort	}
-			if (indexPath.row == 2) { ProgressHUD.animate(textLong);	status = textLong	}
+			if (indexPath.row == 0) { ProgressHUDV2.animate();			status = nil		}
+			if (indexPath.row == 1) { ProgressHUDV2.animate(textShort);	status = textShort	}
+			if (indexPath.row == 2) { ProgressHUDV2.animate(textLong);	status = textLong	}
 		}
 
 		if (indexPath.section == 4) {
@@ -242,28 +253,28 @@ extension ViewController {
 		}
 
 		if (indexPath.section == 5) {
-			if (indexPath.row == 0) { ProgressHUD.progress(0.1, interaction: true)	}
-			if (indexPath.row == 1) { ProgressHUD.progress(0.4, interaction: true)	}
-			if (indexPath.row == 2) { ProgressHUD.progress(0.6, interaction: true)	}
-			if (indexPath.row == 3) { ProgressHUD.progress(0.9, interaction: true)	}
+			if (indexPath.row == 0) { ProgressHUDV2.progress(0.1, interaction: true)	}
+			if (indexPath.row == 1) { ProgressHUDV2.progress(0.4, interaction: true)	}
+			if (indexPath.row == 2) { ProgressHUDV2.progress(0.6, interaction: true)	}
+			if (indexPath.row == 3) { ProgressHUDV2.progress(0.9, interaction: true)	}
 		}
 
 		if (indexPath.section == 6) {
-			if (indexPath.row == 0) { ProgressHUD.symbol(name: symbol())			}
-			if (indexPath.row == 1) { ProgressHUD.symbol(textAdded, name: symbol())	}
-			if (indexPath.row == 2) { ProgressHUD.success()							}
-			if (indexPath.row == 3) { ProgressHUD.success(textSuccess)				}
-			if (indexPath.row == 4) { ProgressHUD.error()							}
-			if (indexPath.row == 5) { ProgressHUD.error(textError)					}
+			if (indexPath.row == 0) { ProgressHUDV2.symbol(name: symbol())			}
+			if (indexPath.row == 1) { ProgressHUDV2.symbol(textAdded, name: symbol())	}
+			if (indexPath.row == 2) { ProgressHUDV2.success()							}
+			if (indexPath.row == 3) { ProgressHUDV2.success(textSuccess)				}
+			if (indexPath.row == 4) { ProgressHUDV2.error()							}
+			if (indexPath.row == 5) { ProgressHUDV2.error(textError)					}
 		}
 
 		if (indexPath.section == 7) {
-			if (indexPath.row == 0) { ProgressHUD.succeed()				}
-			if (indexPath.row == 1) { ProgressHUD.succeed(textSucceed)	}
-			if (indexPath.row == 2) { ProgressHUD.failed()				}
-			if (indexPath.row == 3) { ProgressHUD.failed(textFailed)	}
-			if (indexPath.row == 4) { ProgressHUD.added()				}
-			if (indexPath.row == 5) { ProgressHUD.added(textAdded)		}
+			if (indexPath.row == 0) { ProgressHUDV2.succeed()				}
+			if (indexPath.row == 1) { ProgressHUDV2.succeed(textSucceed)	}
+			if (indexPath.row == 2) { ProgressHUDV2.failed()				}
+			if (indexPath.row == 3) { ProgressHUDV2.failed(textFailed)	}
+			if (indexPath.row == 4) { ProgressHUDV2.added()				}
+			if (indexPath.row == 5) { ProgressHUDV2.added(textAdded)		}
 		}
 	}
 }

@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Square Circuit Snake
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationSquareCircuitSnake(_ view: UIView) {
 		let space = view.frame.width / 6

@@ -11,32 +11,34 @@
 
 import UIKit
 
-// MARK: - Circle Pulse Multiple
-extension ProgressHUD {
+// MARK: - Circle Ripple Multiple
+extension ProgressHUDV2 {
 
-	func animationCirclePulseMultiple(_ view: UIView) {
+	func animationCircleRippleMultiple(_ view: UIView) {
 		let width = view.frame.size.width
 		let height = view.frame.size.height
 		let center = CGPoint(x: width / 2, y: height / 2)
 		let radius = width / 2
 
-		let duration = 1.0
+		let duration = 1.25
 		let beginTime = CACurrentMediaTime()
-		let beginTimes = [0, 0.3, 0.6]
+		let beginTimes = [0, 0.2, 0.4]
+		let timingFunction = CAMediaTimingFunction(controlPoints: 0.21, 0.53, 0.56, 0.8)
 
-		let animationScale = CABasicAnimation(keyPath: "transform.scale")
+		let animationScale = CAKeyframeAnimation(keyPath: "transform.scale")
+		animationScale.keyTimes = [0, 0.7]
+		animationScale.timingFunction = timingFunction
+		animationScale.values = [0, 1]
 		animationScale.duration = duration
-		animationScale.fromValue = 0
-		animationScale.toValue = 1
 
 		let animationOpacity = CAKeyframeAnimation(keyPath: "opacity")
+		animationOpacity.keyTimes = [0, 0.7, 1]
+		animationOpacity.timingFunctions = [timingFunction, timingFunction]
+		animationOpacity.values = [1, 0.7, 0]
 		animationOpacity.duration = duration
-		animationOpacity.keyTimes = [0, 0.05, 1]
-		animationOpacity.values = [0, 1, 0]
 
 		let animation = CAAnimationGroup()
 		animation.animations = [animationScale, animationOpacity]
-		animation.timingFunction = CAMediaTimingFunction(name: .linear)
 		animation.duration = duration
 		animation.repeatCount = .infinity
 		animation.isRemovedOnCompletion = false
@@ -47,8 +49,10 @@ extension ProgressHUD {
 			let layer = CAShapeLayer()
 			layer.frame = CGRect(x: 0, y: 0, width: width, height: height)
 			layer.path = path.cgPath
-			layer.fillColor = colorAnimation.cgColor
-			layer.opacity = 0
+			layer.backgroundColor = nil
+			layer.strokeColor = colorAnimation.cgColor
+			layer.lineWidth = 3
+			layer.fillColor = nil
 
 			animation.beginTime = beginTime + beginTimes[i]
 

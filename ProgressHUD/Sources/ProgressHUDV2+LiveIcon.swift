@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Live Icon Succeed
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func liveIconSucceed(_ view: UIView) {
 		let length = view.frame.width
@@ -46,7 +46,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Live Icon Failed
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func liveIconFailed(_ view: UIView) {
 		let length = view.frame.width
@@ -89,7 +89,7 @@ extension ProgressHUD {
 }
 
 // MARK: - Live Icon Added
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func liveIconAdded(_ view: UIView) {
 		let length = view.frame.width

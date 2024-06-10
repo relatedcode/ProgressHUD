@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Banner customization
-public extension ProgressHUD {
+public extension ProgressHUDV2 {
 
 	class var colorBanner: UIColor {
 		get { shared.colorBanner }
@@ -41,7 +41,7 @@ public extension ProgressHUD {
 }
 
 // MARK: - HUD customization
-public extension ProgressHUD {
+public extension ProgressHUDV2 {
 
 	class var window: UIWindow {
 		get { shared.main }
@@ -110,7 +110,7 @@ public extension ProgressHUD {
 }
 
 // MARK: - HUD Removal
-public extension ProgressHUD {
+public extension ProgressHUDV2 {
 
 	class func dismiss() {
 		DispatchQueue.main.async {
@@ -126,7 +126,7 @@ public extension ProgressHUD {
 }
 
 // MARK: - Progress
-public extension ProgressHUD {
+public extension ProgressHUDV2 {
 
 	class func progress(_ value: CGFloat, interaction: Bool = false) {
 		DispatchQueue.main.async {
@@ -142,7 +142,7 @@ public extension ProgressHUD {
 }
 
 // MARK: - Live Icon
-public extension ProgressHUD {
+public extension ProgressHUDV2 {
 
 	class func liveIcon(_ text: String? = nil, icon: LiveIcon, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
@@ -176,7 +176,7 @@ public extension ProgressHUD {
 }
 
 // MARK: - Static Image
-public extension ProgressHUD {
+public extension ProgressHUDV2 {
 
 	class func image(_ text: String? = nil, image: UIImage?, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
@@ -214,7 +214,7 @@ public extension ProgressHUD {
 }
 
 // MARK: - Animation
-public extension ProgressHUD {
+public extension ProgressHUDV2 {
 
 	class func animate(_ text: String? = nil, interaction: Bool = true) {
 		DispatchQueue.main.async {
@@ -236,10 +236,18 @@ public extension ProgressHUD {
 			shared.animate(text: text, interaction: interaction)
 		}
 	}
+    
+    class func animate(_ text: String? = nil, _ type: AnimationType, interaction: Bool = true, isNavbarHidden: Bool = true, isTabBarHidden: Bool = true) {
+        DispatchQueue.main.async {
+            animationType = type
+            shared.animate(text: text, interaction: interaction, isNavbarHidden: isNavbarHidden, isTabBarHidden: isTabBarHidden)
+        }
+    }
+
 }
 
 // MARK: - Banner
-public extension ProgressHUD {
+public extension ProgressHUDV2 {
 
 	class func banner(_ title: String?, _ message: String?, delay: TimeInterval = 3.0) {
 		DispatchQueue.main.async {

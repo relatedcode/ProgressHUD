@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Circle Arc Dot Spin
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationCircleArcDotSpin(_ view: UIView) {
 		let space = view.frame.width / 8

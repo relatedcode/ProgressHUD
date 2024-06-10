@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Bar Sweep Toggle
-extension ProgressHUD {
+extension ProgressHUDV2 {
 
 	func animationBarSweepToggle(_ view: UIView) {
 		let height = view.frame.size.height
