@@ -58,12 +58,12 @@ class ProgressView: UIView {
 		layerCircle.path = pathCircle.cgPath
 		layerCircle.fillColor = UIColor.clear.cgColor
 		layerCircle.lineWidth = 3
-		layerCircle.strokeColor = color.cgColor
+		layerCircle.strokeColor = UIColor.blue.cgColor
 
 		layerProgress.path = pathProgress.cgPath
 		layerProgress.fillColor = UIColor.clear.cgColor
 		layerProgress.lineWidth = 7
-		layerProgress.strokeColor = color.cgColor
+        layerProgress.strokeColor = UIColor.blue.cgColor
 		layerProgress.strokeEnd = 0
 
 		layer.addSublayer(layerCircle)

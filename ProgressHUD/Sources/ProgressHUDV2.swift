@@ -51,10 +51,10 @@ public class ProgressHUDV2: UIView {
 	var animationSymbol	= "sun.max"
 
 	var colorBackground	= UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-	var colorHUD		= UIColor.systemGray
-	var colorStatus		= UIColor.label
-	var colorProgress	= UIColor.lightGray
-	var colorAnimation	= UIColor.lightGray
+    var colorHUD		= UIColor.white
+    var colorStatus		= UIColor.white
+    var colorProgress	= UIColor.white
+	var colorAnimation	= UIColor.black
 
 	var fontStatus		= UIFont.boldSystemFont(ofSize: 24)
 	var imageSuccess	= UIImage.checkmark.withTintColor(UIColor.systemGreen, renderingMode: .alwaysOriginal)
@@ -263,7 +263,7 @@ extension ProgressHUDV2 {
             main.addSubview(navbarBackground!)
         }
 
-        viewBackground?.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
+        viewBackground?.backgroundColor = .clear//interaction ? .clear : colorBackground
 		viewBackground?.isUserInteractionEnabled = !interaction
         
         navbarBackground?.backgroundColor = .clear
@@ -282,14 +282,14 @@ extension ProgressHUDV2 {
 	private func setupToolbar() {
 		if (toolbarHUD == nil) {
 			toolbarHUD = UIToolbar(frame: CGRect.zero)
-			toolbarHUD?.isTranslucent = true
+			//toolbarHUD?.isTranslucent = true
 			toolbarHUD?.clipsToBounds = true
 			toolbarHUD?.layer.cornerRadius = 10
 			toolbarHUD?.layer.masksToBounds = true
 			viewBackground?.addSubview(toolbarHUD!)
 		}
 
-		toolbarHUD?.backgroundColor = colorHUD
+        toolbarHUD?.backgroundColor = .white
 	}
 }
 
