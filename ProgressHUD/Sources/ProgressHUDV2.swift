@@ -250,7 +250,7 @@ extension ProgressHUDV2 {
         }
         var tabBarHeight: CGFloat = 0
         if !isTabBarHidden {
-            tabBarHeight = UITableViewController().tabBarController?.tabBar.frame.height ?? 0
+            tabBarHeight = UITabBarController().tabBar.frame.height + 50
         }
         let topFrame = CGRect(x: 80, y: 0, width: bounds.width-50, height: topBarHeight)
 		if (viewBackground == nil) {
