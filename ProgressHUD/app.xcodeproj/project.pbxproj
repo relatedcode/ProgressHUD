@@ -41,6 +41,7 @@
 		29FD93D92AD9781A0054B585 /* ProgressHUD+HorizontalDotScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FD93C52AD9781A0054B585 /* ProgressHUD+HorizontalDotScaling.swift */; };
 		29FD93DA2AD9781A0054B585 /* ProgressHUD+CircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FD93C62AD9781A0054B585 /* ProgressHUD+CircleStrokeSpin.swift */; };
 		29FD93DB2AD9781A0054B585 /* ProgressHUD+CircleRippleSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FD93C72AD9781A0054B585 /* ProgressHUD+CircleRippleSingle.swift */; };
+		8EA6B4D72C1851D200652A94 /* UIViewController+Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA6B4D62C1851D200652A94 /* UIViewController+Spinner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		29FD93C52AD9781A0054B585 /* ProgressHUD+HorizontalDotScaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+HorizontalDotScaling.swift"; sourceTree = "<group>"; };
 		29FD93C62AD9781A0054B585 /* ProgressHUD+CircleStrokeSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+CircleStrokeSpin.swift"; sourceTree = "<group>"; };
 		29FD93C72AD9781A0054B585 /* ProgressHUD+CircleRippleSingle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProgressHUD+CircleRippleSingle.swift"; sourceTree = "<group>"; };
+		8EA6B4D62C1851D200652A94 /* UIViewController+Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Spinner.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				29A3BDAE2AC6A5EF0034CAF3 /* ProgressHUD+LiveIcon.swift */,
 				29A3BDB42AC6AF780034CAF3 /* ProgressHUD+Public.swift */,
 				29A3BDAA2AC6A0810034CAF3 /* ProgressView.swift */,
+				8EA6B4D62C1851D200652A94 /* UIViewController+Spinner.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */,
 				29FD93CC2AD9781A0054B585 /* ProgressHUD+CircleArcDotSpin.swift in Sources */,
 				29A3BDB12AC6A7500034CAF3 /* ProgressHUD+Banner.swift in Sources */,
+				8EA6B4D72C1851D200652A94 /* UIViewController+Spinner.swift in Sources */,
 				29FD93CD2AD9781A0054B585 /* ProgressHUD+PacmanProgress.swift in Sources */,
 				29FD93C92AD9781A0054B585 /* ProgressHUD+DualDotSidestep.swift in Sources */,
 				29FD93C82AD9781A0054B585 /* ProgressHUD+BarSweepToggle.swift in Sources */,
