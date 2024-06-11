@@ -237,10 +237,10 @@ public extension ProgressHUDV2 {
 		}
 	}
     
-    class func animate(_ text: String? = nil, _ type: AnimationType, interaction: Bool = true, isNavbarHidden: Bool = true, isTabBarHidden: Bool = true) {
+    class func animate(_ text: String? = nil, _ type: AnimationType, interaction: Bool = true, navbarHeight: CGFloat = 0.0, tabBarHeight: CGFloat = 0.0) {
         DispatchQueue.main.async {
             animationType = type
-            shared.animate(text: text, interaction: interaction, isNavbarHidden: isNavbarHidden, isTabBarHidden: isTabBarHidden)
+            shared.animate(text: text, interaction: interaction, navbarHeight: navbarHeight, tabBarHeight: tabBarHeight)
         }
     }
 

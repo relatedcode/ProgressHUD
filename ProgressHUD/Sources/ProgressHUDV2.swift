@@ -160,12 +160,12 @@ extension ProgressHUDV2 {
 // MARK: - Animation
 extension ProgressHUDV2 {
 
-	func animate(text: String?, interaction: Bool, isNavbarHidden: Bool = true, isTabBarHidden: Bool = true) {
+    func animate(text: String?, interaction: Bool, navbarHeight: CGFloat = 0.0, tabBarHeight: CGFloat = 0.0) {
 
 		removeDelayTimer()
 
 		setupWindow()
-		setupBackground(interaction, isNavbarHidden: isNavbarHidden, isTabBarHidden: isTabBarHidden)
+		setupBackground(interaction, navbarHeight: navbarHeight, tabBarHeight: tabBarHeight)
 		setupToolbar()
 		setupStatus(text)
 
@@ -176,7 +176,7 @@ extension ProgressHUDV2 {
 
 		setupSizes(text, true)
 		setupNotifications()
-		setupPosition(nil, isNavbarHidden: isNavbarHidden, isTabBarHidden: isTabBarHidden)
+		setupPosition(nil, navbarHeight: navbarHeight, tabBarHeight: tabBarHeight)
 		displayHUD()
 	}
 }
@@ -242,19 +242,10 @@ extension ProgressHUDV2 {
         navbarBackground = nil
 	}
 
-	private func setupBackground(_ interaction: Bool, isNavbarHidden: Bool = true, isTabBarHidden: Bool = true) {
-    
-        var topBarHeight: CGFloat = 0
-        if !isNavbarHidden {
-            topBarHeight = UIApplication.shared.statusBarFrame.size.height + UINavigationController().navigationBar.frame.height
-        }
-        var tabBarHeight: CGFloat = 0
-        if !isTabBarHidden {
-            tabBarHeight = UITabBarController().tabBar.frame.height + 50
-        }
-        let topFrame = CGRect(x: 80, y: 0, width: bounds.width-50, height: topBarHeight)
+    private func setupBackground(_ interaction: Bool, navbarHeight: CGFloat = 0.0, tabBarHeight: CGFloat = 0.0) {
+        let topFrame = CGRect(x: 80, y: 0, width: bounds.width-50, height: navbarHeight)
 		if (viewBackground == nil) {
-            viewBackground = UIView(frame: CGRect(x: 0, y: topBarHeight, width: bounds.width, height: bounds.height-topBarHeight-tabBarHeight))
+            viewBackground = UIView(frame: CGRect(x: 0, y: navbarHeight, width: bounds.width, height: bounds.height-navbarHeight-tabBarHeight))
 			main.addSubview(viewBackground!)
 		}
         
@@ -521,7 +512,7 @@ extension ProgressHUDV2 {
 // MARK: - Setup Position
 extension ProgressHUDV2 {
 
-    @objc private func setupPosition(_ notification: Notification? = nil, isNavbarHidden: Bool = true, isTabBarHidden: Bool = true) {
+    @objc private func setupPosition(_ notification: Notification? = nil, navbarHeight: CGFloat = 0.0, tabBarHeight: CGFloat = 0.0) {
 		var heightKeyboard: CGFloat = 0
 		var animationDuration: TimeInterval = 0
 
@@ -541,11 +532,7 @@ extension ProgressHUDV2 {
 		}
 
 		DispatchQueue.main.async { [self] in
-            var topHeight: CGFloat = 0
-            if !isNavbarHidden {
-                topHeight = UIApplication.shared.statusBarFrame.size.height + UINavigationController().navigationBar.frame.height+50
-            }
-			let center = CGPoint(x: main.bounds.size.width / 2, y: (main.bounds.size.height - topHeight) / 2)
+			let center = CGPoint(x: main.bounds.size.width / 2, y: (main.bounds.size.height - navbarHeight+50) / 2)
 			UIView.animate(withDuration: animationDuration, delay: 0, options: .allowUserInteraction) { [self] in
 				toolbarHUD?.center = center
 			}
