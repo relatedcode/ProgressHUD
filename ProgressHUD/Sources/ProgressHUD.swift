@@ -176,7 +176,7 @@ extension ProgressHUD {
 
 		setupSizes(text, true)
 		setupNotifications()
-		setupPosition(nil, navbarHeight: navbarHeight, tabBarHeight: tabBarHeight)
+		setupPosition(navbarHeight: navbarHeight, tabBarHeight: tabBarHeight)
 		displayHUD()
 	}
 }
