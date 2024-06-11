@@ -11,7 +11,7 @@
 
 import UIKit
 
-public class ProgressHUDV2: UIView {
+public class ProgressHUD: UIView {
 
 	var main: UIWindow!
 
@@ -51,10 +51,10 @@ public class ProgressHUDV2: UIView {
 	var animationSymbol	= "sun.max"
 
 	var colorBackground	= UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-    var colorHUD		= UIColor.white
-    var colorStatus		= UIColor.white
-    var colorProgress	= UIColor.white
-	var colorAnimation	= UIColor.black
+    var colorHUD		= UIColor.systemGray
+    var colorStatus     = UIColor.label
+    var colorProgress   = UIColor.lightGray
+    var colorAnimation  = UIColor.lightGray
 
 	var fontStatus		= UIFont.boldSystemFont(ofSize: 24)
 	var imageSuccess	= UIImage.checkmark.withTintColor(UIColor.systemGreen, renderingMode: .alwaysOriginal)
@@ -67,7 +67,7 @@ public class ProgressHUDV2: UIView {
 	let keyboardDidHide			= UIResponder.keyboardDidHideNotification
 	let orientationDidChange	= UIDevice.orientationDidChangeNotification
 
-	static let shared = ProgressHUDV2()
+	static let shared = ProgressHUD()
 
 	convenience private init() {
 		self.init(frame: UIScreen.main.bounds)
@@ -84,7 +84,7 @@ public class ProgressHUDV2: UIView {
 }
 
 // MARK: - Progress
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func progress(text: String?, value: CGFloat, interaction: Bool) {
 
@@ -108,7 +108,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Live Icon
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func liveIcon(text: String?, icon: LiveIcon, interaction: Bool, delay: TimeInterval?) {
 
@@ -133,7 +133,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Static Image
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func staticImage(text: String?, image: UIImage?, interaction: Bool, delay: TimeInterval?) {
 
@@ -158,7 +158,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Animation
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
     func animate(text: String?, interaction: Bool, navbarHeight: CGFloat = 0.0, tabBarHeight: CGFloat = 0.0) {
 
@@ -182,7 +182,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Delay Timer
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeDelayTimer() {
 		timerHUD?.invalidate()
@@ -201,7 +201,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Notifications
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeNotifications() {
 		if (didSetupNotifications) {
@@ -212,18 +212,18 @@ extension ProgressHUDV2 {
 
 	private func setupNotifications() {
 		if (!didSetupNotifications) {
-//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardWillShow, object: nil)
-//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardWillHide, object: nil)
-//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardDidShow, object: nil)
-//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: keyboardDidHide, object: nil)
-//			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:)), name: orientationDidChange, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:navbarHeight:tabBarHeight:)), name: keyboardWillShow, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:navbarHeight:tabBarHeight:)), name: keyboardWillHide, object: nil)
+			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:navbarHeight:tabBarHeight:)), name: keyboardDidShow, object: nil)
+			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:navbarHeight:tabBarHeight:)), name: keyboardDidHide, object: nil)
+			NotificationCenter.default.addObserver(self, selector: #selector(setupPosition(_:navbarHeight:tabBarHeight:)), name: orientationDidChange, object: nil)
 			didSetupNotifications = true
 		}
 	}
 }
 
 // MARK: - Window
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func setupWindow() {
 		if (main == nil) {
@@ -233,7 +233,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Background
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeBackground() {
 		viewBackground?.removeFromSuperview()
@@ -254,7 +254,7 @@ extension ProgressHUDV2 {
             main.addSubview(navbarBackground!)
         }
 
-        viewBackground?.backgroundColor = .clear//interaction ? .clear : colorBackground
+        viewBackground?.backgroundColor = .clear
 		viewBackground?.isUserInteractionEnabled = !interaction
         
         navbarBackground?.backgroundColor = .clear
@@ -263,7 +263,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Toolbar
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeToolbar() {
 		toolbarHUD?.removeFromSuperview()
@@ -276,7 +276,7 @@ extension ProgressHUDV2 {
 			toolbarHUD?.clipsToBounds = true
 			toolbarHUD?.layer.cornerRadius = 10
 			toolbarHUD?.layer.masksToBounds = true
-            ///Adding this configuration to make background container as white color
+            ///Adding this configuration to make loader background container as white color
             toolbarHUD?.barTintColor = .white
             toolbarHUD?.layer.isOpaque = false
             toolbarHUD?.isTranslucent = false
@@ -288,7 +288,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Status Label
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeStatus() {
 		labelStatus?.removeFromSuperview()
@@ -312,7 +312,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Progress View
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeProgressView() {
 		viewProgress?.removeFromSuperview()
@@ -336,7 +336,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Live Icon
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeLiveIcon() {
 		viewLiveIcon?.removeFromSuperview()
@@ -365,7 +365,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Static Image
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeStaticImage() {
 		viewStaticImage?.removeFromSuperview()
@@ -389,7 +389,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Animation View
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func removeAnimationView() {
 		viewAnimation?.removeFromSuperview()
@@ -440,7 +440,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Setup Sizes
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func setupSizes(_ text: String?, _ animation: Bool) {
 		if let text {
@@ -510,7 +510,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Setup Position
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
     @objc private func setupPosition(_ notification: Notification? = nil, navbarHeight: CGFloat = 0.0, tabBarHeight: CGFloat = 0.0) {
 		var heightKeyboard: CGFloat = 0
@@ -561,7 +561,7 @@ extension ProgressHUDV2 {
 }
 
 // MARK: - Display, Dismiss, Remove, Destroy
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	private func displayHUD() {
 		if (alpha == 0) {

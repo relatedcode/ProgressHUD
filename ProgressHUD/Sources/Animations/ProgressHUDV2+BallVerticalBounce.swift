@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Ball Vertical Bounce
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationBallVerticalBounce(_ view: UIView) {
 		let line = CAShapeLayer()

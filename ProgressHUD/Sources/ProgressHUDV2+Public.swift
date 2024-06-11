@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Banner customization
-public extension ProgressHUDV2 {
+public extension ProgressHUD {
 
 	class var colorBanner: UIColor {
 		get { shared.colorBanner }
@@ -41,7 +41,7 @@ public extension ProgressHUDV2 {
 }
 
 // MARK: - HUD customization
-public extension ProgressHUDV2 {
+public extension ProgressHUD {
 
 	class var window: UIWindow {
 		get { shared.main }
@@ -110,7 +110,7 @@ public extension ProgressHUDV2 {
 }
 
 // MARK: - HUD Removal
-public extension ProgressHUDV2 {
+public extension ProgressHUD {
 
 	class func dismiss() {
 		DispatchQueue.main.async {
@@ -126,7 +126,7 @@ public extension ProgressHUDV2 {
 }
 
 // MARK: - Progress
-public extension ProgressHUDV2 {
+public extension ProgressHUD {
 
 	class func progress(_ value: CGFloat, interaction: Bool = false) {
 		DispatchQueue.main.async {
@@ -142,7 +142,7 @@ public extension ProgressHUDV2 {
 }
 
 // MARK: - Live Icon
-public extension ProgressHUDV2 {
+public extension ProgressHUD {
 
 	class func liveIcon(_ text: String? = nil, icon: LiveIcon, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
@@ -176,7 +176,7 @@ public extension ProgressHUDV2 {
 }
 
 // MARK: - Static Image
-public extension ProgressHUDV2 {
+public extension ProgressHUD {
 
 	class func image(_ text: String? = nil, image: UIImage?, interaction: Bool = true, delay: TimeInterval? = nil) {
 		DispatchQueue.main.async {
@@ -214,7 +214,7 @@ public extension ProgressHUDV2 {
 }
 
 // MARK: - Animation
-public extension ProgressHUDV2 {
+public extension ProgressHUD {
 
 	class func animate(_ text: String? = nil, interaction: Bool = true) {
 		DispatchQueue.main.async {
@@ -247,7 +247,7 @@ public extension ProgressHUDV2 {
 }
 
 // MARK: - Banner
-public extension ProgressHUDV2 {
+public extension ProgressHUD {
 
 	class func banner(_ title: String?, _ message: String?, delay: TimeInterval = 3.0) {
 		DispatchQueue.main.async {

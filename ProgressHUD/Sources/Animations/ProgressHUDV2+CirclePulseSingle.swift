@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Circle Pulse Single
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationCirclePulseSingle(_ view: UIView) {
 		let width = view.frame.size.width

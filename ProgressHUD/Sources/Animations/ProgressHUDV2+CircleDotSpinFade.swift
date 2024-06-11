@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Circle Dot Spin Fade
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationCircleDotSpinFade(_ view: UIView) {
 		let width = view.frame.size.width

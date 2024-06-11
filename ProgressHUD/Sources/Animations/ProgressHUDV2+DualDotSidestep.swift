@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Dual Dot Sidestep
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationDualDotSidestep(_ view: UIView) {
 		let width = view.frame.size.width

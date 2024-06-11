@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Circle Stroke Spin
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationCircleStrokeSpin(_ view: UIView) {
 		let width = view.frame.size.width

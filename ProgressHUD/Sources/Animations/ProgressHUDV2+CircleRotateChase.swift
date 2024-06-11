@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Circle Rotate Chase
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationCircleRotateChase(_ view: UIView) {
 		let width = view.frame.size.width

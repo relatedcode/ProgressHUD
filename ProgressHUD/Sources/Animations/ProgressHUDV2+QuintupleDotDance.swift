@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Quintuple Dot Dance
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationQuintupleDotDance(_ view: UIView) {
 		let height = view.frame.size.height

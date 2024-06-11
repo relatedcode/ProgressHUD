@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Horizontal Bar Scaling
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationHorizontalBarScaling(_ view: UIView) {
 		let width = view.frame.size.width

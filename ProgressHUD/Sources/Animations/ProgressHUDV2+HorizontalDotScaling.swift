@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Horizontal Dot Scaling
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationHorizontalDotScaling(_ view: UIView) {
 		let width = view.frame.size.width

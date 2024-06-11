@@ -12,7 +12,7 @@
 import UIKit
 
 // MARK: - Circle Ripple Single
-extension ProgressHUDV2 {
+extension ProgressHUD {
 
 	func animationCircleRippleSingle(_ view: UIView) {
 		let width = view.frame.size.width
