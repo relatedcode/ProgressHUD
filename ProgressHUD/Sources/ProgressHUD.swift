@@ -269,6 +269,7 @@ extension ProgressHUD {
 		}
 
 		toolbarHUD?.backgroundColor = colorHUD
+        toolbarHUD?.barTintColor = colorHUD
 	}
 }
 
