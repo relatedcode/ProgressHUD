@@ -253,3 +253,11 @@ public extension ProgressHUD {
 		}
 	}
 }
+
+public extension ProgressHUD {
+    class func text(_ text: String, interaction: Bool = true) {
+        DispatchQueue.main.async {
+            shared.text(text: text, interaction: interaction)
+        }
+    }
+}

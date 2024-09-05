@@ -180,6 +180,30 @@ extension ProgressHUD {
 	}
 }
 
+// MARK: - Text
+extension ProgressHUD {
+
+    func text(text: String, interaction: Bool) {
+
+        removeDelayTimer()
+
+        setupWindow()
+        setupBackground(interaction)
+        setupToolbar()
+        setupStatus(text)
+
+        removeLiveIcon()
+        removeStaticImage()
+        removeProgressView()
+        setupDelayTimer(text, nil)
+
+        setupSizesTextOnly(text, margin: 2)
+        setupNotifications()
+        setupPosition()
+        displayHUD()
+    }
+}
+
 // MARK: - Delay Timer
 extension ProgressHUD {
 
@@ -455,12 +479,12 @@ extension ProgressHUD {
 		setupSizes(width, height, center, rect)
 	}
 
-	private func setupSizesTextOnly(_ text: String) {
+    private func setupSizesTextOnly(_ text: String, margin: Double? = nil) {
 		var rect = rectText(text)
-		let base = mediaSize + 2 * marginSize
+		let base = mediaSize + 2 * (margin ?? marginSize)
 
 		let width = max(base, rect.size.width + 2 * marginSize)
-		let height = max(base, rect.size.height + 2 * marginSize)
+		let height = max(base, rect.size.height + 2 * (margin ?? marginSize))
 
 		rect.origin.x = (width - rect.size.width) / 2
 		rect.origin.y = (height - rect.size.height) / 2
