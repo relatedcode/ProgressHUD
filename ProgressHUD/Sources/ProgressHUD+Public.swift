@@ -255,9 +255,9 @@ public extension ProgressHUD {
 }
 
 public extension ProgressHUD {
-    class func text(_ text: String, interaction: Bool = true) {
+    class func text(_ text: String, interaction: Bool = true, onDelayDismiss: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            shared.text(text: text, interaction: interaction)
+            shared.text(text: text, interaction: interaction, onDelayDismiss: onDelayDismiss)
         }
     }
 }

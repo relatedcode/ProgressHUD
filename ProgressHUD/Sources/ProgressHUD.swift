@@ -183,7 +183,7 @@ extension ProgressHUD {
 // MARK: - Text
 extension ProgressHUD {
 
-    func text(text: String, interaction: Bool) {
+    func text(text: String, interaction: Bool, onDelayDismiss: (() -> Void)?) {
 
         removeDelayTimer()
 
@@ -195,7 +195,7 @@ extension ProgressHUD {
         removeLiveIcon()
         removeStaticImage()
         removeProgressView()
-        setupDelayTimer(text, nil)
+        setupDelayTimer(text, nil, onDelayDismiss: onDelayDismiss)
 
         setupSizesTextOnly(text, margin: 2)
         setupNotifications()
@@ -212,13 +212,14 @@ extension ProgressHUD {
 		timerHUD = nil
 	}
 
-	private func setupDelayTimer(_ text: String?, _ delay: TimeInterval?) {
+    private func setupDelayTimer(_ text: String?, _ delay: TimeInterval?, onDelayDismiss: (() -> Void)? = nil) {
 		let count = text?.count ?? 0
 		let delay = delay ?? Double(count) * 0.03 + 1.25
 
 		timerHUD = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
 			guard let self = self else { return }
 			dismissHUD()
+            onDelayDismiss?()
 		}
 	}
 }
