@@ -162,6 +162,36 @@ extension ProgressHUD {
 		setupPosition()
 		displayHUD()
 	}
+}
+
+// MARK: - Animation
+extension ProgressHUD {
+
+	func animate(text: String?, interaction: Bool) {
+
+		removeDelayTimer()
+
+		setupWindow()
+		setupBackground(interaction)
+		setupToolbar()
+		setupStatus(text)
+
+		removeLiveIcon()
+        removeCustomView()
+		removeStaticImage()
+		removeProgressView()
+        
+		setupAnimationView()
+
+		setupSizes(text, true)
+		setupNotifications()
+		setupPosition()
+		displayHUD()
+	}
+}
+
+// MARK: - CustomView
+extension ProgressHUD {
     
     func customView(view: UIView, interaction: Bool, delay: TimeInterval?) {
         
@@ -185,30 +215,6 @@ extension ProgressHUD {
         setupPosition()
         displayHUD()
     }
-}
-
-// MARK: - Animation
-extension ProgressHUD {
-
-	func animate(text: String?, interaction: Bool) {
-
-		removeDelayTimer()
-
-		setupWindow()
-		setupBackground(interaction)
-		setupToolbar()
-		setupStatus(text)
-
-		removeLiveIcon()
-		removeStaticImage()
-		removeProgressView()
-		setupAnimationView()
-
-		setupSizes(text, true)
-		setupNotifications()
-		setupPosition()
-		displayHUD()
-	}
 }
 
 // MARK: - Delay Timer
