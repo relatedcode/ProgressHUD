@@ -211,6 +211,12 @@ public extension ProgressHUD {
 			shared.staticImage(text: error?.localizedDescription, image: image ?? imageError, interaction: interaction, delay: delay)
 		}
 	}
+    
+    class func custom(_ view: UIView, interaction: Bool = true, delay: TimeInterval? = nil) {
+        DispatchQueue.main.async {
+            shared.customView(view: view, interaction: interaction, delay: delay)
+        }
+    }
 }
 
 // MARK: - Animation

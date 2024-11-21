@@ -10,6 +10,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import Lottie
 
 // MARK: - AnimationType
 extension AnimationType {
@@ -71,6 +72,13 @@ class ViewController: UITableViewController {
 
 	var boolText = false
 
+    lazy var animationView: LottieAnimationView = {
+        let animationView = LottieAnimationView(name: "loading")
+        animationView.loopMode = .loop
+        animationView.play()
+        return animationView
+    }()
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "ProgressHUD"
@@ -147,7 +155,7 @@ extension ViewController {
 extension ViewController {
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 8
+		return 9
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -160,6 +168,8 @@ extension ViewController {
 		if (section == 5) { return actions3.count	}
 		if (section == 6) { return actions4.count	}
 		if (section == 7) { return actions5.count	}
+
+        if (section == 8) { return 1 }
 
 		return 0
 	}
@@ -180,6 +190,8 @@ extension ViewController {
 		if (indexPath.section == 6) { return cellWithText(tableView, actions4[indexPath.row]) }
 		if (indexPath.section == 7) { return cellWithText(tableView, actions5[indexPath.row]) }
 
+        if (indexPath.section == 8) && (indexPath.row == 0) { return cellWithText(tableView, "Custom view") }
+
 		return UITableViewCell()
 	}
 
@@ -199,6 +211,7 @@ extension ViewController {
 		if (section == 5) { return "Progress"			}
 		if (section == 6) { return "Static Image"		}
 		if (section == 7) { return "Live Icon"			}
+        if (section == 8) { return "Custom"            }
 		return nil
 	}
 }
@@ -265,6 +278,10 @@ extension ViewController {
 			if (indexPath.row == 4) { ProgressHUD.added()				}
 			if (indexPath.row == 5) { ProgressHUD.added(textAdded)		}
 		}
+        
+        if (indexPath.section == 8) {
+            if (indexPath.row == 0) { ProgressHUD.custom(animationView, delay: TimeInterval(Int.max)) }
+        }
 	}
 }
 

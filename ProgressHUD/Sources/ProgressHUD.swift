@@ -46,6 +46,8 @@ public class ProgressHUD: UIView {
 	var viewStaticImage: UIImageView?
 	var viewAnimation: UIView?
 
+    var viewCustomView: UIView?
+    
 	var animationType	= AnimationType.activityIndicator
 	var animationSymbol	= "sun.max"
 
@@ -97,6 +99,8 @@ extension ProgressHUD {
 		removeLiveIcon()
 		removeStaticImage()
 		removeAnimationView()
+        removeCustomView()
+
 		setupProgressView(value)
 
 		setupSizes(text, false)
@@ -121,6 +125,8 @@ extension ProgressHUD {
 		removeStaticImage()
 		removeProgressView()
 		removeAnimationView()
+        removeCustomView()
+        
 		setupLiveIcon(icon)
 		setupDelayTimer(text, delay)
 
@@ -146,6 +152,8 @@ extension ProgressHUD {
 		removeLiveIcon()
 		removeProgressView()
 		removeAnimationView()
+        removeCustomView()
+        
 		setupStaticImage(image)
 		setupDelayTimer(text, delay)
 
@@ -154,6 +162,29 @@ extension ProgressHUD {
 		setupPosition()
 		displayHUD()
 	}
+    
+    func customView(view: UIView, interaction: Bool, delay: TimeInterval?) {
+        
+        removeDelayTimer()
+        
+        setupWindow()
+        setupBackground(interaction)
+        setupToolbar()
+        //setupStatus(text)
+        
+        removeLiveIcon()
+        removeStaticImage()
+        removeProgressView()
+        removeAnimationView()
+        
+        setupCustomView(view)
+        setupDelayTimer(nil, delay)
+        
+        setupSizes(nil, false)
+        setupNotifications()
+        setupPosition()
+        displayHUD()
+    }
 }
 
 // MARK: - Animation
@@ -371,6 +402,28 @@ extension ProgressHUD {
 		viewStaticImage.image = image
 		viewStaticImage.contentMode = .scaleAspectFit
 	}
+    
+    private func removeCustomView() {
+        viewCustomView?.removeFromSuperview()
+        viewCustomView = nil
+    }
+    
+    private func setupCustomView(_ view: UIView) {
+        if (viewCustomView == nil) {
+            // Set the custom view size to the same as setupSizesTextNone
+            let width = mediaSize + 2 * marginSize
+            let height = mediaSize + 2 * marginSize
+            viewCustomView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        }
+
+        guard let viewCustomView = viewCustomView else { return }
+
+        if (viewCustomView.superview == nil) {
+            toolbarHUD?.addSubview(viewCustomView)
+        }
+        viewCustomView.addSubview(view)
+        view.center = viewCustomView.center
+    }
 }
 
 // MARK: - Animation View
@@ -591,7 +644,8 @@ extension ProgressHUD {
 		removeStaticImage()
 		removeProgressView()
 		removeAnimationView()
-
+        removeCustomView()
+        
 		removeStatus()
 		removeToolbar()
 		removeBackground()
