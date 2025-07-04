@@ -6,25 +6,13 @@ For detailed changes, please refer to the [Change log](CHANGELOG.md).
 
 ## OVERVIEW
 
-**ProgressHUD** is a convenient and intuitive HUD tool designed specifically for iOS. It enables seamless presentation of concise alerts or notifications to users of your app in a simple and non-disruptive way.
+**ProgressHUD** is a convenient and intuitive HUD tool designed specifically for iOS. It enables the seamless presentation of concise alerts or notifications to your app users in a simple and non-disruptive way.
 
 ## INSTALLATION
 
-‼️ In case you're using Xcode 14.3.1 or an earlier version, stick with [13.8.6](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.6) ‼️
-
-### CocoaPods
-
-[CocoaPods](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
-
-To incorporate the **ProgressHUD** library into your Xcode project utilizing CocoaPods, please reference it within your `Podfile` as shown below:
-
-```ruby
-pod 'ProgressHUD'
-```
-
 ### Swift Package Manager
 
-[Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
+[Swift Package Manager](https://www.swift.org/documentation/package-manager) is a tool for managing Swift code distribution.
 
 To add **ProgressHUD** as a dependency to your project, follow these steps:
 
@@ -35,7 +23,7 @@ To add **ProgressHUD** as a dependency to your project, follow these steps:
 
 ### Manually
 
-If you prefer not to use any of the dependency managers above, you can integrate **ProgressHUD** into your project manually. Just copy all the `*.swift` files from the `ProgressHUD/Sources` folder into your Xcode project.
+If you prefer not to use the dependency manager above, you can integrate **ProgressHUD** into your project manually. Simply copy all the `*.swift` files from the `ProgressHUD/Sources` folder into your Xcode project.
 
 ## QUICK START
 
@@ -191,7 +179,7 @@ public enum LiveIcon {
 
 MIT License
 
-Copyright (c) 2024 Related Code
+Copyright (c) 2025 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,5 +1,13 @@
 # Change Log
 
+## [14.1.4](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.4)
+
+Released on 2025-07-04.
+
+#### Removed
+
+- Dropped CocoaPods support.
+
 ## [14.1.3](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.3)
 
 Released on 2024-05-09.
