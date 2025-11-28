@@ -1,5 +1,21 @@
 # Change Log
 
+## [15.0.0](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.0)
+
+Released on 2025-11-28.
+
+#### Changed
+
+- Complete rewrite from UIKit to SwiftUI.
+- Minimum iOS requirement updated from iOS 13.0+ to iOS 17.0+.
+- Source path changed from `ProgressHUD/Sources` to `SwiftUI/Sources`.
+- All color, font, and image properties now use SwiftUI types (`Color`, `Font`, `Image`) instead of UIKit types.
+- Updated API to use SwiftUI's `@Observable` and modern Swift concurrency.
+
+#### Note
+
+- This version (15.0.0+) is built with SwiftUI. If you need the UIKit version, please use version 14.1.4.
+
 ## [14.1.4](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.4)
 
 Released on 2025-07-04.

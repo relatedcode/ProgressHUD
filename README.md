@@ -1,3 +1,7 @@
+## Let's Build Together! ✨
+
+I'd be happy to work with you! 🚀 Whether you need help integrating ProgressHUD, have questions, or want to collaborate on a project, feel free to [reach out](https://relatedcode.com/#contact-form).
+
 ## WHAT'S NEW
 
 For detailed changes, please refer to the [Change log](CHANGELOG.md).
@@ -6,11 +10,13 @@ For detailed changes, please refer to the [Change log](CHANGELOG.md).
 
 **ProgressHUD** is a convenient and intuitive HUD tool designed specifically for iOS. It enables the seamless presentation of concise alerts or notifications to your app users in a simple and non-disruptive way.
 
+**Note:** This version (15.0.0+) is built with SwiftUI. If you need the UIKit version, please use version 14.1.4.
+
 ## INSTALLATION
 
 ### Swift Package Manager
 
-[Swift Package Manager](https://www.swift.org/documentation/package-manager) is a tool for managing Swift code distribution.
+[Swift Package Manager](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/) is a tool for managing Swift code distribution.
 
 To add **ProgressHUD** as a dependency to your project, follow these steps:
 
@@ -21,9 +27,29 @@ To add **ProgressHUD** as a dependency to your project, follow these steps:
 
 ### Manually
 
-If you prefer not to use the dependency manager above, you can integrate **ProgressHUD** into your project manually. Simply copy all the `*.swift` files from the `ProgressHUD/Sources` folder into your Xcode project.
+If you prefer not to use the dependency manager above, you can integrate **ProgressHUD** into your project manually. Simply copy all the `*.swift` files from the `SwiftUI/Sources` folder into your Xcode project.
 
 ## QUICK START
+
+### SwiftUI Setup
+
+Add the `.progressHUD()` modifier to your root view:
+
+```swift
+import SwiftUI
+
+@main
+struct MyApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .progressHUD()
+        }
+    }
+}
+```
+
+### Usage Examples
 
 ```swift
 ProgressHUD.banner("Banner title", "Banner message to display.")
@@ -82,6 +108,22 @@ ProgressHUD.symbol("Some text...", name: "sun.max")
 ```
 
 ```swift
+ProgressHUD.success("Success message")
+```
+
+```swift
+ProgressHUD.error("Error message")
+```
+
+```swift
+ProgressHUD.added("Item added")
+```
+
+```swift
+ProgressHUD.animate("Loading...", symbol: "star.fill")
+```
+
+```swift
 ProgressHUD.dismiss()
 ```
 
@@ -91,7 +133,7 @@ ProgressHUD.remove()
 
 ## REQUIREMENTS
 
-- iOS 13.0+
+- iOS 17.0+
 - Xcode 15.0+
 
 ## CUSTOMIZATION
@@ -103,23 +145,23 @@ ProgressHUD.animationType = .circleStrokeSpin
 ```
 
 ```swift
-ProgressHUD.colorHUD = .systemGray
+ProgressHUD.colorHUD = .gray.opacity(0.1)
 ```
 
 ```swift
-ProgressHUD.colorBackground = .lightGray
+ProgressHUD.colorBackground = .gray.opacity(0.3)
 ```
 
 ```swift
-ProgressHUD.colorAnimation = .systemBlue
+ProgressHUD.colorAnimation = .blue
 ```
 
 ```swift
-ProgressHUD.colorProgress = .systemBlue
+ProgressHUD.colorProgress = .blue
 ```
 
 ```swift
-ProgressHUD.colorStatus = .label
+ProgressHUD.colorStatus = .primary
 ```
 
 ```swift
@@ -128,12 +170,22 @@ ProgressHUD.marginSize = 50
 ```
 
 ```swift
-ProgressHUD.fontStatus = .boldSystemFont(ofSize: 24)
+ProgressHUD.fontStatus = .system(size: 24, weight: .bold)
 ```
 
 ```swift
-ProgressHUD.imageSuccess = UIImage(named: "success.png")
-ProgressHUD.imageError = UIImage(named: "error.png")
+ProgressHUD.imageSuccess = Image("success")
+ProgressHUD.imageError = Image("error")
+```
+
+Banner customization:
+
+```swift
+ProgressHUD.colorBanner = .blue.opacity(0.1)
+ProgressHUD.colorBannerTitle = .primary
+ProgressHUD.colorBannerMessage = .secondary
+ProgressHUD.fontBannerTitle = .system(size: 16, weight: .semibold)
+ProgressHUD.fontBannerMessage = .system(size: 14)
 ```
 
 A comprehensive list of the predefined enums:

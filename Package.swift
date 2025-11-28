@@ -6,7 +6,7 @@ let package = Package(
     name: "ProgressHUD",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v17),
     ],
     products: [
         .library(
@@ -18,7 +18,7 @@ let package = Package(
         .target(
             name: "ProgressHUD",
             dependencies: [],
-            path: "ProgressHUD/Sources",
+            path: "SwiftUI/Sources",
             resources: [
                 .process("PrivacyInfo.xcprivacy"),
             ]
