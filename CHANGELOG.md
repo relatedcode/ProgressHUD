@@ -1,5 +1,11 @@
 # Change Log
 
+## [15.0.1](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.1)
+
+#### Changed
+
+- Increased the `swift-tools-version` to 5.9 in Package.swift.
+
 ## [15.0.0](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.0)
 
 Released on 2025-11-28.
