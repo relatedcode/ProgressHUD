@@ -27,7 +27,7 @@ public class ProgressHUD {
 	// MARK: - Properties
 	public static let shared = ProgressHUD()
 
-	var isVisible = false
+	public internal(set) var isVisible = false
 	var text: String?
 	var displayMode = DisplayMode.animation
 
