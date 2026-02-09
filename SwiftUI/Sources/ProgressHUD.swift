@@ -68,6 +68,13 @@ public class ProgressHUD {
 	public var fontBannerTitle = Font.system(size: 16, weight: .semibold)
 	public var fontBannerMessage = Font.system(size: 14)
 
+	public var backgroundMaterial: Material? = Material.regularMaterial
+	public var borderRadius: CGFloat = 10
+	public var verticalSpacing: CGFloat = 10
+	public var textMaxWidth: CGFloat = 180
+	public var padding: EdgeInsets?
+	public var customAnimation: (() -> View)?
+
 	var interaction = true
 	var dismissTask: Task<Void, Never>?
 	var dismissAnimTask: Task<Void, Never>?
@@ -126,7 +133,7 @@ public struct ProgressHUDView: View {
 	private var hudContent: some View {
 		let size = hud.mediaSize + 40
 
-		VStack(spacing: 10) {
+		VStack(spacing: hud.verticalSpacing) {
 			if !shouldHideMedia {
 				mediaView
 					.frame(width: hud.mediaSize, height: hud.mediaSize)
@@ -137,22 +144,39 @@ public struct ProgressHUDView: View {
 					.font(hud.fontStatus)
 					.foregroundStyle(hud.colorStatus)
 					.multilineTextAlignment(.center)
-					.frame(maxWidth: 180)
+					.frame(maxWidth: hud.textMaxWidth)
 					.fixedSize(horizontal: false, vertical: true)
 			}
 		}
-		.padding(hasText ? 16 : 20)
+		.padding(padding)
 		.frame(width: hasText ? nil : size, height: hasText ? nil : size)
 		.fixedSize(horizontal: !hasText, vertical: true)
 		.background {
-			RoundedRectangle(cornerRadius: 10)
-				.fill(hud.colorHUD)
-				.background {
-					RoundedRectangle(cornerRadius: 10)
-						.fill(.regularMaterial)
-				}
-				.clipShape(RoundedRectangle(cornerRadius: 10))
+			hudBackground.clipShape(RoundedRectangle(cornerRadius: hud.borderRadius))
 		}
+	}
+
+	@ViewBuilder
+	private var hudBackground: some View {
+		let hudBackground = RoundedRectangle(cornerRadius: hud.borderRadius)
+			.fill(hud.colorHUD)
+			.clipShape(RoundedRectangle(cornerRadius: hud.borderRadius))
+		if let material = hud.backgroundMaterial {
+			hudBackground.background {
+				RoundedRectangle(cornerRadius: hud.borderRadius)
+					.fill(.regularMaterial)
+				}
+		} else {
+			hudBackground
+		}
+	}
+
+	private var padding: EdgeInsets {
+		if let hudPadding = hud.padding {
+			return hudPadding
+		}
+		let length: CGFloat = hasText ? 16 : 20
+		return EdgeInsets(top: length, leading: length, bottom: length, trailing: length)
 	}
 
 	private var shouldHideMedia: Bool {
@@ -232,6 +256,12 @@ public struct ProgressHUDView: View {
 			CircleRotateChaseView()
 		case .circleStrokeSpin:
 			CircleStrokeSpinView()
+		case .custom:
+			if let customAnimation = hud.customAnimation {
+				AnyView(customAnimation())
+			} else {
+				EmptyView()
+			}
 		case .dualDotSidestep:
 			DualDotSidestepView()
 		case .horizontalBarScaling:

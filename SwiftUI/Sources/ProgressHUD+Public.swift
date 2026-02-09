@@ -83,6 +83,36 @@ public extension ProgressHUD {
 		get { shared.colorError }
 		set { shared.colorError = newValue }
 	}
+
+	static var backgroundMaterial: Material? {
+		get { shared.backgroundMaterial }
+		set { shared.backgroundMaterial = newValue }
+	}
+
+	static var borderRadius: CGFloat {
+		get { shared.borderRadius }
+		set { shared.borderRadius = newValue }
+	}
+
+	static var verticalSpacing: CGFloat {
+		get { shared.verticalSpacing }
+		set { shared.verticalSpacing = newValue }
+	}
+
+	static var textMaxWidth: CGFloat {
+		get { shared.textMaxWidth }
+		set { shared.textMaxWidth = newValue }
+	}
+
+	static var padding: EdgeInsets? {
+		get { shared.padding }
+		set { shared.padding = newValue }
+	}
+
+	static var customAnimation: (() -> View)? {
+		get { shared.customAnimation }
+		set { shared.customAnimation = newValue }
+	}
 }
 
 // MARK: - Banner Configuration
