@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025 Related Code - https://relatedcode.com
+// Copyright (c) 2026 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -21,11 +21,10 @@ extension ProgressHUD {
 		textBannerTitle = title ?? ""
 		textBannerMessage = message ?? ""
 
-		viewBanner = UIToolbar()
-		viewBanner?.isTranslucent = true
+		viewBanner = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
 		viewBanner?.clipsToBounds = true
 		viewBanner?.layer.cornerRadius = 10
-		viewBanner?.backgroundColor = colorBanner
+		viewBanner?.contentView.backgroundColor = colorBanner
 
 		labelBannerTitle = UILabel()
 		labelBannerTitle?.text = textBannerTitle
@@ -41,8 +40,8 @@ extension ProgressHUD {
 
 		if let viewBanner, let labelBannerTitle, let labelBannerMessage  {
 			main.addSubview(viewBanner)
-			viewBanner.addSubview(labelBannerTitle)
-			viewBanner.addSubview(labelBannerMessage)
+			viewBanner.contentView.addSubview(labelBannerTitle)
+			viewBanner.contentView.addSubview(labelBannerMessage)
 
 			let y = viewBanner.frame.origin.y
 			viewBanner.frame.origin.y = -100

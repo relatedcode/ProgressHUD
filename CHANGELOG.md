@@ -1,5 +1,19 @@
 # Change Log
 
+## [15.0.2](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.2)
+
+#### Fixed
+
+- Restored the frosted HUD and banner backgrounds on iOS 26 by replacing `UIToolbar` with `UIVisualEffectView`.
+
+#### Changed
+
+- Default `colorHUD` is now `systemGray` with 10% opacity so the material blur remains visible.
+
+#### Revision
+
+- Year bump.
+
 ## [15.0.1](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.1)
 
 #### Changed

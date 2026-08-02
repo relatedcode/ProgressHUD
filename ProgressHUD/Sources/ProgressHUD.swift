@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2025 Related Code - https://relatedcode.com
+// Copyright (c) 2026 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -16,7 +16,7 @@ public class ProgressHUD: UIView {
 	var main: UIWindow!
 
 	// Banner properties
-	var viewBanner: UIToolbar?
+	var viewBanner: UIVisualEffectView?
 	var colorBanner = UIColor.clear
 	var timerBanner: Timer?
 	var observerBanner: NSObjectProtocol?
@@ -38,7 +38,7 @@ public class ProgressHUD: UIView {
 	var marginSize: CGFloat = 30
 
 	var viewBackground: UIView?
-	var toolbarHUD: UIToolbar?
+	var toolbarHUD: UIVisualEffectView?
 	var labelStatus: UILabel?
 
 	var viewProgress: ProgressView?
@@ -50,7 +50,7 @@ public class ProgressHUD: UIView {
 	var animationSymbol	= "sun.max"
 
 	var colorBackground	= UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-	var colorHUD		= UIColor.systemGray
+	var colorHUD		= UIColor.systemGray.withAlphaComponent(0.1)
 	var colorStatus		= UIColor.label
 	var colorProgress	= UIColor.lightGray
 	var colorAnimation	= UIColor.lightGray
@@ -260,15 +260,14 @@ extension ProgressHUD {
 
 	private func setupToolbar() {
 		if (toolbarHUD == nil) {
-			toolbarHUD = UIToolbar(frame: CGRect.zero)
-			toolbarHUD?.isTranslucent = true
+			toolbarHUD = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
 			toolbarHUD?.clipsToBounds = true
 			toolbarHUD?.layer.cornerRadius = 10
 			toolbarHUD?.layer.masksToBounds = true
 			viewBackground?.addSubview(toolbarHUD!)
 		}
 
-		toolbarHUD?.backgroundColor = colorHUD
+		toolbarHUD?.contentView.backgroundColor = colorHUD
 	}
 }
 
@@ -286,7 +285,7 @@ extension ProgressHUD {
 			labelStatus?.textAlignment = .center
 			labelStatus?.baselineAdjustment = .alignCenters
 			labelStatus?.numberOfLines = 0
-			toolbarHUD?.addSubview(labelStatus!)
+			toolbarHUD?.contentView.addSubview(labelStatus!)
 		}
 
 		labelStatus?.text = text
@@ -313,7 +312,7 @@ extension ProgressHUD {
 		guard let viewProgress = viewProgress else { return }
 
 		if (viewProgress.superview == nil) {
-			toolbarHUD?.addSubview(viewProgress)
+			toolbarHUD?.contentView.addSubview(viewProgress)
 		}
 
 		viewProgress.setProgress(value)
@@ -336,7 +335,7 @@ extension ProgressHUD {
 		guard let viewLiveIcon = viewLiveIcon else { return }
 
 		if (viewLiveIcon.superview == nil) {
-			toolbarHUD?.addSubview(viewLiveIcon)
+			toolbarHUD?.contentView.addSubview(viewLiveIcon)
 		}
 
 		viewLiveIcon.layer.sublayers?.forEach {
@@ -365,7 +364,7 @@ extension ProgressHUD {
 		guard let viewStaticImage = viewStaticImage else { return }
 
 		if (viewStaticImage.superview == nil) {
-			toolbarHUD?.addSubview(viewStaticImage)
+			toolbarHUD?.contentView.addSubview(viewStaticImage)
 		}
 
 		viewStaticImage.image = image
@@ -389,7 +388,7 @@ extension ProgressHUD {
 		guard let viewAnimation = viewAnimation else { return }
 
 		if (viewAnimation.superview == nil) {
-			toolbarHUD?.addSubview(viewAnimation)
+			toolbarHUD?.contentView.addSubview(viewAnimation)
 		}
 
 		viewAnimation.subviews.forEach {
