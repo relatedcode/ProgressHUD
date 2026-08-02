@@ -6,7 +6,7 @@ For detailed changes, please refer to the [Change log](CHANGELOG.md).
 
 **ProgressHUD** is a convenient and intuitive HUD tool designed specifically for iOS. It enables the seamless presentation of concise alerts or notifications to your app users in a simple and non-disruptive way.
 
-**Note:** This version (15.0.0+) is built with SwiftUI. If you need the UIKit version, please use version 14.1.4.
+**Note:** 15.x is SwiftUI. For UIKit, use 14.x releases.
 
 ## INSTALLATION
 
@@ -225,7 +225,7 @@ public enum LiveIcon {
 
 MIT License
 
-Copyright (c) 2025 Related Code
+Copyright (c) 2026 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -2,6 +2,16 @@
 
 ## [15.0.2](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.2)
 
+Released on 2026-08-02.
+
+#### Revision
+
+- Year bump.
+
+## [14.1.5](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.5)
+
+Released on 2026-08-02.
+
 #### Fixed
 
 - Restored the frosted HUD and banner backgrounds on iOS 26 by replacing `UIToolbar` with `UIVisualEffectView`.
@@ -15,6 +25,8 @@
 - Year bump.
 
 ## [15.0.1](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.1)
+
+Released on 2025-12-10.
 
 #### Changed
 
@@ -34,7 +46,7 @@ Released on 2025-11-28.
 
 #### Note
 
-- This version (15.0.0+) is built with SwiftUI. If you need the UIKit version, please use version 14.1.4.
+- 15.x is SwiftUI. For UIKit, use 14.x releases.
 
 ## [14.1.4](https://github.com/relatedcode/ProgressHUD/releases/tag/14.1.4)
 
