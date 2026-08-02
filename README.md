@@ -1,5 +1,3 @@
-[![VibePrompting](VibePrompting.png)](https://vibeprompting.dev)
-
 ## WHAT'S NEW
 
 For detailed changes, please refer to the [Change log](CHANGELOG.md).
