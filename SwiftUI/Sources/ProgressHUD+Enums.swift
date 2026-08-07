@@ -27,6 +27,7 @@ public enum AnimationType: CaseIterable {
 	case circleRippleSingle
 	case circleRotateChase
 	case circleStrokeSpin
+	case custom
 	case dualDotSidestep
 	case horizontalBarScaling
 	case horizontalDotScaling
